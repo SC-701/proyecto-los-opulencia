@@ -1,4 +1,4 @@
-Emanuel Pérez González
+Emanuel Pï¿½rez Gonzï¿½lez
 Oliver Garro Morales
 Jesus Mejia Arcila
 arianna baker flores 
@@ -6,10 +6,10 @@ Adriela Lopez Paniagua
 
 
 
-# Funcionalidades de la Gestión Administrativa de Clinica Dental
+# Funcionalidades de la Gestiï¿½n Administrativa de Clinica Dental
 
-- [1] Programación de citas 
+- [1] Programaciï¿½n de citas 
 - [2] Agregar Consultorios 
-- [3] Agregar Doctores 
+- [3] Agregar Usuarios Administrativos / Pacientes 
 - [4] Agregar Inventario
-- [5] Facturación
+- [5] Facturaciï¿½n
