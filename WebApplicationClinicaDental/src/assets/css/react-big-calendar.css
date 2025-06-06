@@ -1,0 +1,24 @@
+
+.rbc-toolbar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+
+.rbc-toolbar .rbc-btn-group:first-of-type {
+  order: 1;
+}
+
+
+.rbc-toolbar .rbc-btn-group:last-of-type {
+  order: 2;
+}
+
+
+.rbc-toolbar-label {
+  order: 0;
+  font-weight: bold;
+}
+

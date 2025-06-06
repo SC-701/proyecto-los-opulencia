@@ -9,12 +9,8 @@ import Sidebar from '../components/Sidebar/Sidebar'
 
 const AppRoutes = () => {
     return (
-
-
         <div className='flex h-screen overflow-hidden'>
             <Sidebar />
-
-
             <Routes>
                 <Route path='/' element={<Home />} />
             </Routes>
