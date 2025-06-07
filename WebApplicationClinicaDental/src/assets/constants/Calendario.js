@@ -15,5 +15,5 @@ export const eventos = [
         title: 'Cita con Ana Martínez',
         start: new Date(new Date().setHours(new Date().getHours() + 2)),
         end: new Date(new Date().setHours(new Date().getHours() + 3)),
-    },
+    }
 ]
