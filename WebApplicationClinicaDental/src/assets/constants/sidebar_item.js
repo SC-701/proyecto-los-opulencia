@@ -1,4 +1,4 @@
-import { HeartPlus, House, NotebookPen } from "lucide-react";
+import { HeartPlus, House, NotebookPen, Stethoscope, Users } from "lucide-react";
 
 
 export const sidebar_item = [
@@ -13,6 +13,18 @@ export const sidebar_item = [
         icon: NotebookPen,
         color: '#375CA6', 
         path: '/citas'
+    },
+    {
+        nombre: 'Pacientes',
+        icon: Users,
+        color: '#375CA6', 
+        path: '/pacientes'
+    },
+    {
+        nombre: 'Administrativos',
+        icon: Stethoscope,
+        color: '#375CA6', 
+        path: '/administrativos'
     },
     {
         nombre: 'Consultorios',

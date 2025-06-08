@@ -4,6 +4,7 @@ import Header from '../components/Header/Header.jsx'
 import DashBoardCard from '../components/Cards/DashBoardCard.jsx'
 import { DataCard } from '../assets/constants/DataCard.js'
 import Calendario from '../components/Calendario/Calendario.jsx'
+import Tabla from '../components/Tabla/Tabla.jsx'
 
 
 
@@ -38,16 +39,23 @@ const Home = () => {
                     ))
                     }
                 </motion.div>
-                <div className='grid grid-cols-1 md:grid-cols-2 gap-6 sm:grid-cols-1'>
-                    <div className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6'>
-                        <h1 className='text-2xl font-bold py-4'>Tabla</h1>
-                        {/*Aca va la tabla que pronto se pondra*/}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1 }}
+                >
+                    <div className='grid grid-cols-1 md:grid-cols-2 gap-6 sm:grid-cols-1'>
+                        <div className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6'>
+                            <h1 className='text-2xl font-bold py-4'>Citas del dia</h1>
+                            <Tabla />
+                        </div>
+                        <div className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6'>
+                            <h1 className='text-2xl font-bold py-4'>Calendario</h1>
+                            <Calendario />
+                        </div>
                     </div>
-                    <div className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6'>
-                        <h1 className='text-2xl font-bold py-4'>Calendario</h1>
-                        <Calendario />
-                    </div>
-                </div>
+                </motion.div>
+
             </main>
         </div>
 
