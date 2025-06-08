@@ -20,5 +20,11 @@ export const sidebar_item = [
         color: '#375CA6', 
         path: '/consultorios'
     },
+     {
+        nombre: 'Facturación',
+        icon: HeartPlus,
+        color: '#375CA6', 
+        path: '/Facturacion'
+    },
     
 ]
