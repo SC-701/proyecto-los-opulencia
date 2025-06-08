@@ -1,16 +1,14 @@
-import React, { useState } from 'react'
 import {
     flexRender,
 } from '@tanstack/react-table'
 import { ArrowBigLeftDash, ArrowBigRightDash, ChevronsLeft, ChevronsRight } from 'lucide-react'
-import { data, columns } from '../../assets/constants/TablaDashboard'
 import { useTabla } from '../../hooks/useTabla'	
 
 
 
-const Tabla = () => {
+const Tabla = ({data, columns , pageSizeInicial = 10}) => {
 
-const { table } = useTabla(data, columns)
+const { table } = useTabla(data, columns, pageSizeInicial)
 
 
     return (
