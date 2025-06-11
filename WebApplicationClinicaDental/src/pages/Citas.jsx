@@ -1,8 +1,12 @@
 import React from 'react'
 import Header from '../components/Header/Header'
 import { motion } from 'framer-motion'
-import  { DataCardCitas } from '../assets/constants/DataCard.js'
+import { DataCardCitas } from '../assets/constants/DataCard.js'
 import DashBoardCard from '../components/Cards/DashBoardCard.jsx'
+import Tabla from '../components/Tabla/Tabla.jsx'
+import ChartLineTwo from '../components/Charts/ChartLineTwo.jsx'
+import PieChartBoard from '../components/Charts/PieChartBoard.jsx'
+import { COLORS, orderStatusData } from '../assets/constants/piechart.js'
 
 const Citas = () => {
     return (
@@ -30,7 +34,24 @@ const Citas = () => {
                         />
                     ))}
                 </motion.div>
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1 }}
+                >
+                    <div className='grid grid-cols-1 md:grid-cols-2 gap-6 sm:grid-cols-1'>
+                        <div className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6'>
+                            <h1 className='text-2xl font-bold py-4'>Citas del dia</h1>
+                            <ChartLineTwo />
+                        </div>
+                        <div className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6'>
+                            <h1 className='text-2xl font-bold py-4'>Mayor Porcentaje de citas</h1>
+                            <PieChartBoard orderStatusData={orderStatusData} COLORS={COLORS} />
+                        </div>
+                    </div>
+                </motion.div>
             </main>
+
 
         </div>
     )

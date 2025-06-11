@@ -17,6 +17,7 @@ export const columns = [
     columnHelper.accessor('servicio', {
         header: 'Servicio',
     }),
+
     columnHelper.accessor('estado', {
         header: 'Estado',
         cell: ({ getValue }) => {

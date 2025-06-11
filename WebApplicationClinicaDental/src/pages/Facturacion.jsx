@@ -1,6 +1,8 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import Header from '../components/Header/Header.jsx'
+import PieChartBoard from '../components/Charts/PieChartBoard.jsx'
+import { COLORSInventario, orderInventario } from '../assets/constants/piechart.js'
 
 const Facturacion = () => {
   return (
