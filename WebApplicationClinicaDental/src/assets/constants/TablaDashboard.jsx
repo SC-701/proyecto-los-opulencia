@@ -3,7 +3,6 @@ import {
 } from '@tanstack/react-table'
 
 //!Tabla Dashboard
-
 const columnHelper = createColumnHelper()
 
 export const columns = [
@@ -38,7 +37,7 @@ export const columns = [
 ]
 
 
-
+//! Info Tabla Dashboard
 export const data = [
     {
         paciente: 'Juan Pérez',
@@ -58,6 +57,12 @@ export const data = [
         servicio: 'Revisión',
         estado: 'Cancelada',
     },
+    {
+        paciente: 'Ana Torres',
+        hora: '02:00 PM',
+        servicio: 'Ortodoncia',
+        estado: 'Confirmada',
+    }
 ]
 
 

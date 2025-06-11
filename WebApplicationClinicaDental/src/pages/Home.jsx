@@ -6,6 +6,9 @@ import { DataCard } from '../assets/constants/DataCard.js'
 import Calendario from '../components/Calendario/Calendario.jsx'
 import Tabla from '../components/Tabla/Tabla.jsx'
 import { data, columns } from '../assets/constants/TablaDashboard.jsx'
+import { eventos, localizer } from '../assets/constants/Calendario.js'
+import LineChartBoard from '../components/Charts/LineChartBoard.jsx'
+import { dataLineChart } from '../assets/constants/Charts.js'
 
 
 
@@ -52,9 +55,22 @@ const Home = () => {
                         </div>
                         <div className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6'>
                             <h1 className='text-2xl font-bold py-4'>Calendario</h1>
-                            <Calendario />
+                            <Calendario eventos={eventos} localizer={localizer} />
                         </div>
                     </div>
+                </motion.div>
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1 }}
+                >
+                    <div 
+                    className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6 mt-6'
+                    >
+                        <h1 className='text-2xl font-bold py-4'>Facturación Diaria</h1>
+                        <LineChartBoard data={dataLineChart} />
+                    </div>
+
                 </motion.div>
 
             </main>
