@@ -1,59 +1,98 @@
-import { Users, BarChart2, Activity, HeartMinus, CircleCheckBig, Clock4, Clipboard, CircleCheck, CircleX } from 'lucide-react'
-
+import {
+  Users,
+  BarChart2,
+  Activity,
+  HeartMinus,
+  CircleCheckBig,
+  Clock4,
+  Clipboard,
+  CircleCheck,
+  CircleX,
+  AlertTriangle,
+  PackageSearch,
+  PackageCheck,
+} from "lucide-react";
 
 //! Info DashBoard
 export const DataCard = [
-    {
-        nombre: 'Citas Hoy',
-        icon: Activity,
-        valor: '10',
-        color: '#6366F1'
-    },
-    {
-        nombre: 'Pacientes',
-        icon: Users,
-        valor: '1,234',
-        color: '#8B5CF6'
-    },
-    {
-        nombre: 'Citas Pendientes Hoy',
-        icon: HeartMinus,
-        valor: '4',
-        color: '#EC4899'
-    },
-    {
-        nombre: 'Facturación del día',
-        icon: BarChart2,
-        valor: '$12.600',
-        color: '#10B981'
-    }
-]
+  {
+    nombre: "Citas Hoy",
+    icon: Activity,
+    valor: "10",
+    color: "#6366F1",
+  },
+  {
+    nombre: "Pacientes",
+    icon: Users,
+    valor: "1,234",
+    color: "#8B5CF6",
+  },
+  {
+    nombre: "Citas Pendientes Hoy",
+    icon: HeartMinus,
+    valor: "4",
+    color: "#EC4899",
+  },
+  {
+    nombre: "Facturación del día",
+    icon: BarChart2,
+    valor: "$12.600",
+    color: "#10B981",
+  },
+];
 
 //! Info DashBoard Citas
 
 export const DataCardCitas = [
-    {
-        nombre: 'Citas Totales',
-        icon: Clipboard,
-        valor: '10',
-        color: '#36f0c3'
-    },
-    {
-        nombre: 'Citas Pendientes',
-        icon: Clock4,
-        valor: '4',
-        color: '#eeb833'
-    },
-    {
-        nombre: 'Citas Completadas',
-        icon: CircleCheck,
-        valor: '6',
-        color: '#3adc33'
-    },
-    {
-        nombre: 'Citas Canceladas',
-        icon: CircleX,
-        valor: '2',
-        color: '#f00808'
-    }
-]
+  {
+    nombre: "Citas Totales",
+    icon: Clipboard,
+    valor: "10",
+    color: "#36f0c3",
+  },
+  {
+    nombre: "Citas Pendientes",
+    icon: Clock4,
+    valor: "4",
+    color: "#eeb833",
+  },
+  {
+    nombre: "Citas Completadas",
+    icon: CircleCheck,
+    valor: "6",
+    color: "#3adc33",
+  },
+  {
+    nombre: "Citas Canceladas",
+    icon: CircleX,
+    valor: "2",
+    color: "#f00808",
+  },
+];
+
+export const DataCardInventarios = [
+  {
+    nombre: "Total de insumos",
+    icon: Clipboard,
+    valor: "120",
+    color: "#36f0c3",
+  },
+  {
+    nombre: "Insumos por agotarse",
+    icon: AlertTriangle,
+    valor: "7",
+    color: "#facc15", 
+  },
+  {
+    nombre: "Insumos vencidos",
+    icon: PackageSearch,
+    valor: "3",
+    color: "#f87171", 
+  },
+  {
+    nombre: "Insumos disponibles",
+    icon: PackageCheck,
+    valor: "110",
+    color: "#34d399", 
+  }
+];

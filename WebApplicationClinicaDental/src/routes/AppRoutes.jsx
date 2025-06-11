@@ -4,6 +4,7 @@ import Home from '../pages/Home'
 import Facturacion from '../pages/Facturacion'  
 import Sidebar from '../components/Sidebar/Sidebar'
 import Citas from '../pages/Citas'
+import Inventario from '../pages/Inventario'
 
 
 
@@ -17,6 +18,7 @@ const AppRoutes = () => {
                 <Route path='/' element={<Home />} />
                 <Route path="/Facturacion" element={<Facturacion />} />
                 <Route path="/citas" element={<Citas />} />
+                <Route path="/Inventario" element={<Inventario />}/>
             </Routes>
         </div>
     )
