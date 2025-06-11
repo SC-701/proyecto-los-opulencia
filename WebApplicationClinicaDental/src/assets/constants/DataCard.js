@@ -96,3 +96,30 @@ export const DataCardInventarios = [
     color: "#34d399", 
   }
 ];
+
+export const DataCardPacientes = [
+    {
+        nombre: 'Pacientes',
+        icon: Users,
+        valor: '1,234',
+        color: '#8B5CF6'
+    },
+    {
+        nombre: 'Pacientes Nuevos',
+        icon: Activity,
+        valor: '5', 
+        color: '#2fa8f0'
+    },
+    {
+        nombre: 'Pacientes Activos',
+        icon: Users,
+        valor: '120', 
+        color: '#3adc33'
+    },
+    {
+        nombre: 'Pacientes Inactivos',
+        icon: Users,
+        valor: '32', 
+        color: '#f00808'
+    }
+];
