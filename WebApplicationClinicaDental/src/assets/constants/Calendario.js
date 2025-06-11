@@ -8,12 +8,12 @@ export const localizer = momentLocalizer(moment)
 export const eventos = [
     {
         title: 'Cita con Juan Pérez',
-        start: new Date(),
-        end: new Date(new Date().getTime() + 60 * 60 * 1000),
+        start: new Date(2025, 5, 8, 10, 30) ,
+        end: new Date(2025, 5, 8, 12, 30),
     },
     {
         title: 'Cita con Ana Martínez',
-        start: new Date(new Date().setHours(new Date().getHours() + 2)),
-        end: new Date(new Date().setHours(new Date().getHours() + 3)),
+        start: new Date( 2025, 5, 8, 14, 30),
+        end: new Date (2025, 5, 8, 16, 30),
     }
 ]
