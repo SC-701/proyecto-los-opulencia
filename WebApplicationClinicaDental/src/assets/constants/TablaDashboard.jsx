@@ -72,6 +72,8 @@ export const columnsInventario = [
   }),
 ];
 
+
+
 //! Info Tabla Dashboard
 export const data = [
   {
