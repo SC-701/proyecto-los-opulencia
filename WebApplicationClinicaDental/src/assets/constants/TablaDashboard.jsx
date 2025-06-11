@@ -212,3 +212,54 @@ export const dataCitas = [
         estado: "Confirmada",
     },
 ];
+
+
+const columnHelperPacientes = createColumnHelper()
+
+export const columnsPacientes = [
+    columnHelperPacientes.accessor('cedula', {
+        header: 'Cédula',
+    }),
+    columnHelperPacientes.accessor('nombre', {
+        header: 'Nombre',
+    }),
+    columnHelperPacientes.accessor('correo', {
+        header: 'Correo',
+    }),
+    columnHelperPacientes.accessor('telefono', {
+        header: 'Teléfono',
+    }),
+    columnHelperPacientes.accessor('estado', {
+        header: 'Estado',
+        cell: ({ getValue }) => {
+            const estado = getValue()
+            const color = {
+                Activo: 'bg-green-100 text-green-800',
+                Inactivo: 'bg-red-100 text-red-800',
+            }[estado] || 'bg-gray-100 text-gray-800'
+
+            return (
+                <span className={`px-2 py-1 rounded text-xs font-semibold ${color}`}>
+                    {estado}
+                </span>
+            )
+        }
+    }),
+]
+
+export const dataPacientes = [
+    {
+        cedula: '123456789',
+        nombre: 'Arriana Baker',
+        correo: 'Arriana@gmail.com',
+        telefono: '1234-5678',
+        estado: 'Activo',
+    },
+    {
+        cedula: '123456789',
+        nombre: 'Emanuel Perez',
+        correo: 'Emanuel@gmail.com',
+        telefono: '1234-5678',
+        estado: 'Inactivo',
+    },
+]
