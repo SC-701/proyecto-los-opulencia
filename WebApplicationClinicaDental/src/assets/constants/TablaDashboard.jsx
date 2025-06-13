@@ -265,6 +265,7 @@ export const dataPacientes = [
 ]
 
 
+
 //! Info Tabla Facturas
 export const dataFacturas = [
     {
@@ -337,6 +338,72 @@ export const columnsFacturas =
         },
     }),
 ]
+
+//! Info Tabla Consultorios
+export const dataConsultorios = [
+    {
+        factura: "Consultorio 1",
+        nombre: "Consultorio Central",
+        fecha: "Piso 1, Ala A",
+        estado: "Activo",      
+    },
+    {
+        factura: "Consultorio 2",
+        nombre: "Consultorio Norte",
+        fecha: "Piso 2, Ala B",
+        estado: "Inactivo",
+    },
+    {
+        factura: "Consultorio 3",
+        nombre: "Consultorio Pediátrico",
+        fecha: "Piso 3, Ala C",
+        estado: "Mantenimiento",
+    },
+    {
+        factura: "Consultorio 4",
+        nombre: "Consultorio Odontología",
+        fecha: "Piso 2, Ala D",
+        estado: "Activo",
+    },
+    {
+        factura: "Consultorio 5",
+        nombre: "Consultorio Emergencias",
+        fecha: "Piso 1, Ala E",
+        estado: "Reservado",
+    },
+]
+//! Columnas Tabla Consultorios
+export const columnsConsultorios = [
+    columnHelper.accessor("factura", {
+        header: "ID Consultorio" // o simplemente "Consultorio"
+    }),
+    columnHelper.accessor("nombre", {
+        header: "Nombre"
+    }),
+    columnHelper.accessor("fecha", {
+        header: "Ubicación" // estamos usando "fecha" para ubicación, por compatibilidad
+    }),
+    columnHelper.accessor("estado", {
+        header: "Estado",
+        cell: ({ getValue }) => {
+            const estado = getValue();
+            const color =
+                {
+                    Activo: "bg-green-100 text-green-800",
+                    Inactivo: "bg-yellow-100 text-yellow-800",
+                    Mantenimiento: "bg-blue-100 text-blue-800",
+                    Reservado: "bg-purple-100 text-purple-800",
+                }[estado] || "bg-gray-100 text-gray-800";
+
+            return (
+                <span className={`px-2 py-1 rounded text-xs font-semibold ${color}`}>
+                    {estado}
+                </span>
+            );
+        },
+    }),
+];
+
 
 
 //! Info Tabla Administración
