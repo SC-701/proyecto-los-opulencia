@@ -11,6 +11,10 @@ import {
   AlertTriangle,
   PackageSearch,
   PackageCheck,
+  BadgeCent,
+  ChartNoAxesCombined,
+  WalletMinimal,
+  Landmark,
 } from "lucide-react";
 
 //! Info DashBoard
@@ -122,4 +126,31 @@ export const DataCardPacientes = [
         valor: '32', 
         color: '#f00808'
     }
+];
+
+export const DataCardFacturacion = [
+  {
+    nombre: "Ingresos totales",
+    icon: BadgeCent,
+    valor: "$100.000",
+    color: "#10B981",
+  },
+  {
+    nombre: "Facturas Realizadas",
+    icon: ChartNoAxesCombined,
+    valor: "130",
+    color: "#5804ff",
+  },
+  {
+    nombre: "Facturas Pendientes",
+    icon: Landmark,
+    valor: "12",
+    color: "#ffe104",
+  },
+  {
+    nombre: "Facturas Vencidas",
+    icon: WalletMinimal,
+    valor: "18",
+    color: "#d107a3",
+  },
 ];

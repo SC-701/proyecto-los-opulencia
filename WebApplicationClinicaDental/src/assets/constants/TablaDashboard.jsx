@@ -263,3 +263,143 @@ export const dataPacientes = [
         estado: 'Inactivo',
     },
 ]
+
+
+
+//! Info Tabla Facturas
+export const dataFacturas = [
+    {
+        factura: "Factura 1",
+        nombre: "Juan Pérez",
+        fecha: "10/10/2022",
+        estado: "Realizada",
+    },
+    {
+        factura: "Factura 2",
+        nombre: "María López",
+        fecha: "10/10/2022",
+        estado: "Pendiente",
+    },
+    {
+        factura: "Factura 3",
+        nombre: "Carlos Ruiz",
+        fecha: "10/10/2022",
+        estado: "Vencida",
+    },
+    {
+        factura: "Factura 4",
+        nombre: "Ana Torres",
+        fecha: "10/10/2022",
+        estado: "Cancelada",
+    },
+    {
+        factura: "Factura 5",
+        nombre: "Luis Gómez",
+        fecha: "10/10/2022",
+        estado: "Realizada",
+    },
+    {
+        factura: "Factura 6",
+        nombre: "Juan Pérez",
+        fecha: "10/10/2022",
+        estado: "Realizada",
+    },
+];
+
+
+//! Columnas Tabla Facturas
+export const columnsFacturas = 
+[
+    columnHelper.accessor("factura", {
+        header: "Factura"
+    }),
+    columnHelper.accessor("nombre", {
+        header: "Nombre"
+    }),
+    columnHelper.accessor("fecha", {
+        header: "Fecha"
+    }),
+    columnHelper.accessor("estado", {
+        header: "Estado",
+        cell: ({ getValue }) => {
+            const estado = getValue();
+            const color =
+                {
+                    Realizada: "bg-green-100 text-green-800",
+                    Pendiente: "bg-yellow-100 text-yellow-800",
+                    Cancelada: "bg-red-100 text-red-800",
+                }[estado] || "bg-gray-100 text-gray-800";
+
+            return (
+                <span className={`px-2 py-1 rounded text-xs font-semibold ${color}`}>
+                    {estado}
+                </span>
+            );
+        },
+    }),
+]
+
+//! Info Tabla Consultorios
+export const dataConsultorios = [
+    {
+        factura: "Consultorio 1",
+        nombre: "Consultorio Central",
+        fecha: "Piso 1, Ala A",
+        estado: "Activo",      
+    },
+    {
+        factura: "Consultorio 2",
+        nombre: "Consultorio Norte",
+        fecha: "Piso 2, Ala B",
+        estado: "Inactivo",
+    },
+    {
+        factura: "Consultorio 3",
+        nombre: "Consultorio Pediátrico",
+        fecha: "Piso 3, Ala C",
+        estado: "Mantenimiento",
+    },
+    {
+        factura: "Consultorio 4",
+        nombre: "Consultorio Odontología",
+        fecha: "Piso 2, Ala D",
+        estado: "Activo",
+    },
+    {
+        factura: "Consultorio 5",
+        nombre: "Consultorio Emergencias",
+        fecha: "Piso 1, Ala E",
+        estado: "Reservado",
+    },
+]
+//! Columnas Tabla Consultorios
+export const columnsConsultorios = [
+    columnHelper.accessor("factura", {
+        header: "ID Consultorio" // o simplemente "Consultorio"
+    }),
+    columnHelper.accessor("nombre", {
+        header: "Nombre"
+    }),
+    columnHelper.accessor("fecha", {
+        header: "Ubicación" // estamos usando "fecha" para ubicación, por compatibilidad
+    }),
+    columnHelper.accessor("estado", {
+        header: "Estado",
+        cell: ({ getValue }) => {
+            const estado = getValue();
+            const color =
+                {
+                    Activo: "bg-green-100 text-green-800",
+                    Inactivo: "bg-yellow-100 text-yellow-800",
+                    Mantenimiento: "bg-blue-100 text-blue-800",
+                    Reservado: "bg-purple-100 text-purple-800",
+                }[estado] || "bg-gray-100 text-gray-800";
+
+            return (
+                <span className={`px-2 py-1 rounded text-xs font-semibold ${color}`}>
+                    {estado}
+                </span>
+            );
+        },
+    }),
+];
