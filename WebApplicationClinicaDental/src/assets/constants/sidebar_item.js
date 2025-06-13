@@ -43,7 +43,7 @@ export const sidebar_item = [
     nombre: "Consultorios",
     icon: HeartPlus,
     color: "#375CA6",
-    path: "/consultorios",
+    path: "/Consultorios",
   },
   {
     nombre: "Facturación",
