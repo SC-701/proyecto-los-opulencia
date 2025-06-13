@@ -7,6 +7,7 @@ import Citas from '../pages/Citas'
 import Inventario from '../pages/Inventario'
 import Pacientes from '../pages/Pacientes'
 import Consultorios from '../pages/Consultorios'
+import Administrativos from '../pages/Administrativos'
 
 
 
@@ -21,6 +22,7 @@ const AppRoutes = () => {
                 <Route path="/Inventario" element={<Inventario />}/>
                 <Route path="/Pacientes" element={<Pacientes />} />
                 <Route path="/Consultorios" element={<Consultorios/>} />
+                <Route path="/administrativos" element={<Administrativos />} />
             </Routes>
         </div>
     )

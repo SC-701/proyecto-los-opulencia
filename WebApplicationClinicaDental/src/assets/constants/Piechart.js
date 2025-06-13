@@ -24,3 +24,11 @@ export const orderFacturas = [
 ];
 
 export const COLORSFacturas = ["#5804ff", "#ffe104", "#d107a3"];
+
+export const orderAdministrativos = [
+  { name: "Administrados", value: 2 },
+  { name: "Recepcionistas", value: 1 },
+  { name: "Inactivos", value: 1 },
+];
+
+export const COLORSAdministradores = ["#2fa8f0", "#3adc33", "#f00808"];
