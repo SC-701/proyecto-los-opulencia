@@ -15,6 +15,8 @@ import {
   ChartNoAxesCombined,
   WalletMinimal,
   Landmark,
+  UserCog,
+  UserSearch,
 } from "lucide-react";
 
 //! Info DashBoard
@@ -152,5 +154,32 @@ export const DataCardFacturacion = [
     icon: WalletMinimal,
     valor: "18",
     color: "#d107a3",
+  },
+];
+
+export const DataCardAdministrativo = [
+  {
+    nombre: "Administrativos",
+    icon: Users,
+    valor: "1,234",
+    color: "#8B5CF6",
+  },
+  {
+    nombre: "Administradores",
+    icon: UserCog,
+    valor: "5",
+    color: "#2fa8f0",
+  },
+  {
+    nombre: "Recepcionistas",
+    icon: UserSearch,
+    valor: "120",
+    color: "#3adc33",
+  },
+  {
+    nombre: "Administrativos Inactivos",
+    icon: Users,
+    valor: "32",
+    color: "#f00808",
   },
 ];

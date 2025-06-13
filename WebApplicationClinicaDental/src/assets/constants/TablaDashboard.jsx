@@ -337,3 +337,64 @@ export const columnsFacturas =
         },
     }),
 ]
+
+
+//! Info Tabla Administración
+export const dataAdministrativos = [
+    {
+        nombre: "Juan Pérez",
+        telefono: "1234-5678",
+        email: "Juan@gmail.com",
+        estado: "Activo",
+    },
+    {
+        nombre: "María López",
+        telefono: "1234-5678",
+        email: "María@gmail.com",
+        estado: "Inactivo",
+    },
+    {
+        nombre: "Carlos Ruiz",
+        telefono: "1234-5678",
+        email: "Carlos@gmail.com",
+        estado: "Activo",
+    },
+    {
+        nombre: "Ana Torres",
+        telefono: "1234-5678",
+        email: "Ana@gmail.com",
+        estado: "Inactivo",
+    },
+];
+
+
+//! Columnas Tabla Administración
+export const columnsAdministrativos = 
+[
+    columnHelper.accessor("nombre", {
+        header: "Nombre"
+    }),
+    columnHelper.accessor("telefono", {
+        header: "Teléfono"
+    }),
+    columnHelper.accessor("email", {
+        header: "Correo"
+    }),
+    columnHelper.accessor("estado", {
+        header: "Estado",
+        cell: ({ getValue }) => {
+            const estado = getValue();
+            const color =
+                {
+                    Activo: "bg-green-100 text-green-800",
+                    Inactivo: "bg-red-100 text-red-800",
+                }[estado] || "bg-gray-100 text-gray-800";
+
+            return (
+                <span className={`px-2 py-1 rounded text-xs font-semibold ${color}`}>
+                    {estado}
+                </span>
+            );
+        },
+    }),
+];

@@ -6,6 +6,7 @@ import Sidebar from '../components/Sidebar/Sidebar'
 import Citas from '../pages/Citas'
 import Inventario from '../pages/Inventario'
 import Pacientes from '../pages/Pacientes'
+import Administrativos from '../pages/Administrativos'
 
 
 
@@ -19,6 +20,7 @@ const AppRoutes = () => {
                 <Route path="/citas" element={<Citas />} />
                 <Route path="/Inventario" element={<Inventario />}/>
                 <Route path="/Pacientes" element={<Pacientes />} />
+                <Route path="/administrativos" element={<Administrativos />} />
             </Routes>
         </div>
     )

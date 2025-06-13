@@ -38,6 +38,7 @@ const Pacientes = () => {
                     transition={{ duration: 1 }}
                 >
                     <div className='bg-white shadow-md rounded-lg p-4'>
+                        <h1 className='text-2xl font-bold py-4'>Pacientes</h1>
                         <Tabla data={dataPacientes} columns={columnsPacientes} />
                     </div>
                 </motion.div>
