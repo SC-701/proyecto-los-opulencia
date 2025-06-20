@@ -2,13 +2,13 @@ import {
     flexRender,
 } from '@tanstack/react-table'
 import { ArrowBigLeftDash, ArrowBigRightDash, ChevronsLeft, ChevronsRight } from 'lucide-react'
-import { useTabla } from '../../hooks/useTabla'	
+import { useTabla } from '../../hooks/useTabla'
 
 
 
-const Tabla = ({data, columns , pageSizeInicial = 10}) => {
+const Tabla = ({ data, columns, pageSizeInicial = 10 }) => {
 
-const { table } = useTabla(data, columns, pageSizeInicial)
+    const { table } = useTabla(data, columns, pageSizeInicial)
 
 
     return (
@@ -32,8 +32,7 @@ const { table } = useTabla(data, columns, pageSizeInicial)
                             {row.getVisibleCells().map(cell => (
                                 <td
                                     key={cell.id}
-                                    className="px-4 py-2"
-                                >
+                                    className="px-4 py-2">
                                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                 </td>
                             ))}

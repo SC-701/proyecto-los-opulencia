@@ -1,45 +1,76 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import Header from '../components/Header/Header.jsx'
+import PieChartBoard from '../components/Charts/PieChartBoard.jsx'
+import { COLORS, COLORSFacturas, COLORSInventario, orderFacturas, orderInventario } from '../assets/constants/piechart.js'
+import DashBoardCard from '../components/Cards/DashBoardCard.jsx'
+import { DataCardFacturacion } from '../assets/constants/DataCard.js'
+import ChartLineTwo from '../components/Charts/ChartLineTwo.jsx'
+import { columnsFacturas, dataFacturas } from '../assets/constants/TablaDashboard.jsx'
+import Tabla from '../components/Tabla/Tabla.jsx'
 
 const Facturacion = () => {
-    return (
- <div className='flex-1 overflow-auto relative z-10'>
-            <Header title='Facturación' />
+  return (
+    <div className='flex-1 overflow-auto relative z-10'>
+      <Header title='Facturación' />
 
-<main>
-
-<div py-6>
-<ul className="list bg-base-100 rounded-box shadow-md">
-  
-  <li className="p-4 pb-2 text-xs opacity-60 tracking-wide">Facturado el dia de hoy</li>
-  
-  <li className="list-row" >
-    <div><img className="size-10 rounded-box" src="https://img.daisyui.com/images/profile/demo/1@94.webp"/></div>
-    <div>
-      <div>Dio Lupa</div>
-      <div className="text-xs uppercase font-semibold opacity-60">Remaining Reason</div>
-    </div>
-    <button className="btn btn-square btn-ghost">
-      <svg className="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor"><path d="M6 3L20 12 6 21 6 3z"></path></g></svg>
-    </button>
-    <button className="btn btn-square btn-ghost">
-      <svg className="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></g></svg>
-    </button>
-  </li>
-  
-  
-  
-</ul>
-
-</div>
-
-
-
-
-</main>
+      <main className='max-w-7xl mx-auto py-6 px-4 lg:px-8'>
+        <div className="mb-6 flex justify-between items-center">
+          <h1 className="font-bold tracking-tight text-[#263238] sm:text-3xl">
+            Gestión de Facturas - Clínica Dental
+          </h1>
+        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+        >
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-8">
+            {DataCardFacturacion.map((card, index) => (
+              <DashBoardCard
+                key={index}
+                nombre={card.nombre}
+                icon={card.icon}
+                valor={card.valor}
+                color={card.color}
+              />
+            ))}
+          </div>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-6 sm:grid-cols-1'>
+            <div className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6'>
+              <h1 className='text-2xl font-bold py-4'>Mayor índice de facturas</h1>
+              <PieChartBoard orderStatusData={orderFacturas} COLORS={COLORSFacturas} />
             </div>
-)
+            <div className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6'>
+              <h1 className='text-2xl font-bold py-4'>Facturación del día</h1>
+              <ChartLineTwo />
+            </div>
+          </div>
+        </motion.div>
+                <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}>
+            <div className='grid grid-cols-1'>
+              <div className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6 mt-6'>
+                <h1 className='text-2xl font-bold py-4'>Facturas</h1>
+                <Tabla data={dataFacturas} columns={columnsFacturas} pageSizeInicial={5} />
+              </div>
+            </div>
+          </motion.div>
+
+
+
+
+
+      </main>
+    </div>
+  )
 }
 
 export default Facturacion
