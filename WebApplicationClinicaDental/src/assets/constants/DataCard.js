@@ -49,32 +49,7 @@ export const DataCard = [
 
 //! Info DashBoard Citas
 
-export const DataCardCitas = [
-  {
-    nombre: "Citas Totales",
-    icon: Clipboard,
-    valor: "10",
-    color: "#36f0c3",
-  },
-  {
-    nombre: "Citas Pendientes",
-    icon: Clock4,
-    valor: "4",
-    color: "#eeb833",
-  },
-  {
-    nombre: "Citas Completadas",
-    icon: CircleCheck,
-    valor: "6",
-    color: "#3adc33",
-  },
-  {
-    nombre: "Citas Canceladas",
-    icon: CircleX,
-    valor: "2",
-    color: "#f00808",
-  },
-];
+
 
 export const DataCardInventarios = [
   {

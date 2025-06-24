@@ -1,15 +1,39 @@
 import React from 'react'
 import Header from '../components/Header/Header'
 import { motion } from 'framer-motion'
-import { DataCardCitas } from '../assets/constants/DataCard.js'
+import { DataCardCitas } from '../utils/utilsCitas.js'
 import DashBoardCard from '../components/Cards/DashBoardCard.jsx'
 import Tabla from '../components/Tabla/Tabla.jsx'
 import ChartLineTwo from '../components/Charts/ChartLineTwo.jsx'
 import PieChartBoard from '../components/Charts/PieChartBoard.jsx'
 import { COLORS, orderStatusData } from '../assets/constants/piechart.js'
-import { columnsCitas, dataCitas } from '../assets/constants/TablaDashboard.jsx'
+import { columnsCitas } from '../assets/constants/TablaDashboard.jsx'
+import { useCitas, useCitasCompletadas, useCitasPendientes, useCitasTotal } from "../hooks/useCita.js";
+import { editarEstadoCita } from '../services/Citas.js'
+import Agregar from '../components/Botones/Agregar.jsx'
+import ModalAgregar from '../components/Modals/ModalAgregar/ModalAgregar.jsx'
+import { CirclePlus } from 'lucide-react'
+
 
 const Citas = () => {
+    const { citas, cargar } = useCitas();
+    const { totalCitas } = useCitasTotal();
+    const { citasPendientes, cargarCitasPendientes } = useCitasPendientes();
+    const { citasCompletadas, cargarCitasCompletadas } = useCitasCompletadas();
+
+    const cargarEstado = async (id, nuevoEstado) => {
+        await editarEstadoCita(id, nuevoEstado);
+        await cargar();
+        await cargarCitasPendientes();
+        await cargarCitasCompletadas();
+    };
+
+    const getDataCardCitas = DataCardCitas({
+        totalCitas: totalCitas,
+        citasPendientes: citasPendientes,
+        citasCompletadas: citasCompletadas
+    })
+
     return (
         <div className='flex-1 overflow-auto relative z-10'>
             <Header title='Citas' />
@@ -25,7 +49,7 @@ const Citas = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1 }}
                 >
-                    {DataCardCitas.map((card, index) => (
+                    {getDataCardCitas.map((card, index) => (
                         <DashBoardCard
                             key={index}
                             nombre={card.nombre}
@@ -58,11 +82,17 @@ const Citas = () => {
                 >
                     <div className='grid grid-cols-1'>
                         <div className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6 mt-6'>
-                            <h1 className='text-2xl font-bold py-4'>Citas</h1>
-                            <Tabla data={dataCitas} columns={columnsCitas} />
+                            <div className='flex justify-between items-center mb-4'>
+                                <h1 className='text-2xl font-bold py-4'>Citas</h1>
+                                <Agregar icon={<CirclePlus />} title="Agregar Cita" modalName="my_modal_6" />
+                            </div>
+
+                            <Tabla data={citas} columns={columnsCitas(cargarEstado)} />
                         </div>
                     </div>
                 </motion.div>
+                <ModalAgregar idModal="my_modal_6" />
+
             </main>
 
 

@@ -1,4 +1,9 @@
 import { createColumnHelper } from "@tanstack/react-table";
+import Acciones from "../../components/Acciones/Acciones";
+import { EstadosCitas } from "./Estados.jsx";
+import { Ban, CalendarCheck, CircleAlert } from "lucide-react";
+
+
 
 //!Tabla Dashboard
 const columnHelper = createColumnHelper();
@@ -148,70 +153,51 @@ export const dataInventario = [
 
 
 //! Columnas Tabla Citas
-export const columnsCitas = 
-[
-    columnHelper.accessor("paciente", {
-        header: "Paciente"
-    }),
-    columnHelper.accessor("servicio", {
-        header: "Servicio"
-    }),
-    columnHelper.accessor("doctor", {
-        header: "Doctor"
-    }),
-    columnHelper.accessor("fecha", {
-        header: "Fecha"
-    }),
-    columnHelper.accessor("estado", {
-        header: "Estado",
-        cell: ({ getValue }) => {
-            const estado = getValue();
-            const color =
-                {
-                    Confirmada: "bg-green-100 text-green-800",
-                    Pendiente: "bg-yellow-100 text-yellow-800",
-                    Cancelada: "bg-red-100 text-red-800",
-                }[estado] || "bg-gray-100 text-gray-800";
+export const columnsCitas = (editarEstadoCita) =>
+    [
+        columnHelper.accessor("paciente", {
+            header: "Paciente"
+        }),
+        columnHelper.accessor("servicio", {
+            header: "Servicio"
+        }),
+        columnHelper.accessor("doctor", {
+            header: "Doctor"
+        }),
+        columnHelper.accessor("fecha", {
+            header: "Fecha"
+        }),
+        columnHelper.accessor("hora", {
+            header: "Hora"
+        }),
+        columnHelper.accessor("estado", {
+            header: "Estado",
+            cell: ({ getValue }) => {
+                const estado = getValue();
+                const color = EstadosCitas.obtenerColor(estado);
 
-            return (
-                <span className={`px-2 py-1 rounded text-xs font-semibold ${color}`}>
-                    {estado}
-                </span>
-            );
-        },
-    }),
-]
+                return (
+                    <span className={`px-2 py-1 rounded text-xs font-semibold ${color}`}>
+                        {estado}
+                    </span>
+                );
+            },
+        }),
+        columnHelper.accessor("acciones", {
+            header: "Acciones",
+            cell: ({ row }) => {
+                const { idCita, estado } = row.original;
+                return (
+                    <Acciones
+                        estado={estado}
+                        onToggleEstado={() => editarEstadoCita(idCita, EstadosCitas.conversionEstado(estado))}
+                        onEditar={() => console.log(`Editar cita con ID: ${idCita}`)}
+                    />
+                )
+            },
+        })
+    ]
 
-export const dataCitas = [
-    {
-        paciente: "Juan Pérez",
-        servicio: "Limpieza dental",
-        doctor: "Dr. Juan Pérez",
-        fecha: "10/10/2022",
-        estado: "Confirmada",
-    },
-    {
-        paciente: "María López",
-        servicio: "Extracción",
-        doctor: "Dr. María López",
-        fecha: "10/10/2022",
-        estado: "Pendiente",
-    },
-    {
-        paciente: "Carlos Ruiz",
-        servicio: "Revisión",
-        doctor: "Dr. Carlos Ruiz",
-        fecha: "10/10/2022",
-        estado: "Cancelada",
-    },
-    {
-        paciente: "Ana Torres",
-        servicio: "Ortodoncia",
-        doctor: "Dr. Ana Torres",
-        fecha: "10/10/2022",
-        estado: "Confirmada",
-    },
-];
 
 
 const columnHelperPacientes = createColumnHelper()
@@ -308,36 +294,36 @@ export const dataFacturas = [
 
 
 //! Columnas Tabla Facturas
-export const columnsFacturas = 
-[
-    columnHelper.accessor("factura", {
-        header: "Factura"
-    }),
-    columnHelper.accessor("nombre", {
-        header: "Nombre"
-    }),
-    columnHelper.accessor("fecha", {
-        header: "Fecha"
-    }),
-    columnHelper.accessor("estado", {
-        header: "Estado",
-        cell: ({ getValue }) => {
-            const estado = getValue();
-            const color =
-                {
-                    Realizada: "bg-green-100 text-green-800",
-                    Pendiente: "bg-yellow-100 text-yellow-800",
-                    Cancelada: "bg-red-100 text-red-800",
-                }[estado] || "bg-gray-100 text-gray-800";
+export const columnsFacturas =
+    [
+        columnHelper.accessor("factura", {
+            header: "Factura"
+        }),
+        columnHelper.accessor("nombre", {
+            header: "Nombre"
+        }),
+        columnHelper.accessor("fecha", {
+            header: "Fecha"
+        }),
+        columnHelper.accessor("estado", {
+            header: "Estado",
+            cell: ({ getValue }) => {
+                const estado = getValue();
+                const color =
+                    {
+                        Realizada: "bg-green-100 text-green-800",
+                        Pendiente: "bg-yellow-100 text-yellow-800",
+                        Cancelada: "bg-red-100 text-red-800",
+                    }[estado] || "bg-gray-100 text-gray-800";
 
-            return (
-                <span className={`px-2 py-1 rounded text-xs font-semibold ${color}`}>
-                    {estado}
-                </span>
-            );
-        },
-    }),
-]
+                return (
+                    <span className={`px-2 py-1 rounded text-xs font-semibold ${color}`}>
+                        {estado}
+                    </span>
+                );
+            },
+        }),
+    ]
 
 //! Info Tabla Consultorios
 export const dataConsultorios = [
@@ -345,7 +331,7 @@ export const dataConsultorios = [
         factura: "Consultorio 1",
         nombre: "Consultorio Central",
         fecha: "Piso 1, Ala A",
-        estado: "Activo",      
+        estado: "Activo",
     },
     {
         factura: "Consultorio 2",
@@ -436,32 +422,32 @@ export const dataAdministrativos = [
 
 
 //! Columnas Tabla Administración
-export const columnsAdministrativos = 
-[
-    columnHelper.accessor("nombre", {
-        header: "Nombre"
-    }),
-    columnHelper.accessor("telefono", {
-        header: "Teléfono"
-    }),
-    columnHelper.accessor("email", {
-        header: "Correo"
-    }),
-    columnHelper.accessor("estado", {
-        header: "Estado",
-        cell: ({ getValue }) => {
-            const estado = getValue();
-            const color =
-                {
-                    Activo: "bg-green-100 text-green-800",
-                    Inactivo: "bg-red-100 text-red-800",
-                }[estado] || "bg-gray-100 text-gray-800";
+export const columnsAdministrativos =
+    [
+        columnHelper.accessor("nombre", {
+            header: "Nombre"
+        }),
+        columnHelper.accessor("telefono", {
+            header: "Teléfono"
+        }),
+        columnHelper.accessor("email", {
+            header: "Correo"
+        }),
+        columnHelper.accessor("estado", {
+            header: "Estado",
+            cell: ({ getValue }) => {
+                const estado = getValue();
+                const color =
+                    {
+                        Activo: "bg-green-100 text-green-800",
+                        Inactivo: "bg-red-100 text-red-800",
+                    }[estado] || "bg-gray-100 text-gray-800";
 
-            return (
-                <span className={`px-2 py-1 rounded text-xs font-semibold ${color}`}>
-                    {estado}
-                </span>
-            );
-        },
-    }),
-];
+                return (
+                    <span className={`px-2 py-1 rounded text-xs font-semibold ${color}`}>
+                        {estado}
+                    </span>
+                );
+            },
+        }),
+    ];
