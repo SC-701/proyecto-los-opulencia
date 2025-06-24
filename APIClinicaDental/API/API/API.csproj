@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Abstracciones\Abstracciones.csproj" />
+    <ProjectReference Include="..\DA\DA.csproj" />
+    <ProjectReference Include="..\Flujo\Flujo.csproj" />
   </ItemGroup>
 
 </Project>

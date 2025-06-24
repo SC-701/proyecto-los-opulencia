@@ -1,13 +1,42 @@
+using Abstracciones.Interface.DA;
+using Abstracciones.Interface.Flujo;
+using DA;
+using DA.Repositorio;
+using Flujo;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Cors", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//DAPPER
+builder.Services.AddScoped<IRepositorioDapper, RepositorioDapper>();
+
+//Inyecciones de DA
+builder.Services.AddScoped<ICitasDA, CitasDA>();
+
+//Inyecciones de Flujo
+builder.Services.AddScoped<ICitasFlujo, CitasFlujo>();
+
 var app = builder.Build();
+
+
+
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -17,6 +46,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("Cors");
 
 app.UseAuthorization();
 
