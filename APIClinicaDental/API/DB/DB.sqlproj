@@ -56,5 +56,30 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Stored Procedures\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\Usuario.sql" />
+    <Build Include="dbo\Tables\Servicio.sql" />
+    <Build Include="dbo\Tables\Rol.sql" />
+    <Build Include="dbo\Tables\Paciente.sql" />
+    <Build Include="dbo\Tables\Inventario.sql" />
+    <Build Include="dbo\Tables\Factura.sql" />
+    <Build Include="dbo\Tables\Estado.sql" />
+    <Build Include="dbo\Tables\Doctor.sql" />
+    <Build Include="dbo\Tables\Consultorio.sql" />
+    <Build Include="dbo\Tables\Cita.sql" />
+    <Build Include="dbo\Tables\Administrativo.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerCitas.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerCita.sql" />
+    <Build Include="dbo\Stored Procedures\EliminarCita.sql" />
+    <Build Include="dbo\Stored Procedures\EditarCita.sql" />
+    <Build Include="dbo\Stored Procedures\AgregarCita.sql" />
+    <Build Include="dbo\Stored Procedures\EditarCitaEstado.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerConteoTotalCitas.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerConteoPendientesCitas.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerConteoCitasCompletas.sql" />
   </ItemGroup>
 </Project>
