@@ -81,5 +81,17 @@
     <Build Include="dbo\Stored Procedures\ObtenerConteoTotalCitas.sql" />
     <Build Include="dbo\Stored Procedures\ObtenerConteoPendientesCitas.sql" />
     <Build Include="dbo\Stored Procedures\ObtenerConteoCitasCompletas.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerFacturasRealizadas.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerFacturas.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerFactura.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerConteoTotalFacturas.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerConteoCitasCanceladas.sql" />
+    <Build Include="dbo\Stored Procedures\EliminarFactura.sql" />
+    <Build Include="dbo\Stored Procedures\EditarFacturas.sql" />
+    <Build Include="dbo\Stored Procedures\EditarFacturaEstado.sql" />
+    <Build Include="dbo\Stored Procedures\AgregarFacturas.sql" />
+    <Build Include="dbo\Stored Procedures\AgregarFactura.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerConteoPendientesFacturas.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerConteoFacturasCompletas.sql" />
   </ItemGroup>
 </Project>
