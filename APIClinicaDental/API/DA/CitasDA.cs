@@ -77,6 +77,7 @@ namespace DA
         {
             await VerificarExistenciaId(id);
 
+
             string query = @"EditarCitaEstado";
 
             var resultado = await _Sqlconexion.ExecuteScalarAsync<Guid>(query, new
@@ -126,6 +127,16 @@ namespace DA
             });
 
             return resultado.FirstOrDefault();  
+
+        }
+
+        public async Task<int> ObtenerCitasCanceladas()
+        {
+            string query = @"ObtenerConteoCitasCanceladas";
+
+            var resultado = await _Sqlconexion.QuerySingleAsync<int>(query);
+
+            return resultado;
 
         }
 
