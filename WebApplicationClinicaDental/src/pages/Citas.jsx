@@ -8,7 +8,7 @@ import ChartLineTwo from '../components/Charts/ChartLineTwo.jsx'
 import PieChartBoard from '../components/Charts/PieChartBoard.jsx'
 import { COLORS, orderStatusData } from '../assets/constants/piechart.js'
 import { columnsCitas } from '../assets/constants/TablaDashboard.jsx'
-import { useCitas, useCitasCompletadas, useCitasPendientes, useCitasTotal } from "../hooks/useCita.js";
+import { useCitas, useCitasCanceladas, useCitasCompletadas, useCitasPendientes, useCitasTotal } from "../hooks/useCita.js";
 import { editarEstadoCita } from '../services/Citas.js'
 import Agregar from '../components/Botones/Agregar.jsx'
 import ModalAgregar from '../components/Modals/ModalAgregar/ModalAgregar.jsx'
@@ -20,19 +20,22 @@ const Citas = () => {
     const { totalCitas } = useCitasTotal();
     const { citasPendientes, cargarCitasPendientes } = useCitasPendientes();
     const { citasCompletadas, cargarCitasCompletadas } = useCitasCompletadas();
+    const { citasCanceladas, cargarCitasCanceladas } = useCitasCanceladas();
 
     const cargarEstado = async (id, nuevoEstado) => {
         await editarEstadoCita(id, nuevoEstado);
         await cargar();
         await cargarCitasPendientes();
         await cargarCitasCompletadas();
+        await cargarCitasCanceladas();
     };
 
     const getDataCardCitas = DataCardCitas({
         totalCitas: totalCitas,
         citasPendientes: citasPendientes,
-        citasCompletadas: citasCompletadas
-    })
+        citasCompletadas: citasCompletadas,
+        citasCanceladas: citasCanceladas
+    });
 
     return (
         <div className='flex-1 overflow-auto relative z-10'>
@@ -71,7 +74,7 @@ const Citas = () => {
                         </div>
                         <div className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6'>
                             <h1 className='text-2xl font-bold py-4'>Mayor Porcentaje de citas</h1>
-                            <PieChartBoard orderStatusData={orderStatusData} COLORS={COLORS} />
+                            <PieChartBoard orderStatusData={orderStatusData({citasPendientes, citasCompletadas, citasCanceladas})} COLORS={COLORS} />
                         </div>
                     </div>
                 </motion.div>

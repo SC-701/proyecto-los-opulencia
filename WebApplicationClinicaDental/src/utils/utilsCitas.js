@@ -1,5 +1,5 @@
 import { Clipboard, Clock4, CircleCheck, CircleX } from 'lucide-react';
-export const DataCardCitas = ({totalCitas = 0, citasPendientes = 0, citasCompletadas = 0}) => [
+export const DataCardCitas = ({totalCitas = 0, citasPendientes = 0, citasCompletadas = 0, citasCanceladas= 0}) => [
   
   {
     nombre: "Citas Totales",
@@ -22,7 +22,7 @@ export const DataCardCitas = ({totalCitas = 0, citasPendientes = 0, citasComplet
   {
     nombre: "Citas Canceladas",
     icon: CircleX,
-    valor: "2",
+    valor: citasCanceladas.toString(),
     color: "#f00808",
   },
 ];
