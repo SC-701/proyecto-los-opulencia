@@ -93,5 +93,10 @@
     <Build Include="dbo\Stored Procedures\AgregarFactura.sql" />
     <Build Include="dbo\Stored Procedures\ObtenerConteoPendientesFacturas.sql" />
     <Build Include="dbo\Stored Procedures\ObtenerConteoFacturasCompletas.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerPacientes.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerPaciente.sql" />
+    <Build Include="dbo\Stored Procedures\EliminarPaciente.sql" />
+    <Build Include="dbo\Stored Procedures\EditarPaciente.sql" />
+    <Build Include="dbo\Stored Procedures\AgregarPaciente.sql" />
   </ItemGroup>
 </Project>
