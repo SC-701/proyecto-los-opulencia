@@ -16,10 +16,10 @@ namespace API.Controllers
 
 
         public CitasController(ICitasFlujo citasFlujo, ILogger<CitasController> logger)
-                {
-                    _citasFlujo = citasFlujo;
-                    _logger = logger;
-                }
+        {
+            _citasFlujo = citasFlujo;
+            _logger = logger;
+        }
 
 
         [HttpPost]
@@ -33,16 +33,29 @@ namespace API.Controllers
             }
          );
         }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> Editar([FromRoute]Guid id, [FromBody]CitasRequest request)
         {
-           var respuesta = await _citasFlujo.Editar(id, request);
+
+            if (!await VerificarExistencias(id)) return NotFound(new
+            {
+                message = "No se encontro la cita con el id proporcionado"
+            });
+
+            var respuesta = await _citasFlujo.Editar(id, request);
             return Ok(respuesta);
         }
 
         [HttpPut("EditarEstado/{id}/{estado}")]
         public async Task<IActionResult> EditarEstado([FromRoute]Guid id, [FromRoute]int estado)
         {
+
+            if (!await VerificarExistencias(id)) return NotFound(new
+            {
+                message = "No se encontro la cita con el id proporcionado"
+            });
+
             var respuesta = await _citasFlujo.EditarEstado(id, estado);
             return Ok(new
             {
@@ -54,8 +67,13 @@ namespace API.Controllers
         [HttpDelete("{idCita}")]
         public async Task<IActionResult> Eliminar([FromRoute]Guid idCita)
         {
-           var respuesta =  await _citasFlujo.Eliminar(idCita);
-            return NoContent();
+            if(!await VerificarExistencias(idCita)) return NotFound(new
+            {
+                message = "No se encontro la cita con el id proporcionado"
+            });
+
+            var respuesta =  await _citasFlujo.Eliminar(idCita);
+            return NoContent(); 
         }
 
         [HttpGet]
@@ -69,7 +87,18 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> ObtenerCitas([FromRoute]Guid id)
         {
+            if (id == Guid.Empty) return NotFound(new
+            {
+                message = "No se encontro el id"
+            });
+
             var respuesta = await _citasFlujo.ObtenerCitas(id);
+
+            if(respuesta == null) return NotFound(new
+            {
+                message = "No se encontro la cita"
+            });
+
 
             return Ok(respuesta);
         }
@@ -82,6 +111,7 @@ namespace API.Controllers
 
             return Ok(respuesta);
         }
+
         [HttpGet]
         [Route("ObtenerCitasPendientes")]
         public async Task<IActionResult> ObtenerCitasPendientes()
@@ -101,5 +131,29 @@ namespace API.Controllers
             return Ok(respuesta);
 
         }
+
+        [HttpGet]
+        [Route("ObtenerCitasCanceladas")]
+        public async Task<IActionResult> ObtenerCitasCanceladas()
+        {
+
+            var respuesta = await _citasFlujo.ObtenerCitasCanceladas();
+            return Ok(respuesta);
+
+        }
+
+
+        #region HELPERS 
+
+        private async Task<bool> VerificarExistencias(Guid id)
+        {
+            var cita = await _citasFlujo.ObtenerCitas(id);
+            return cita != null;
+        }
+
+
+        #endregion
+
+
     }
 }

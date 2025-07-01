@@ -27,6 +27,8 @@ namespace Abstracciones.Interface.DA
 
         public Task<int> ObtenerCitasCompletadas();
 
+        public Task<int> ObtenerCitasCanceladas();
+
 
 
 
