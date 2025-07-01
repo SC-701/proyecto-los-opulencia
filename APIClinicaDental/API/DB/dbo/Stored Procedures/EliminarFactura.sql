@@ -3,18 +3,16 @@
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE ObtenerConteoCitasCanceladas
-	
+CREATE PROCEDURE [dbo].[EliminarFactura]
+	@id UNIQUEIDENTIFIER
 AS
 BEGIN
-
 	SET NOCOUNT ON;
 
-	DECLARE @ConteoCanceldas int;
+	BEGIN TRANSACTION
 
-    -- Insert statements for procedure here
-	SELECT @ConteoCanceldas= COUNT(*) from Cita where idEstado = 5;
+	DELETE FROM [dbo].[Factura]
+	WHERE idFactura = @id
 
-	select @ConteoCanceldas;
-
+	COMMIT TRANSACTION
 END

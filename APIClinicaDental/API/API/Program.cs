@@ -27,9 +27,13 @@ builder.Services.AddScoped<IRepositorioDapper, RepositorioDapper>();
 
 //Inyecciones de DA
 builder.Services.AddScoped<ICitasDA, CitasDA>();
+builder.Services.AddScoped<IFacturasDA, FacturasDA>();
+builder.Services.AddScoped<IPacientesDA, PacientesDA>();
 
 //Inyecciones de Flujo
 builder.Services.AddScoped<ICitasFlujo, CitasFlujo>();
+builder.Services.AddScoped<IFacturasFlujo, FacturasFlujo>();
+builder.Services.AddScoped<IPacienteFlujo, PacientesFlujo>();
 
 var app = builder.Build();
 
