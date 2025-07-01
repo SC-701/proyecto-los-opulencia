@@ -81,5 +81,7 @@
     <Build Include="dbo\Stored Procedures\ObtenerConteoTotalCitas.sql" />
     <Build Include="dbo\Stored Procedures\ObtenerConteoPendientesCitas.sql" />
     <Build Include="dbo\Stored Procedures\ObtenerConteoCitasCompletas.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerFacturasRealizadas.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerConteoCitasCanceladas.sql" />
   </ItemGroup>
 </Project>
