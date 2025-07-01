@@ -1,8 +1,8 @@
 //! Constants for Pie Chart Data
-export const orderStatusData = [
-  { name: "Pendientes", value: 4 },
-  { name: "Completas", value: 6 },
-  { name: "Canceladas", value: 2 },
+export const orderStatusData = ({citasPendientes = 0, citasCompletadas = 0, citasCanceladas= 0}) => [
+  { name: "Pendientes", value: citasPendientes },
+  { name: "Completas", value: citasCompletadas },
+  { name: "Canceladas", value: citasCanceladas },
 ];
 
 export const COLORS = ["#FED766", "#4ECDC4", "#FF6B6B"];

@@ -1,4 +1,4 @@
-import { editarEstadoCita, obtenerCitas, ObtenerCitasCompletadas, obtenerCitasPendientes, obtenerTotalCitas } from "../services/Citas";
+import { editarEstadoCita, obtenerCitas, obtenerCitasCanceladas, ObtenerCitasCompletadas, obtenerCitasPendientes, obtenerTotalCitas } from "../services/Citas";
 import { useEffect, useState } from "react";
 
 
@@ -55,7 +55,7 @@ export const useCitasTotal = () => {
 }
 
 export const useCitasPendientes = () => {
-    const [citasPendientes, setCitasPendientes] = useState([]);
+    const [citasPendientes, setCitasPendientes] = useState(0);
 
     const cargarCitasPendientes = async () => {
         try {
@@ -90,4 +90,23 @@ export const useCitasCompletadas = () => {
 
     return { citasCompletadas, cargarCitasCompletadas };
 
+}
+
+export const useCitasCanceladas = () => {
+    const [citasCanceladas, setCitasCanceladas] = useState(0);
+
+    const cargarCitasCanceladas = async () => {
+        try {
+            const response = await obtenerCitasCanceladas();
+            setCitasCanceladas(response);
+        } catch (err) {
+            console.error('Error al cargar citas canceladas', err);
+        }
+    };
+
+    useEffect(() => {
+        cargarCitasCanceladas();
+    }, []);
+
+    return { citasCanceladas, cargarCitasCanceladas };
 }
