@@ -29,11 +29,13 @@ builder.Services.AddScoped<IRepositorioDapper, RepositorioDapper>();
 builder.Services.AddScoped<ICitasDA, CitasDA>();
 builder.Services.AddScoped<IFacturasDA, FacturasDA>();
 builder.Services.AddScoped<IPacientesDA, PacientesDA>();
+builder.Services.AddScoped<IDoctoresDA, DoctoresDA>();
 
 //Inyecciones de Flujo
 builder.Services.AddScoped<ICitasFlujo, CitasFlujo>();
 builder.Services.AddScoped<IFacturasFlujo, FacturasFlujo>();
 builder.Services.AddScoped<IPacienteFlujo, PacientesFlujo>();
+builder.Services.AddScoped<IDoctoresFlujo, DoctoresFlujo>();
 
 var app = builder.Build();
 
