@@ -199,6 +199,62 @@ export const columnsCitas = (editarEstadoCita) =>
     ]
 
 
+
+//! Columnas Tabla Facturas
+export const columnsFacturas = (editarEstadoFactura) =>
+    [
+        columnHelper.accessor("factura", {
+            header: "Factura"
+        }),
+
+        columnHelper.accessor("fecha", {
+            header: "Fecha"
+        }),
+        columnHelper.accessor("estado", {
+            header: "Estado",
+            cell: ({ getValue }) => {
+                const estado = getValue();
+                const color = EstadoFacturacion.obtenerColor(estado);
+    
+                return (
+                    <span className={`px-2 py-1 rounded text-xs font-semibold ${color}`}>
+                        {estado}
+                    </span>
+                );
+            },
+        }),
+        columnHelper.accessor("acciones", {
+            header: "Acciones",
+            cell: ({ row }) => {
+                const { idFactura, estado } = row.original;
+                return (
+                    <Acciones
+                        estado={estado}
+                        onToggleEstado={() => editarEstadoFactura(idFactura, EstadoFacturacion.conversionEstado(estado))}
+                        onEditar={() => console.log(`Editar cita con ID: ${idCita}`)}
+                    />
+                )
+            },
+        })
+    ]
+
+    
+            columnHelper.accessor("acciones", {
+                header: "Acciones",
+                cell: ({ row }) => {
+                    const { idCita, estado } = row.original;
+                    return (
+                        <Acciones
+                            estado={estado}
+                            onToggleEstado={() => editarEstadoCita(idCita, EstadosCitas.conversionEstado(estado))}
+                            onEditar={() => console.log(`Editar cita con ID: ${idCita}`)}
+                        />
+                    )
+                },
+            })
+
+
+
 //tabla pacientes 
 const columnHelperPacientes = createColumnHelper()
 
@@ -249,64 +305,6 @@ export const dataPacientes = [
         estado: 'Inactivo',
     },
 ]
-
-
-
-//! Columnas Tabla Facturas
-export const columnsFacturas = (editarEstadoFactura) =>
-    [
-        columnHelper.accessor("factura", {
-            header: "Factura"
-        }),
-        columnHelper.accessor("nombre", {
-            header: "Nombre"
-        }),
-        columnHelper.accessor("fecha", {
-            header: "Fecha"
-        }),
-        columnHelper.accessor("estado", {
-            header: "Estado",
-            cell: ({ getValue }) => {
-                const estado = getValue();
-                const color = EstadoFacturacion.obtenerColor(estado);
-    
-                return (
-                    <span className={`px-2 py-1 rounded text-xs font-semibold ${color}`}>
-                        {estado}
-                    </span>
-                );
-            },
-        }),
-        columnHelper.accessor("acciones", {
-            header: "Acciones",
-            cell: ({ row }) => {
-                const { idFactura, estado } = row.original;
-                return (
-                    <Acciones
-                        estado={estado}
-                        onToggleEstado={() => editarEstadoFactura(idFactura, EstadoFacturacion.conversionEstado(estado))}
-                        onEditar={() => console.log(`Editar cita con ID: ${idCita}`)}
-                    />
-                )
-            },
-        })
-    ]
-
-    
-            columnHelper.accessor("acciones", {
-                header: "Acciones",
-                cell: ({ row }) => {
-                    const { idCita, estado } = row.original;
-                    return (
-                        <Acciones
-                            estado={estado}
-                            onToggleEstado={() => editarEstadoCita(idCita, EstadosCitas.conversionEstado(estado))}
-                            onEditar={() => console.log(`Editar cita con ID: ${idCita}`)}
-                        />
-                    )
-                },
-            })
-
 
 
 
