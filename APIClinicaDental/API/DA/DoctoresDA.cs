@@ -16,6 +16,21 @@ namespace DA
             _Sqlconexion = _repositorioDapper.ObtenerRepositorio(); ;
         }
 
+        public Task<Guid> AgregarDoctor(DoctorRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Guid> Editar(Guid id, DoctorRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Guid> Eliminar(Guid idDoctor)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IEnumerable<DoctorResponse>> ObtenerDoctores()
         {
             string query = @"ObtenerDoctores";

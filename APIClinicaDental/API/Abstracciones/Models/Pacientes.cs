@@ -1,15 +1,29 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+
 namespace Abstracciones.Models
 {
     public class Paciente
     {
-        
+
+        [Required(ErrorMessage = "El nombre del paciente es requerido")]
         public string Nombre { get; set; }
+        [Required(ErrorMessage = "El apellido del paciente es requerido")]
         public string Apellido { get; set; }
+
+        [EmailAddress]
         public string Email { get; set; }
+
+        [Required(ErrorMessage = "La cedula del paciente es requerido")]
         public int Cedula { get; set; }
+
+        [Required(ErrorMessage = "El telefono del paciente es requerido")]
         public int Telefono { get; set; }
+
+        [Required(ErrorMessage = "La direccion del paciente es requerido")]
         public string Direccion { get; set; }
+
+        [Required(ErrorMessage = "La Fecha de Nacimiento del paciente es requerido")]
         public DateTime FechaNacimiento { get; set; }
     }
 
