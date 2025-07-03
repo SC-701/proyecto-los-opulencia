@@ -1,6 +1,6 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import Acciones from "../../components/Acciones/Acciones";
-import { EstadosCitas } from "./Estados.jsx";
+import { EstadoFacturacion, EstadosCitas } from "./Estados.jsx";
 import { Ban, CalendarCheck, CircleAlert } from "lucide-react";
 
 
@@ -199,7 +199,7 @@ export const columnsCitas = (editarEstadoCita) =>
     ]
 
 
-
+//tabla pacientes 
 const columnHelperPacientes = createColumnHelper()
 
 export const columnsPacientes = [
@@ -252,49 +252,8 @@ export const dataPacientes = [
 
 
 
-//! Info Tabla Facturas
-export const dataFacturas = [
-    {
-        factura: "Factura 1",
-        nombre: "Juan Pérez",
-        fecha: "10/10/2022",
-        estado: "Realizada",
-    },
-    {
-        factura: "Factura 2",
-        nombre: "María López",
-        fecha: "10/10/2022",
-        estado: "Pendiente",
-    },
-    {
-        factura: "Factura 3",
-        nombre: "Carlos Ruiz",
-        fecha: "10/10/2022",
-        estado: "Vencida",
-    },
-    {
-        factura: "Factura 4",
-        nombre: "Ana Torres",
-        fecha: "10/10/2022",
-        estado: "Cancelada",
-    },
-    {
-        factura: "Factura 5",
-        nombre: "Luis Gómez",
-        fecha: "10/10/2022",
-        estado: "Realizada",
-    },
-    {
-        factura: "Factura 6",
-        nombre: "Juan Pérez",
-        fecha: "10/10/2022",
-        estado: "Realizada",
-    },
-];
-
-
 //! Columnas Tabla Facturas
-export const columnsFacturas =
+export const columnsFacturas = (editarEstadoFactura) =>
     [
         columnHelper.accessor("factura", {
             header: "Factura"
@@ -309,13 +268,8 @@ export const columnsFacturas =
             header: "Estado",
             cell: ({ getValue }) => {
                 const estado = getValue();
-                const color =
-                    {
-                        Realizada: "bg-green-100 text-green-800",
-                        Pendiente: "bg-yellow-100 text-yellow-800",
-                        Cancelada: "bg-red-100 text-red-800",
-                    }[estado] || "bg-gray-100 text-gray-800";
-
+                const color = EstadoFacturacion.obtenerColor(estado);
+    
                 return (
                     <span className={`px-2 py-1 rounded text-xs font-semibold ${color}`}>
                         {estado}
@@ -323,7 +277,38 @@ export const columnsFacturas =
                 );
             },
         }),
+        columnHelper.accessor("acciones", {
+            header: "Acciones",
+            cell: ({ row }) => {
+                const { idFactura, estado } = row.original;
+                return (
+                    <Acciones
+                        estado={estado}
+                        onToggleEstado={() => editarEstadoFactura(idFactura, EstadoFacturacion.conversionEstado(estado))}
+                        onEditar={() => console.log(`Editar cita con ID: ${idCita}`)}
+                    />
+                )
+            },
+        })
     ]
+
+    
+            columnHelper.accessor("acciones", {
+                header: "Acciones",
+                cell: ({ row }) => {
+                    const { idCita, estado } = row.original;
+                    return (
+                        <Acciones
+                            estado={estado}
+                            onToggleEstado={() => editarEstadoCita(idCita, EstadosCitas.conversionEstado(estado))}
+                            onEditar={() => console.log(`Editar cita con ID: ${idCita}`)}
+                        />
+                    )
+                },
+            })
+
+
+
 
 //! Info Tabla Consultorios
 export const dataConsultorios = [
