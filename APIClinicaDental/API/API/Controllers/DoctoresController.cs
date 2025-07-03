@@ -1,5 +1,6 @@
 ﻿using Abstracciones.Interface.API;
 using Abstracciones.Interface.Flujo;
+using Abstracciones.Models;
 using Flujo;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,23 @@ namespace API.Controllers
         {
             _doctoresFlujo = doctoresFlujo;
             _logger = logger;
+        }
+        [HttpPost]
+        public Task<IActionResult> AgregarDoctor(DoctorRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpPut("{id}")]
+        public Task<IActionResult> Editar(Guid id, DoctorRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpDelete("{idDoctor}")]
+        public Task<IActionResult> Eliminar(Guid idDoctor)
+        {
+            throw new NotImplementedException();
         }
 
         [HttpGet]
