@@ -31,3 +31,8 @@ export const obtenerCitasCanceladas = async () => {
     const response = await axios.get('/citas/ObtenerCitasCanceladas');
     return response.data;
 }
+
+export const obtenerCitasDiarias = async () => {
+    const response = await axios.get('/citas/ObtenerCitasDiarias');
+    return response.data;
+}

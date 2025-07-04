@@ -1,5 +1,5 @@
-import { editarEstadoCita, obtenerCitas, obtenerCitasCanceladas, ObtenerCitasCompletadas, obtenerCitasPendientes, obtenerTotalCitas } from "../services/Citas";
-import { useEffect, useState } from "react";
+import { editarEstadoCita, obtenerCitas, obtenerCitasCanceladas, ObtenerCitasCompletadas, obtenerCitasDiarias, obtenerCitasPendientes, obtenerTotalCitas } from "../services/Citas";
+import React, { useState, useEffect } from 'react';
 
 
 export const useCitas = () => {
@@ -110,3 +110,22 @@ export const useCitasCanceladas = () => {
 
     return { citasCanceladas, cargarCitasCanceladas };
 }
+
+export const useCitasDiarias = () => {
+    const [citasDiarias, setCitasDiarias] = useState(0);
+
+    const cargarCitasDiarias = async () => {
+        try {
+            const response = await obtenerCitasDiarias();
+            setCitasDiarias(response);
+        } catch (err) {
+            console.error('Error al cargar citas diarias', err);
+        }
+    };
+
+    useEffect(() => {
+        cargarCitasDiarias();
+    }, []);
+
+    return { citasDiarias, cargarCitasDiarias };
+};

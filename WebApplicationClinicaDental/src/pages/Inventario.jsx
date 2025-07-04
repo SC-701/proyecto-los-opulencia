@@ -4,7 +4,7 @@ import Header from "../components/Header/Header.jsx";
 import DashBoardCard from "../components/Cards/DashBoardCard.jsx";
 import Tabla from "../components/Tabla/Tabla.jsx";
 
-import { DataCardInventarios } from "../assets/constants/DataCard.js";
+import { DataCardInventarios } from "../assets/constants/DataCard.jsx";
 import {
   dataInventario,
   columnsInventario,

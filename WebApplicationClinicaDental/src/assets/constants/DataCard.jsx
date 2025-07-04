@@ -18,13 +18,18 @@ import {
   UserCog,
   UserSearch,
 } from "lucide-react";
+import { useCitasDiarias } from "../../hooks/useCita";
+import Citas from "../../pages/Citas";
 
 //! Info DashBoard
-export const DataCard = [
+
+
+
+export const DataCard = ({CitasHoy = 0, pacientes = 0, citasPendientesHoy = 0, facturacionDiaria = 0}) => [
   {
     nombre: "Citas Hoy",
     icon: Activity,
-    valor: "10",
+    valor: CitasHoy.toString(),
     color: "#6366F1",
   },
   {
