@@ -21,6 +21,7 @@ namespace Abstracciones.Interface.API
         public Task<IActionResult> ObtenerCitasPendientes();
         public Task<IActionResult> ObtenerCitasCompletadas();
         public Task<IActionResult> ObtenerCitasCanceladas();
+        public Task<IActionResult> ObtenerConteoCitasDiarias();
 
 
 

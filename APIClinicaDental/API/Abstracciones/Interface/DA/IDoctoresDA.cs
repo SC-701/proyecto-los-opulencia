@@ -1,9 +1,4 @@
 ﻿using Abstracciones.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Abstracciones.Interface.DA
 {
@@ -11,5 +6,12 @@ namespace Abstracciones.Interface.DA
     {
         public Task<IEnumerable<DoctorResponse>> ObtenerDoctores();
         public Task<DoctorResponse> ObtenerDoctores(Guid id);
+
+        public Task<Guid> AgregarDoctor(DoctorRequest request);
+        public Task<Guid> Editar(Guid id, DoctorRequest request);
+        public Task<Guid> Eliminar(Guid idDoctor);
+
+
+
     }
 }

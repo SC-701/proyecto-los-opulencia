@@ -66,5 +66,10 @@ namespace Flujo
         {
             return await _citasDA.ObtenerCitasCanceladas();
         }
+
+        public async Task<int> ObtenerConteoCitasDiarias()
+        {
+            return await _citasDA.ObtenerConteoCitasDiarias();
+        }
     }
 }

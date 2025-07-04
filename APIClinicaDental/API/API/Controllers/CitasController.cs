@@ -142,6 +142,13 @@ namespace API.Controllers
 
         }
 
+        [HttpGet("ObtenerCitasDiarias")]
+        public async Task<IActionResult> ObtenerConteoCitasDiarias()
+        {
+            var respuesta = await _citasFlujo.ObtenerConteoCitasDiarias();
+            return Ok(respuesta);
+        }
+
 
         #region HELPERS 
 
@@ -150,6 +157,8 @@ namespace API.Controllers
             var cita = await _citasFlujo.ObtenerCitas(id);
             return cita != null;
         }
+
+
 
 
         #endregion

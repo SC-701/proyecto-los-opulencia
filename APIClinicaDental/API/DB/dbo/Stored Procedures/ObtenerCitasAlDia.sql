@@ -3,7 +3,7 @@
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE ObtenerCitasAlDia
+CREATE PROCEDURE [dbo].[ObtenerCitasAlDia]
 	-- Add the parameters for the stored procedure here
 AS
 BEGIN
@@ -14,7 +14,10 @@ BEGIN
     -- Insert statements for procedure here
 	DECLARE @CitasHoy int
 
-	select @CitasHoy = COUNT(*) from Cita where fecha = GETDATE();
+	SELECT  COUNT(*)
+	FROM Cita
+	WHERE CAST(fecha AS DATE) = 
+	CAST(GETUTCDATE() AT TIME ZONE 'UTC' AT TIME ZONE 'Central America Standard Time' AS DATE);
 
-
+	select @CitasHoy
 END
