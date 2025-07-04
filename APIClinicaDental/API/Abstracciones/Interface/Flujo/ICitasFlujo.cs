@@ -29,6 +29,7 @@ namespace Abstracciones.Interface.Flujo
         public Task<int> ObtenerCitasCompletadas();
 
         public Task<int> ObtenerCitasCanceladas();
+        public Task<int> ObtenerConteoCitasDiarias();
 
 
 
