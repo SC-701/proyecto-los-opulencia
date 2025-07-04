@@ -162,6 +162,15 @@ namespace DA
 
         }
 
+        public async Task<int> ObtenerConteoCitasDiarias()
+        {
+            string query = @"ObtenerCitasAlDia";
+
+            var resultado = await _Sqlconexion.QuerySingleAsync<int>(query);
+
+            return resultado;
+        }
+
         public async Task<int> ObtenerTotalCitas()
         {
             string query = @"ObtenerConteoTotalCitas";
