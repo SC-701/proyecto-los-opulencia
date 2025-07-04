@@ -8,7 +8,7 @@ import ChartLineTwo from '../components/Charts/ChartLineTwo.jsx'
 import PieChartBoard from '../components/Charts/PieChartBoard.jsx'
 import { COLORS, orderStatusData } from '../assets/constants/piechart.js'
 import { columnsCitas } from '../assets/constants/TablaDashboard.jsx'
-import { useCitas, useCitasCanceladas, useCitasCompletadas, useCitasPendientes, useCitasTotal } from "../hooks/useCita.js";
+import { useCitas, useCitasCanceladas, useCitasCompletadas, useCitasDiarias, useCitasPendientes, useCitasTotal } from "../hooks/useCita.js";
 import { editarEstadoCita } from '../services/Citas.js'
 import Agregar from '../components/Botones/Agregar.jsx'
 import ModalAgregar from '../components/Modals/ModalAgregar/ModalAgregar.jsx'
@@ -21,6 +21,7 @@ const Citas = () => {
     const { citasPendientes, cargarCitasPendientes } = useCitasPendientes();
     const { citasCompletadas, cargarCitasCompletadas } = useCitasCompletadas();
     const { citasCanceladas, cargarCitasCanceladas } = useCitasCanceladas();
+
 
     const cargarEstado = async (id, nuevoEstado) => {
         await editarEstadoCita(id, nuevoEstado);

@@ -3,7 +3,7 @@ import { columnsAdministrativos, dataAdministrativos } from '../assets/constants
 import Header from '../components/Header/Header'
 import { motion } from 'framer-motion'
 import Tabla from '../components/Tabla/Tabla'
-import { DataCardAdministrativo } from '../assets/constants/DataCard'
+import { DataCardAdministrativo } from '../assets/constants/DataCard.jsx'
 import DashBoardCard from '../components/Cards/DashBoardCard'
 import PieChartBoard from '../components/Charts/PieChartBoard'
 import { COLORSAdministradores, orderAdministrativos } from '../assets/constants/piechart'

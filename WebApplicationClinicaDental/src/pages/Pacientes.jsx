@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from '../components/Header/Header'
 import { motion } from 'framer-motion'
-import { DataCardPacientes } from '../assets/constants/DataCard.js'
+import { DataCardPacientes } from '../assets/constants/DataCard.jsx'
 import DashBoardCard from '../components/Cards/DashBoardCard.jsx'
 import Tabla from '../components/Tabla/Tabla.jsx'
 import { dataPacientes, columnsPacientes } from '../assets/constants/TablaDashboard.jsx'

@@ -2,19 +2,29 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import Header from '../components/Header/Header.jsx'
 import DashBoardCard from '../components/Cards/DashBoardCard.jsx'
-import { DataCard } from '../assets/constants/DataCard.js'
+import { DataCard } from '../assets/constants/DataCard.jsx'
 import Calendario from '../components/Calendario/Calendario.jsx'
 import Tabla from '../components/Tabla/Tabla.jsx'
 import { data, columns } from '../assets/constants/TablaDashboard.jsx'
 import { eventos, localizer } from '../assets/constants/Calendario.js'
 import LineChartBoard from '../components/Charts/LineChartBoard.jsx'
 import { dataLineChart } from '../assets/constants/Charts.js'
+import { useCitasDiarias } from '../hooks/useCita.js'
 
 
 
 
 
 const Home = () => {
+const { citasDiarias, cargarCitasDiarias } = useCitasDiarias();
+
+    const getDataHomeCard = DataCard({
+        CitasHoy: citasDiarias,
+        pacientes: 0,
+        citasPendientesHoy: 0,
+        facturacionDiaria: 0
+    });
+    
     return (
         <div className='flex-1 overflow-auto relative z-10'>
             <Header title='Inicio' />
@@ -32,7 +42,7 @@ const Home = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1 }}
                 >
-                    {DataCard.map((card, index) => (
+                    {getDataHomeCard.map((card, index) => (
                         <DashBoardCard
                             key={index}
                             nombre={card.nombre}

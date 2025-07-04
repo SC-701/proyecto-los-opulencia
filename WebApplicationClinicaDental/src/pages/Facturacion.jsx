@@ -4,12 +4,21 @@ import Header from '../components/Header/Header.jsx'
 import PieChartBoard from '../components/Charts/PieChartBoard.jsx'
 import { COLORS, COLORSFacturas, COLORSInventario, orderFacturas, orderInventario } from '../assets/constants/piechart.js'
 import DashBoardCard from '../components/Cards/DashBoardCard.jsx'
-import { DataCardFacturacion } from '../assets/constants/DataCard.js'
+import { DataCardFacturacion } from '../assets/constants/DataCard.jsx'
 import ChartLineTwo from '../components/Charts/ChartLineTwo.jsx'
-import { columnsFacturas, dataFacturas } from '../assets/constants/TablaDashboard.jsx'
+import { columnsFacturas } from '../assets/constants/TablaDashboard.jsx'
 import Tabla from '../components/Tabla/Tabla.jsx'
+import { useFacturas } from '../hooks/useFacturas.js'
+import { editarEstadoFacturas } from '../services/Facturas.js'
 
 const Facturacion = () => {
+
+        const { Facturas, cargar } = useFacturas();
+      
+    const cargarEstado = async (id, nuevoEstado) => {
+        await editarEstadoFacturas(id, nuevoEstado);
+    };
+       
   return (
     <div className='flex-1 overflow-auto relative z-10'>
       <Header title='Facturación' />
@@ -59,7 +68,7 @@ const Facturacion = () => {
             <div className='grid grid-cols-1'>
               <div className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6 mt-6'>
                 <h1 className='text-2xl font-bold py-4'>Facturas</h1>
-                <Tabla data={dataFacturas} columns={columnsFacturas} pageSizeInicial={5} />
+                <Tabla data={Facturacion} columns={columnsFacturas(cargarEstado)} pageSizeInicial={5} />
               </div>
             </div>
           </motion.div>
