@@ -108,20 +108,13 @@
     <Build Include="dbo\Stored Procedures\ObtenerConteoCitasCompletas.sql" />
     <Build Include="dbo\Stored Procedures\ObtenerFacturasRealizadas.sql" />
     <Build Include="dbo\Stored Procedures\ObtenerConteoCitasCanceladas.sql" />
-    <Build Include="dbo\Stored Procedures\ObtenerPacientes_1.sql" />
-    <Build Include="dbo\Stored Procedures\ObtenerPaciente_1.sql" />
-    <Build Include="dbo\Stored Procedures\ObtenerFacturas_1.sql" />
-    <Build Include="dbo\Stored Procedures\ObtenerFactura_1.sql" />
-    <Build Include="dbo\Stored Procedures\ObtenerConteoTotalFacturas_1.sql" />
-    <Build Include="dbo\Stored Procedures\ObtenerConteoPendientesFacturas_1.sql" />
-    <Build Include="dbo\Stored Procedures\ObtenerConteoFacturasCompletas_1.sql" />
-    <Build Include="dbo\Stored Procedures\EliminarPaciente_1.sql" />
-    <Build Include="dbo\Stored Procedures\EliminarFactura_1.sql" />
-    <Build Include="dbo\Stored Procedures\EditarPaciente_1.sql" />
-    <Build Include="dbo\Stored Procedures\EditarFacturas_1.sql" />
-    <Build Include="dbo\Stored Procedures\EditarFacturaEstado_1.sql" />
-    <Build Include="dbo\Stored Procedures\AgregarPaciente_1.sql" />
-    <Build Include="dbo\Stored Procedures\AgregarFacturas_1.sql" />
-    <Build Include="dbo\Stored Procedures\AgregarFactura_1.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerCitasAlDiaPendientes.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerCitasAlDiaPacientes.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerConsultorios.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerServicios.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerServicio.sql" />
+    <Build Include="dbo\Stored Procedures\EliminarServicio.sql" />
+    <Build Include="dbo\Stored Procedures\EditarServicio.sql" />
+    <Build Include="dbo\Stored Procedures\AgregarServicio.sql" />
   </ItemGroup>
 </Project>

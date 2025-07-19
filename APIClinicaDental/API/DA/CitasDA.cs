@@ -28,7 +28,7 @@ namespace DA
         {
             var query = @"AgregarCita";
 
-            var idEstado = request.idEstado >= 0  ? 4 : request.idEstado;
+            var idEstado = request.idEstado == 0  ? 4 : request.idEstado;
 
     
             var respuesta = await _Sqlconexion.ExecuteScalarAsync<Guid>(query, new
@@ -169,6 +169,24 @@ namespace DA
             var resultado = await _Sqlconexion.QuerySingleAsync<int>(query);
 
             return resultado;
+        }
+
+        public async Task<IEnumerable<CitasResponse>> ObtenerConteoCitasDiariasPacientes()
+        {
+            string query = @"ObtenerCitasAlDiaPacientes";
+
+            var resultado = await _Sqlconexion.QueryAsync<CitasResponse>(query);
+            return resultado;
+        }
+
+        public async Task<int> ObtenerConteoCitasDiariasPendientes()
+        {
+            string query = @"ObtenerCitasAlDiaPendientes";
+
+            var resultado = await _Sqlconexion.QuerySingleAsync<int>(query);
+
+            return resultado;
+
         }
 
         public async Task<int> ObtenerTotalCitas()
