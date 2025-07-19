@@ -1,4 +1,4 @@
-import { Ban, CalendarCheck, CircleAlert } from "lucide-react";
+import { Ban, CalendarCheck, CircleAlert, Eye,  EyeOff } from "lucide-react";
 
 export const EstadosCitas = {
     estados: [
@@ -34,6 +34,35 @@ export const EstadosCitas = {
     obtenerIcono: (estadoNombre) =>
         EstadosCitas.obtenerElNombre(estadoNombre)?.icono ?? null
 
+}
+
+export const EstadosServicios = {
+    estados: [
+        {
+            nombre: "Activo",
+            color: "bg-green-100 text-green-800",
+            icono: <Eye size={20} className="text-green-500" />,
+            id: 2,
+        },
+        {
+            nombre: "Inactivo",
+            color: "bg-red-100 text-red-800",
+            icono: <EyeOff size={20} className="text-red-500" />,
+            id: 1,
+        }
+    ],
+
+    obtenerElNombre: (nombre) =>
+        EstadosServicios.estados.find((e) => e.nombre === nombre),
+
+    conversionEstado: (estadoNombre) =>
+        EstadosServicios.obtenerElNombre(estadoNombre)?.id ?? null,
+
+    obtenerColor: (estadoNombre) =>
+        EstadosServicios.obtenerElNombre(estadoNombre)?.color ?? "bg-gray-100 text-gray-800",
+
+    obtenerIcono: (estadoNombre) =>
+        EstadosServicios.obtenerElNombre(estadoNombre)?.icono ?? null
 }
 
 
