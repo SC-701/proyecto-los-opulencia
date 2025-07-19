@@ -149,6 +149,19 @@ namespace API.Controllers
             return Ok(respuesta);
         }
 
+        [HttpGet("ObtenerCitasPendientesDiarias")]
+        public async Task<IActionResult> ObtenerConteoCitasDiariasPendientes()
+        {
+            var respuesta = await _citasFlujo.ObtenerConteoCitasDiariasPendientes();
+            return Ok(respuesta);
+        }
+        [HttpGet("ObtenerCitasPacientesDiarias")]
+        public async Task<IActionResult> ObtenerConteoCitasDiariasPacientes()
+        {
+            var respuesta = await _citasFlujo.ObtenerConteoCitasDiariasPacientes();
+            return Ok(respuesta);
+        }
+
 
         #region HELPERS 
 
@@ -157,6 +170,10 @@ namespace API.Controllers
             var cita = await _citasFlujo.ObtenerCitas(id);
             return cita != null;
         }
+
+
+
+
 
 
 

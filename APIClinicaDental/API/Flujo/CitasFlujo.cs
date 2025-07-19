@@ -71,5 +71,15 @@ namespace Flujo
         {
             return await _citasDA.ObtenerConteoCitasDiarias();
         }
+
+        public async Task<int> ObtenerConteoCitasDiariasPendientes()
+        {
+            return await _citasDA.ObtenerConteoCitasDiariasPendientes();
+        }
+
+        public async Task<IEnumerable<CitasResponse>> ObtenerConteoCitasDiariasPacientes()
+        {
+            return await _citasDA.ObtenerConteoCitasDiariasPacientes();
+        }
     }
 }

@@ -3,7 +3,7 @@
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE [dbo].[ObtenerCitasAlDia]
+CREATE PROCEDURE ObtenerConsultorios
 	-- Add the parameters for the stored procedure here
 AS
 BEGIN
@@ -12,12 +12,19 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	DECLARE @CitasHoy int
+	SELECT c.idConsultorio as id,
+	c.nombre as nombre,
+	c.ubicacion as ubicacion,
+	CONCAT(u.nombre  , ' ' ,  u.apellido) as doctor,
+	e.descripcion as Estado 
+	FROM CONSULTORIO c
+	INNER JOIN Estado e
+	ON c.idEstado = e.IdEstado
+	INNER JOIN Doctor d
+	ON c.idDoctor = d.idDoctor
+	INNER JOIN Usuario u
+	ON u.idUsuario = d.idUsuario;
 
-	SELECT @CitasHoy =  COUNT(*)
-	FROM Cita
-	WHERE CAST(fecha AS DATE) = 
-	CAST(GETUTCDATE() AT TIME ZONE 'UTC' AT TIME ZONE 'Central America Standard Time' AS DATE);
 
-	select @CitasHoy
+
 END

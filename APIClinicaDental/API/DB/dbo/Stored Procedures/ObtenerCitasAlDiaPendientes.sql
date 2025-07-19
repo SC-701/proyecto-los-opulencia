@@ -3,7 +3,7 @@
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE [dbo].[ObtenerCitasAlDia]
+CREATE PROCEDURE [dbo].[ObtenerCitasAlDiaPendientes]
 	-- Add the parameters for the stored procedure here
 AS
 BEGIN
@@ -12,12 +12,12 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	DECLARE @CitasHoy int
+	DECLARE @CitasHoyPendiente int
 
-	SELECT @CitasHoy =  COUNT(*)
+	SELECT  @CitasHoyPendiente =  COUNT(*)
 	FROM Cita
-	WHERE CAST(fecha AS DATE) = 
+	WHERE idEstado = 4 and CAST(fecha AS DATE) = 
 	CAST(GETUTCDATE() AT TIME ZONE 'UTC' AT TIME ZONE 'Central America Standard Time' AS DATE);
 
-	select @CitasHoy
+	select @CitasHoyPendiente
 END

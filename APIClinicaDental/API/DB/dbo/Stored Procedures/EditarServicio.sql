@@ -3,8 +3,12 @@
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE [dbo].[ObtenerConteoPendientesFacturas]
-
+CREATE PROCEDURE EditarServicio
+	@id uniqueidentifier,
+	@nombre varchar(50),
+	@descripcion varchar(100),
+	@precio decimal(10,2),
+	@idEstado int
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -12,10 +16,14 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	DECLARE @GuardarFacPendientes int
+	UPDATE [dbo].[Servicio]
+			  SET 
+			    [nombre] = @nombre
+			   ,[descripcion] = @descripcion
+			   ,[precio] = @precio
+			   ,[idEstado] = @idEstado 
+		 WHERE
+			   [idServicio] = @id
 
-select  @GuardarFacPendientes = COUNT(*) from Factura where idEstado = 4;
 
-select @GuardarFacPendientes;
-	 
 END

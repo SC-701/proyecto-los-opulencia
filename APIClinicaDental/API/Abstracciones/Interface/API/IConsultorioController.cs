@@ -1,10 +1,5 @@
-﻿using Abstracciones.Models;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
+
 
 namespace Abstracciones.Interface.API
 {
@@ -12,13 +7,13 @@ namespace Abstracciones.Interface.API
     {
         public Task<IActionResult> ObtenerConsultorio();
 
-        public Task<IActionResult> ObtenerConsultorio(Guid idConsultorio);
+        //public Task<IActionResult> ObtenerConsultorio(Guid idConsultorio);
 
-        public Task<IActionResult> AgregarConsultorio(ConsultorioRequest request);
+        //public Task<IActionResult> AgregarConsultorio(ConsultorioRequest request);
         
-        public Task<IActionResult> EditarConsultorio(Guid id, ConsultorioRequest request);
+        //public Task<IActionResult> EditarConsultorio(Guid id, ConsultorioRequest request);
         
-        public Task<IActionResult> EliminarConsultorio(Guid idConsultorio);
+        //public Task<IActionResult> EliminarConsultorio(Guid idConsultorio);
 
     }
 }
