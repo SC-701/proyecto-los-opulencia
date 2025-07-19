@@ -21,9 +21,6 @@ export const useTabla = (data, columns, pageSizeInicial = 10) => {
         state: {
             pagination, 
         },
-        autoResetPageIndex: false,
-        autoResetFilters: false,
-        autoResetSorting: false,
     })
 
     return {

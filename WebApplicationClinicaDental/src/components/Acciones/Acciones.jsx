@@ -3,8 +3,9 @@ import React from 'react'
 import { EstadosCitas } from '../../assets/constants/Estados';
 
 
-const Acciones = ({ manager, estado, onToggleEstado, onEditar, modalName }) => {
-    const iconosEstado = manager?.obtenerIcono(estado);
+const Acciones = ({ estado, onToggleEstado, onEditar}) => {
+    const iconosEstado = EstadosCitas.obtenerIcono(estado);
+
     return (
         <div className='flex gap-2'>
             <button
@@ -15,15 +16,14 @@ const Acciones = ({ manager, estado, onToggleEstado, onEditar, modalName }) => {
                 {iconosEstado}
             </button>
 
-
-            <label htmlFor={modalName}
-                onClick={onEditar}
+            <button
                 className="px-2 py-1 transition-transform duration-300 delay-100 ease-in-out hover:scale-110"
-                title="Editar cita"
+                onClick={onEditar}
                 style={{ cursor: "pointer" }}
-
-            ><SquarePen size={20} className="text-blue-500" /></label>
-
+                title="Editar cita"
+            >
+                <SquarePen size={20} className="text-blue-500" />
+            </button>
         </div>
     )
 }

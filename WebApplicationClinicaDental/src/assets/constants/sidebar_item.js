@@ -1,6 +1,5 @@
 import {
   ChartNoAxesCombined,
-  Contact,
   HeartPlus,
   House,
   NotebookPen,
@@ -33,12 +32,6 @@ export const sidebar_item = [
     icon: PackageOpen,
     color: "#375CA6",
     path: "/Inventario",
-  },
-  {
-    nombre: "Servicios",
-    icon: Contact,
-    color: "#375CA6",
-    path: "/Servicios",
   },
   {
     nombre: "Administrativos",
