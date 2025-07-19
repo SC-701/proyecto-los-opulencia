@@ -2,47 +2,29 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import Header from '../components/Header/Header.jsx'
 import DashBoardCard from '../components/Cards/DashBoardCard.jsx'
-import { DataCard } from '../utils/utilsHome.js'
-import Calendario from '../components/Calendario/Calendario'
+import { DataCard } from '../assets/constants/DataCard.jsx'
+import Calendario from '../components/Calendario/Calendario.jsx'
 import Tabla from '../components/Tabla/Tabla.jsx'
-import { columns } from '../assets/constants/TablaDashboard.jsx'
-import { eventos, localizer } from '../assets/constants/Calendario.jsx'
+import { data, columns } from '../assets/constants/TablaDashboard.jsx'
+import { eventos, localizer } from '../assets/constants/Calendario.js'
 import LineChartBoard from '../components/Charts/LineChartBoard.jsx'
 import { dataLineChart } from '../assets/constants/Charts.js'
-import { useCitas, useCitasDiarias, useCitasDiariasPacientes, useCitasDiariasPendientes } from '../hooks/useCita.js'
-import { editarEstadoCita } from '../services/Citas.js'
+import { useCitasDiarias } from '../hooks/useCita.js'
 
 
 
 
 
 const Home = () => {
-    const { citasDiariasPacientes, cargarCitasDiariasPacientes } = useCitasDiariasPacientes();
-    const { citasDiarias, cargarCitasDiarias } = useCitasDiarias();
-    const { citasDiariasPendientes, cargarCitasDiariasPendientes } = useCitasDiariasPendientes();
-    const { citas, cargar } = useCitas();
+const { citasDiarias, cargarCitasDiarias } = useCitasDiarias();
 
     const getDataHomeCard = DataCard({
         CitasHoy: citasDiarias,
         pacientes: 0,
-        citasPendientesHoy: citasDiariasPendientes,
+        citasPendientesHoy: 0,
         facturacionDiaria: 0
     });
-
-    const cargarEstado = async (id, nuevoEstado) => {
-        await editarEstadoCita(id, nuevoEstado);
-        await cargarCitasDiarias();
-        await cargarCitasDiariasPacientes();
-        await cargarCitasDiariasPendientes();
-    };
-
-    const eventosCalendario = citas.map((cita) => ({
-        title:cita.paciente + ' ' + cita.servicio,
-        start: new Date(cita.fecha),
-        end: new Date(cita.fecha),
-    }));
-
-
+    
     return (
         <div className='flex-1 overflow-auto relative z-10'>
             <Header title='Inicio' />
@@ -79,11 +61,11 @@ const Home = () => {
                     <div className='grid grid-cols-1 md:grid-cols-2 gap-6 sm:grid-cols-1'>
                         <div className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6'>
                             <h1 className='text-2xl font-bold py-4'>Citas del dia</h1>
-                            <Tabla data={citasDiariasPacientes} columns={columns(cargarEstado)} pageSizeInicial={5} />
+                            <Tabla data={data} columns={columns}/>
                         </div>
                         <div className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6'>
                             <h1 className='text-2xl font-bold py-4'>Calendario</h1>
-                            <Calendario eventos={eventosCalendario} localizer={localizer} />
+                            <Calendario eventos={eventos} localizer={localizer} />
                         </div>
                     </div>
                 </motion.div>
@@ -92,8 +74,8 @@ const Home = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1 }}
                 >
-                    <div
-                        className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6 mt-6'
+                    <div 
+                    className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6 mt-6'
                     >
                         <h1 className='text-2xl font-bold py-4'>Facturación Diaria</h1>
                         <LineChartBoard data={dataLineChart} />

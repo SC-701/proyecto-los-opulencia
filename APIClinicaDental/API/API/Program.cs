@@ -30,12 +30,16 @@ builder.Services.AddScoped<ICitasDA, CitasDA>();
 builder.Services.AddScoped<IFacturasDA, FacturasDA>();
 builder.Services.AddScoped<IPacientesDA, PacientesDA>();
 builder.Services.AddScoped<IDoctoresDA, DoctoresDA>();
+builder.Services.AddScoped<IConsultorioDA, ConsultorioDA>();
+builder.Services.AddScoped<IServicioDA, ServicioDA>();
 
 //Inyecciones de Flujo
 builder.Services.AddScoped<ICitasFlujo, CitasFlujo>();
 builder.Services.AddScoped<IFacturasFlujo, FacturasFlujo>();
 builder.Services.AddScoped<IPacienteFlujo, PacientesFlujo>();
 builder.Services.AddScoped<IDoctoresFlujo, DoctoresFlujo>();
+builder.Services.AddScoped<IConsultorioFlujo, ConsultorioFlujo>();
+builder.Services.AddScoped<IServicioFlujo, ServiciosFlujo>();
 
 var app = builder.Build();
 

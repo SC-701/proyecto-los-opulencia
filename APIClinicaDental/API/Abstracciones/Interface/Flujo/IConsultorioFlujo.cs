@@ -11,12 +11,12 @@ namespace Abstracciones.Interface.Flujo
     {
         public Task<IEnumerable<ConsultorioResponse>> ObtenerConsultorio();
 
-        public Task<ConsultorioResponse> ObtenerConsultorio(Guid id);
+        //public Task<ConsultorioResponse> ObtenerConsultorio(Guid id);
 
-        public Task<Guid> AgregarConsultorio(ConsultorioRequest request);
+        //public Task<Guid> AgregarConsultorio(ConsultorioRequest request);
 
-        public Task<Guid> EditarConsultorio(Guid id, ConsultorioRequest request);
+        //public Task<Guid> EditarConsultorio(Guid id, ConsultorioRequest request);
 
-        public Task<Guid> EliminarConsultorio(Guid idConsultorio);
+        //public Task<Guid> EliminarConsultorio(Guid idConsultorio);
     }
 }

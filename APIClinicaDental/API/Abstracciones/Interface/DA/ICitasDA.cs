@@ -29,7 +29,8 @@ namespace Abstracciones.Interface.DA
 
         public Task<int> ObtenerCitasCanceladas();
         public Task<int> ObtenerConteoCitasDiarias();
-
+        public Task<int> ObtenerConteoCitasDiariasPendientes();
+        public Task<IEnumerable<CitasResponse>> ObtenerConteoCitasDiariasPacientes();
 
 
 

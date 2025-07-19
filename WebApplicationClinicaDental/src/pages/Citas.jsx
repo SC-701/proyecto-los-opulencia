@@ -1,3 +1,4 @@
+import React from 'react'
 import Header from '../components/Header/Header'
 import { motion } from 'framer-motion'
 import { DataCardCitas } from '../utils/utilsCitas.js'
@@ -7,22 +8,19 @@ import ChartLineTwo from '../components/Charts/ChartLineTwo.jsx'
 import PieChartBoard from '../components/Charts/PieChartBoard.jsx'
 import { COLORS, orderStatusData } from '../assets/constants/piechart.js'
 import { columnsCitas } from '../assets/constants/TablaDashboard.jsx'
-import { useCitas, useCitasCanceladas, useCitasCompletadas, useCitasPendientes, useCitasTotal } from "../hooks/useCita.js";
+import { useCitas, useCitasCanceladas, useCitasCompletadas, useCitasDiarias, useCitasPendientes, useCitasTotal } from "../hooks/useCita.js";
 import { editarEstadoCita } from '../services/Citas.js'
 import Agregar from '../components/Botones/Agregar.jsx'
-import ModalAgregar from '../components/Modals/ModalAgregarCitas/ModalAgregar.jsx'
+import ModalAgregar from '../components/Modals/ModalAgregar/ModalAgregar.jsx'
 import { CirclePlus } from 'lucide-react'
-import ModalEditar from '../components/Modals/ModalEditarCitas/ModalEditar.jsx'
-import { useState } from 'react'
 
 
 const Citas = () => {
     const { citas, cargar } = useCitas();
-    const { totalCitas, cargarTotalCitas } = useCitasTotal();
+    const { totalCitas } = useCitasTotal();
     const { citasPendientes, cargarCitasPendientes } = useCitasPendientes();
     const { citasCompletadas, cargarCitasCompletadas } = useCitasCompletadas();
     const { citasCanceladas, cargarCitasCanceladas } = useCitasCanceladas();
-    const [citaSeleccionada, setCitaSeleccionada] = useState([])
 
 
     const cargarEstado = async (id, nuevoEstado) => {
@@ -39,18 +37,6 @@ const Citas = () => {
         citasCompletadas: citasCompletadas,
         citasCanceladas: citasCanceladas
     });
-
-        const handleSuccess = async () => {
-        await cargar();
-        await cargarCitasPendientes();
-        await cargarTotalCitas();
-    };
-
-    const handleCitaClick = (idCita) => {
-        const cita = citas.find(c=> c.idCita == idCita)
-        setCitaSeleccionada(cita)
-    }
-
 
     return (
         <div className='flex-1 overflow-auto relative z-10'>
@@ -105,13 +91,12 @@ const Citas = () => {
                                 <Agregar icon={<CirclePlus />} title="Agregar Cita" modalName="my_modal_6" />
                             </div>
 
-                            <Tabla data={citas} columns={columnsCitas(cargarEstado, handleCitaClick)} />
+                            <Tabla data={citas} columns={columnsCitas(cargarEstado)} />
                         </div>
                     </div>
                 </motion.div>
-                <ModalAgregar idModal="my_modal_6" onSuccess={handleSuccess} />
-                <ModalEditar idModal="my_modal_edit" Cita={citaSeleccionada}  />
-                
+                <ModalAgregar idModal="my_modal_6" />
+
             </main>
 
 

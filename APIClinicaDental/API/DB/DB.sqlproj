@@ -102,5 +102,19 @@
     <Build Include="dbo\Stored Procedures\ObtenerDoctores.sql" />
     <Build Include="dbo\Stored Procedures\ObtenerDoctor.sql" />
     <Build Include="dbo\Stored Procedures\ObtenerCitasAlDia.sql" />
+    <Build Include="dbo\Stored Procedures\EditarCitaEstado.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerConteoTotalCitas.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerConteoPendientesCitas.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerConteoCitasCompletas.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerFacturasRealizadas.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerConteoCitasCanceladas.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerCitasAlDiaPendientes.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerCitasAlDiaPacientes.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerConsultorios.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerServicios.sql" />
+    <Build Include="dbo\Stored Procedures\ObtenerServicio.sql" />
+    <Build Include="dbo\Stored Procedures\EliminarServicio.sql" />
+    <Build Include="dbo\Stored Procedures\EditarServicio.sql" />
+    <Build Include="dbo\Stored Procedures\AgregarServicio.sql" />
   </ItemGroup>
 </Project>
