@@ -52,3 +52,8 @@ export const AgregarCita = async (data) => {
     const response = await axios.post(citas, data);
     return response.data;
 }
+
+export const editarCita = async (data, id) => {
+    const response = await axios.put(`${citas}/${id}`, data);
+    return response.data;
+}

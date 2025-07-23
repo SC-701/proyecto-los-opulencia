@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import Header from '../components/Header/Header.jsx'
 import DashBoardCard from '../components/Cards/DashBoardCard.jsx'
@@ -12,6 +12,8 @@ import { dataLineChart } from '../assets/constants/Charts.js'
 import { useCitas, useCitasDiarias, useCitasDiariasPacientes, useCitasDiariasPendientes } from '../hooks/useCita.js'
 import { editarEstadoCita } from '../services/Citas.js'
 
+import ModalEditar from '../components/Modals/ModalEditarCitas/ModalEditar.jsx'
+
 
 
 
@@ -21,6 +23,8 @@ const Home = () => {
     const { citasDiarias, cargarCitasDiarias } = useCitasDiarias();
     const { citasDiariasPendientes, cargarCitasDiariasPendientes } = useCitasDiariasPendientes();
     const { citas, cargar } = useCitas();
+    const [citaSeleccionada, setCitaSeleccionada] = useState([])
+
 
     const getDataHomeCard = DataCard({
         CitasHoy: citasDiarias,
@@ -36,11 +40,23 @@ const Home = () => {
         await cargarCitasDiariasPendientes();
     };
 
+    const handleSuccess = async () => {
+        await cargar();
+        await cargarCitasDiarias();
+        await cargarCitasDiariasPacientes();
+        await cargarCitasDiariasPendientes();
+    };
+
     const eventosCalendario = citas.map((cita) => ({
-        title:cita.paciente + ' ' + cita.servicio,
+        title: cita.paciente + ' ' + cita.servicio,
         start: new Date(cita.fecha),
         end: new Date(cita.fecha),
     }));
+
+    const handleCitaClick = (idCita) => {
+        const cita = citas.find(c => c.idCita == idCita)
+        setCitaSeleccionada(cita)
+    }
 
 
     return (
@@ -79,7 +95,7 @@ const Home = () => {
                     <div className='grid grid-cols-1 md:grid-cols-2 gap-6 sm:grid-cols-1'>
                         <div className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6'>
                             <h1 className='text-2xl font-bold py-4'>Citas del dia</h1>
-                            <Tabla data={citasDiariasPacientes} columns={columns(cargarEstado)} pageSizeInicial={5} />
+                            <Tabla data={citasDiariasPacientes} columns={columns(cargarEstado, handleCitaClick)} pageSizeInicial={5} />
                         </div>
                         <div className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6'>
                             <h1 className='text-2xl font-bold py-4'>Calendario</h1>
@@ -100,6 +116,8 @@ const Home = () => {
                     </div>
 
                 </motion.div>
+                <ModalEditar idModal="my_modal_edit" Cita={citaSeleccionada} onSuccess={handleSuccess} />
+
 
             </main>
         </div>

@@ -1,4 +1,4 @@
-import { AgregarCita, editarEstadoCita, obtenerCitas, obtenerCitasCanceladas, ObtenerCitasCompletadas, obtenerCitasDiarias, ObtenerCitasDiariasPacientes, obtenerCitasDiariasPendientes, obtenerCitasPendientes, obtenerTotalCitas } from "../services/Citas";
+import { AgregarCita, editarCita, editarEstadoCita, obtenerCitas, obtenerCitasCanceladas, ObtenerCitasCompletadas, obtenerCitasDiarias, ObtenerCitasDiariasPacientes, obtenerCitasDiariasPendientes, obtenerCitasPendientes, obtenerTotalCitas } from "../services/Citas";
 import React, { useState, useEffect } from 'react';
 
 
@@ -180,4 +180,18 @@ export const useCitasAgregar = () => {
     };
 
     return { agregarCita };
+};
+
+
+export const useCitasEditar = () => {
+    const editarCitaSub = async (data, id) => {
+        try {
+            const response = await editarCita(data, id);
+            return response;
+        } catch (err) {
+            console.error('Error al editar cita', err);
+        }
+    };
+
+    return { editarCitaSub };
 };

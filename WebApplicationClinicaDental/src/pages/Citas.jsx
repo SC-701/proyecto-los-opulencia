@@ -110,7 +110,7 @@ const Citas = () => {
                     </div>
                 </motion.div>
                 <ModalAgregar idModal="my_modal_6" onSuccess={handleSuccess} />
-                <ModalEditar idModal="my_modal_edit" Cita={citaSeleccionada}  />
+                <ModalEditar idModal="my_modal_edit" Cita={citaSeleccionada} onSuccess={handleSuccess}  />
                 
             </main>
 

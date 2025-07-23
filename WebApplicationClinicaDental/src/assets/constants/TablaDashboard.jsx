@@ -9,7 +9,7 @@ import ModalEditar from "../../components/Modals/ModalEditarCitas/ModalEditar.js
 //!Tabla Dashboard
 const columnHelper = createColumnHelper();
 
-export const columns = (editarEstadoCita, handleCitaClick) =>
+export const columns = (editarEstadoCita, onEditarClick) =>
     [
         columnHelper.accessor("paciente", {
             header: "Paciente"
@@ -48,13 +48,13 @@ export const columns = (editarEstadoCita, handleCitaClick) =>
                         manager={EstadosCitas}
                         estado={estado}
                         onToggleEstado={() => editarEstadoCita(idCita, EstadosCitas.conversionEstado(estado))}
-                        onEditar={() => handleCitaClick(idCita)}
+                        onEditar={() => onEditarClick(idCita)}
                         modalName="my_modal_edit"
                     />
                 )
             },
         })
-    ] 
+    ]
 
 
 export const columnsServicios = () => [
@@ -186,7 +186,7 @@ export const dataInventario = [
 
 
 //! Columnas Tabla Citas
-export const columnsCitas = (editarEstadoCita, onEditarClick ) =>
+export const columnsCitas = (editarEstadoCita, onEditarClick) =>
     [
         columnHelper.accessor("paciente", {
             header: "Paciente"
@@ -222,20 +222,20 @@ export const columnsCitas = (editarEstadoCita, onEditarClick ) =>
                 const { idCita, estado } = row.original;
                 return (
                     <>
-                    <Acciones
-                        manager={EstadosCitas}
-                        estado={estado}
-                        onToggleEstado={() => editarEstadoCita(idCita, EstadosCitas.conversionEstado(estado))}
-                        onEditar={() => onEditarClick(idCita)}
-                        modalName="my_modal_edit"
-                    />
+                        <Acciones
+                            manager={EstadosCitas}
+                            estado={estado}
+                            onToggleEstado={() => editarEstadoCita(idCita, EstadosCitas.conversionEstado(estado))}
+                            onEditar={() => onEditarClick(idCita)}
+                            modalName="my_modal_edit"
+                        />
 
                     </>
                 )
             },
         })
     ]
-    
+
 
 
 
