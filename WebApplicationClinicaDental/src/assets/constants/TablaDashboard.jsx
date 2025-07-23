@@ -1,34 +1,77 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import Acciones from "../../components/Acciones/Acciones";
-import { EstadoFacturacion, EstadosCitas } from "./Estados.jsx";
+import { EstadoFacturacion, EstadosCitas, EstadosServicios } from "./Estados.jsx";
 import { Ban, CalendarCheck, CircleAlert } from "lucide-react";
+import ModalEditar from "../../components/Modals/ModalEditarCitas/ModalEditar.jsx";
 
 
 
 //!Tabla Dashboard
 const columnHelper = createColumnHelper();
 
-export const columns = [
-    columnHelper.accessor("paciente", {
-        header: "Paciente",
-        cell: (data) => data.getValue(),
-    }),
-    columnHelper.accessor("hora", {
-        header: "Hora",
-    }),
-    columnHelper.accessor("servicio", {
+export const columns = (editarEstadoCita, onEditarClick) =>
+    [
+        columnHelper.accessor("paciente", {
+            header: "Paciente"
+        }),
+        columnHelper.accessor("servicio", {
+            header: "Servicio"
+        }),
+        columnHelper.accessor("doctor", {
+            header: "Doctor"
+        }),
+        columnHelper.accessor("fecha", {
+            header: "Fecha"
+        }),
+        columnHelper.accessor("hora", {
+            header: "Hora"
+        }),
+        columnHelper.accessor("estado", {
+            header: "Estado",
+            cell: ({ getValue }) => {
+                const estado = getValue();
+                const color = EstadosCitas.obtenerColor(estado);
+
+                return (
+                    <span className={`px-2 py-1 rounded text-xs font-semibold ${color}`}>
+                        {estado}
+                    </span>
+                );
+            },
+        }),
+        columnHelper.accessor("acciones", {
+            header: "Acciones",
+            cell: ({ row }) => {
+                const { idCita, estado } = row.original;
+                return (
+                    <Acciones
+                        manager={EstadosCitas}
+                        estado={estado}
+                        onToggleEstado={() => editarEstadoCita(idCita, EstadosCitas.conversionEstado(estado))}
+                        onEditar={() => onEditarClick(idCita)}
+                        modalName="my_modal_edit"
+                    />
+                )
+            },
+        })
+    ]
+
+
+export const columnsServicios = () => [
+    columnHelper.accessor("nombre", {
         header: "Servicio",
+    }),
+    columnHelper.accessor("descripcion", {
+        header: "Descripción",
+    }),
+    columnHelper.accessor("precio", {
+        header: "Costo",
     }),
     columnHelper.accessor("estado", {
         header: "Estado",
         cell: ({ getValue }) => {
             const estado = getValue();
-            const color =
-                {
-                    Confirmada: "bg-green-100 text-green-800",
-                    Pendiente: "bg-yellow-100 text-yellow-800",
-                    Cancelada: "bg-red-100 text-red-800",
-                }[estado] || "bg-gray-100 text-gray-800";
+            const color = EstadosServicios.obtenerColor(estado);
 
             return (
                 <span className={`px-2 py-1 rounded text-xs font-semibold ${color}`}>
@@ -37,7 +80,22 @@ export const columns = [
             );
         },
     }),
-];
+    columnHelper.accessor("acciones", {
+        header: "Acciones",
+        cell: ({ row }) => {
+            const { id, estado } = row.original;
+            return (
+                <Acciones
+                    manager={EstadosServicios}
+                    estado={estado}
+                    onToggleEstado={() => editarEstadoServicio(id, EstadosServicios.conversionEstado(estado))}
+                    onEditar={() => console.log(`Editar servicio con ID: ${id}`)}
+
+                />
+            )
+        },
+    })
+]
 
 const columnHelperInventario = createColumnHelper();
 export const columnsInventario = [
@@ -79,33 +137,8 @@ export const columnsInventario = [
 
 
 
-//! Info Tabla Dashboard
-export const data = [
-    {
-        paciente: "Juan Pérez",
-        hora: "09:00 AM",
-        servicio: "Limpieza dental",
-        estado: "Confirmada",
-    },
-    {
-        paciente: "María López",
-        hora: "10:30 AM",
-        servicio: "Extracción",
-        estado: "Pendiente",
-    },
-    {
-        paciente: "Carlos Ruiz",
-        hora: "12:00 PM",
-        servicio: "Revisión",
-        estado: "Cancelada",
-    },
-    {
-        paciente: "Ana Torres",
-        hora: "02:00 PM",
-        servicio: "Ortodoncia",
-        estado: "Confirmada",
-    },
-];
+
+
 
 //! Info Tabla Inventario
 export const dataInventario = [
@@ -153,7 +186,7 @@ export const dataInventario = [
 
 
 //! Columnas Tabla Citas
-export const columnsCitas = (editarEstadoCita) =>
+export const columnsCitas = (editarEstadoCita, onEditarClick) =>
     [
         columnHelper.accessor("paciente", {
             header: "Paciente"
@@ -188,15 +221,21 @@ export const columnsCitas = (editarEstadoCita) =>
             cell: ({ row }) => {
                 const { idCita, estado } = row.original;
                 return (
-                    <Acciones
-                        estado={estado}
-                        onToggleEstado={() => editarEstadoCita(idCita, EstadosCitas.conversionEstado(estado))}
-                        onEditar={() => console.log(`Editar cita con ID: ${idCita}`)}
-                    />
+                    <>
+                        <Acciones
+                            manager={EstadosCitas}
+                            estado={estado}
+                            onToggleEstado={() => editarEstadoCita(idCita, EstadosCitas.conversionEstado(estado))}
+                            onEditar={() => onEditarClick(idCita)}
+                            modalName="my_modal_edit"
+                        />
+
+                    </>
                 )
             },
         })
     ]
+
 
 
 
@@ -215,7 +254,7 @@ export const columnsFacturas = (editarEstadoFactura) =>
             cell: ({ getValue }) => {
                 const estado = getValue();
                 const color = EstadoFacturacion.obtenerColor(estado);
-    
+
                 return (
                     <span className={`px-2 py-1 rounded text-xs font-semibold ${color}`}>
                         {estado}
@@ -238,20 +277,20 @@ export const columnsFacturas = (editarEstadoFactura) =>
         })
     ]
 
-    
-            columnHelper.accessor("acciones", {
-                header: "Acciones",
-                cell: ({ row }) => {
-                    const { idCita, estado } = row.original;
-                    return (
-                        <Acciones
-                            estado={estado}
-                            onToggleEstado={() => editarEstadoCita(idCita, EstadosCitas.conversionEstado(estado))}
-                            onEditar={() => console.log(`Editar cita con ID: ${idCita}`)}
-                        />
-                    )
-                },
-            })
+
+columnHelper.accessor("acciones", {
+    header: "Acciones",
+    cell: ({ row }) => {
+        const { idCita, estado } = row.original;
+        return (
+            <Acciones
+                estado={estado}
+                onToggleEstado={() => editarEstadoCita(idCita, EstadosCitas.conversionEstado(estado))}
+                onEditar={() => console.log(`Editar cita con ID: ${idCita}`)}
+            />
+        )
+    },
+})
 
 
 
