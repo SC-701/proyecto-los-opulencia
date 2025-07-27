@@ -22,7 +22,7 @@ const Citas = () => {
     const { citasPendientes, cargarCitasPendientes } = useCitasPendientes();
     const { citasCompletadas, cargarCitasCompletadas } = useCitasCompletadas();
     const { citasCanceladas, cargarCitasCanceladas } = useCitasCanceladas();
-    const [citaSeleccionada, setCitaSeleccionada] = useState([])
+    const [citaSeleccionada, setCitaSeleccionada] = useState(null)
 
 
     const cargarEstado = async (id, nuevoEstado) => {
@@ -110,7 +110,9 @@ const Citas = () => {
                     </div>
                 </motion.div>
                 <ModalAgregar idModal="my_modal_6" onSuccess={handleSuccess} />
-                <ModalEditar idModal="my_modal_edit" Cita={citaSeleccionada} onSuccess={handleSuccess}  />
+                {citaSeleccionada && (
+                    <ModalEditar idModal="my_modal_edit" Cita={citaSeleccionada} onSuccess={handleSuccess}  />
+                )}
                 
             </main>
 

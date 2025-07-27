@@ -37,6 +37,11 @@ const ModalEditar = ({ idModal, Cita, onSuccess }) => {
 
 
     useEffect(() => {
+        // Puse esto para solo actualizar el state si hay datos
+        if (!Cita || !Cita.idCita || servicios.length === 0 || doctores.length === 0 || pacientes.length === 0 || consultorios.length === 0) {
+            return;
+        }
+
         const fechaISO = Cita.fecha
             ? new Date(Cita.fecha).toISOString().split('T')[0]
             : '';
