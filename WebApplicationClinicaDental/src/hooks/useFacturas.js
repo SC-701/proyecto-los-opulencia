@@ -1,5 +1,5 @@
-import { useEffect } from "react"
-import { editarEstadoFacturas, obtenerFacturas } from "../services/Facturas";
+import React, { useState, useEffect } from 'react';
+import { AgregarFactura, editarFactura ,editarEstadoFacturas, obtenerFacturas, obtenerTotalFacturas } from "../services/Facturas";
 
 
 export const useFacturas = () => {
@@ -34,3 +34,49 @@ export const useFacturasEditarEstado = () => {
 
     return { editarEstado };
 };
+
+export const useFacturasEditar = () => {
+    const editarFacturaSub = async (data, id) => {
+        try {
+            const response = await editarFactura(data, id);
+            return response;
+        } catch (err) {
+            console.error('Error al editar factura', err);
+        }
+    };
+
+    return { editarFacturaSub };
+};
+
+export const useFacturasTotal = () => {
+    const [TotalFacturas, setTotalFacturas] = useState(0);
+    
+    const cargarTotalFacturas = async () => {
+        try {
+            const response = await obtenerTotalFacturas();
+            setTotalFacturas(response);
+        } catch (err) {
+            console.error('Error al cargar total de facturas', err);
+        }
+    };
+
+    useEffect(() => {
+        cargarTotalFacturas();
+    }, []);
+
+    return { TotalFacturas, cargarTotalFacturas };
+};
+
+export const useFacturasAgregar = () => {
+    const agregarFactura = async (data) => {
+        try {
+            const response = await AgregarFactura(data);
+            return response;
+        } catch (err) {
+            console.error('Error al agregar factura', err);
+        }
+    };
+
+    return { agregarFactura };
+};
+
