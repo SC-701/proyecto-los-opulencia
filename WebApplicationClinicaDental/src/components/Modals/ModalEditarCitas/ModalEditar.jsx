@@ -37,10 +37,14 @@ const ModalEditar = ({ idModal, Cita, onSuccess }) => {
 
 
     useEffect(() => {
+        if (!Cita || !Cita.idCita || servicios.length === 0 || doctores.length === 0 || pacientes.length === 0 || consultorios.length === 0) {
+            return;
+        }
+
         const fechaISO = Cita.fecha
             ? new Date(Cita.fecha).toISOString().split('T')[0]
             : '';
-            
+
         const idServ = servicios.find(s => s.nombre === Cita.servicio)?.id ?? '-1';
         const idDoc = doctores.find(d => {
             const fullName = `${d.nombre} ${d.apellido}`.trim();

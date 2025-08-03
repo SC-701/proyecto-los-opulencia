@@ -7,13 +7,14 @@ import ChartLineTwo from '../components/Charts/ChartLineTwo.jsx'
 import PieChartBoard from '../components/Charts/PieChartBoard.jsx'
 import { COLORS, orderStatusData } from '../assets/constants/piechart.js'
 import { columnsCitas } from '../assets/constants/TablaDashboard.jsx'
-import { useCitas, useCitasCanceladas, useCitasCompletadas, useCitasPendientes, useCitasTotal } from "../hooks/useCita.js";
+import { useCitas, useCitasCanceladas, useCitasCompletadas, useCitasPendientes, useCitasPorFecha, useCitasTotal } from "../hooks/useCita.js";
 import { editarEstadoCita } from '../services/Citas.js'
 import Agregar from '../components/Botones/Agregar.jsx'
 import ModalAgregar from '../components/Modals/ModalAgregarCitas/ModalAgregar.jsx'
 import { CirclePlus } from 'lucide-react'
 import ModalEditar from '../components/Modals/ModalEditarCitas/ModalEditar.jsx'
 import { useState } from 'react'
+import ModalInfoExtraCitas from '../components/Modals/ModalInfoExtraCitas/ModalInfoExtraCita.jsx'
 
 
 const Citas = () => {
@@ -22,7 +23,8 @@ const Citas = () => {
     const { citasPendientes, cargarCitasPendientes } = useCitasPendientes();
     const { citasCompletadas, cargarCitasCompletadas } = useCitasCompletadas();
     const { citasCanceladas, cargarCitasCanceladas } = useCitasCanceladas();
-    const [citaSeleccionada, setCitaSeleccionada] = useState([])
+    const [citaSeleccionada, setCitaSeleccionada] = useState(null)
+    const { citasPorFecha, cargarCitasPorFecha } = useCitasPorFecha();
 
 
     const cargarEstado = async (id, nuevoEstado) => {
@@ -33,6 +35,14 @@ const Citas = () => {
         await cargarCitasCanceladas();
     };
 
+
+
+    const dailyOrdersData = citasPorFecha
+        .map(({ fecha, cantidad }) => ({
+            date: fecha,
+            orders: cantidad
+        }));
+
     const getDataCardCitas = DataCardCitas({
         totalCitas: totalCitas,
         citasPendientes: citasPendientes,
@@ -40,14 +50,14 @@ const Citas = () => {
         citasCanceladas: citasCanceladas
     });
 
-        const handleSuccess = async () => {
+    const handleSuccess = async () => {
         await cargar();
         await cargarCitasPendientes();
         await cargarTotalCitas();
     };
 
     const handleCitaClick = (idCita) => {
-        const cita = citas.find(c=> c.idCita == idCita)
+        const cita = citas.find(c => c.idCita == idCita)
         setCitaSeleccionada(cita)
     }
 
@@ -85,11 +95,11 @@ const Citas = () => {
                     <div className='grid grid-cols-1 md:grid-cols-2 gap-6 sm:grid-cols-1'>
                         <div className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6'>
                             <h1 className='text-2xl font-bold py-4'>Citas del dia</h1>
-                            <ChartLineTwo />
+                            <ChartLineTwo dailyOrdersData={dailyOrdersData} />
                         </div>
                         <div className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6'>
                             <h1 className='text-2xl font-bold py-4'>Mayor Porcentaje de citas</h1>
-                            <PieChartBoard orderStatusData={orderStatusData({citasPendientes, citasCompletadas, citasCanceladas})} COLORS={COLORS} />
+                            <PieChartBoard orderStatusData={orderStatusData({ citasPendientes, citasCompletadas, citasCanceladas })} COLORS={COLORS} />
                         </div>
                     </div>
                 </motion.div>
@@ -110,8 +120,13 @@ const Citas = () => {
                     </div>
                 </motion.div>
                 <ModalAgregar idModal="my_modal_6" onSuccess={handleSuccess} />
-                <ModalEditar idModal="my_modal_edit" Cita={citaSeleccionada} onSuccess={handleSuccess}  />
-                
+                {citaSeleccionada && (
+                    <ModalEditar idModal="my_modal_edit" Cita={citaSeleccionada} onSuccess={handleSuccess} />
+                )}
+                {citaSeleccionada && (
+                    <ModalInfoExtraCitas idModal="my_modal_info_extra" Cita={citaSeleccionada} />
+                )}
+
             </main>
 
 

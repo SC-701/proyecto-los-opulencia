@@ -3,6 +3,7 @@ import Acciones from "../../components/Acciones/Acciones";
 import { EstadoFacturacion, EstadosCitas, EstadosServicios } from "./Estados.jsx";
 import { Ban, CalendarCheck, CircleAlert } from "lucide-react";
 import ModalEditar from "../../components/Modals/ModalEditarCitas/ModalEditar.jsx";
+import { Link } from 'react-router-dom';
 
 
 
@@ -12,7 +13,18 @@ const columnHelper = createColumnHelper();
 export const columns = (editarEstadoCita, onEditarClick) =>
     [
         columnHelper.accessor("paciente", {
-            header: "Paciente"
+            header: "Paciente",
+            cell: ({ getValue, row }) => {
+                const paciente = getValue();
+                const { idCita } = row.original;
+
+                return (<label
+                    htmlFor='my_modal_info_extra'
+                    className="hover:font-bold duration-100 delay-50 ease-in-out"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => onEditarClick(idCita)}
+                >{paciente}</label>);
+            }
         }),
         columnHelper.accessor("servicio", {
             header: "Servicio"
@@ -49,7 +61,7 @@ export const columns = (editarEstadoCita, onEditarClick) =>
                         estado={estado}
                         onToggleEstado={() => editarEstadoCita(idCita, EstadosCitas.conversionEstado(estado))}
                         onEditar={() => onEditarClick(idCita)}
-                        modalName="my_modal_edit"
+                        modalNameEditar="my_modal_edit"
                     />
                 )
             },
@@ -189,7 +201,18 @@ export const dataInventario = [
 export const columnsCitas = (editarEstadoCita, onEditarClick) =>
     [
         columnHelper.accessor("paciente", {
-            header: "Paciente"
+            header: "Paciente",
+            cell: ({ getValue, row }) => {
+                const paciente = getValue();
+                const { idCita } = row.original;
+
+                return (<label
+                    htmlFor='my_modal_info_extra'
+                    className="hover:font-bold duration-100 delay-50 ease-in-out"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => onEditarClick(idCita)}
+                >{paciente}</label>);
+            }
         }),
         columnHelper.accessor("servicio", {
             header: "Servicio"
@@ -227,7 +250,7 @@ export const columnsCitas = (editarEstadoCita, onEditarClick) =>
                             estado={estado}
                             onToggleEstado={() => editarEstadoCita(idCita, EstadosCitas.conversionEstado(estado))}
                             onEditar={() => onEditarClick(idCita)}
-                            modalName="my_modal_edit"
+                            modalNameEditar="my_modal_edit"
                         />
 
                     </>

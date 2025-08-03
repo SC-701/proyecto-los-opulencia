@@ -2,17 +2,9 @@ import React from 'react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
 
-const dailyOrdersData = [
-	{ date: "07/01", orders: 45 },
-	{ date: "07/02", orders: 52 },
-	{ date: "07/03", orders: 49 },
-	{ date: "07/04", orders: 60 },
-	{ date: "07/05", orders: 55 },
-	{ date: "07/06", orders: 58 },
-	{ date: "07/07", orders: 62 },
-];
 
-const ChartLineTwo = () => {
+
+const ChartLineTwo = ({dailyOrdersData}) => {
     return (
 			<div style={{ width: "100%", height: 300 }}>
 				<ResponsiveContainer>

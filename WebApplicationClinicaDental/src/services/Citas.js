@@ -57,3 +57,13 @@ export const editarCita = async (data, id) => {
     const response = await axios.put(`${citas}/${id}`, data);
     return response.data;
 }
+
+export const ObtenerCitasPorFecha = async () => {
+    const response = await axios.get(`${citas}/ObtenerCitasPorFecha`);
+    return response.data;
+}
+
+export const ObtenerInfoCitasExtra = async (id) => {
+    const response = await axios.get(`${citas}/ObtenerCitasInfoExtra/${id}`);
+    return response.data;
+}
