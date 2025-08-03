@@ -1,4 +1,4 @@
-import { AgregarCita, editarCita, editarEstadoCita, obtenerCitas, obtenerCitasCanceladas, ObtenerCitasCompletadas, obtenerCitasDiarias, ObtenerCitasDiariasPacientes, obtenerCitasDiariasPendientes, obtenerCitasPendientes, obtenerTotalCitas } from "../services/Citas";
+import { AgregarCita, editarCita, editarEstadoCita, obtenerCitas, obtenerCitasCanceladas, ObtenerCitasCompletadas, obtenerCitasDiarias, ObtenerCitasDiariasPacientes, obtenerCitasDiariasPendientes, obtenerCitasPendientes, ObtenerCitasPorFecha, ObtenerInfoCitasExtra, obtenerTotalCitas } from "../services/Citas";
 import React, { useState, useEffect } from 'react';
 
 
@@ -194,4 +194,43 @@ export const useCitasEditar = () => {
     };
 
     return { editarCitaSub };
+};
+
+export const useCitasPorFecha = () => {
+    const [citasPorFecha, setCitasPorFecha] = useState([]);
+
+    const cargarCitasPorFecha = async () => {
+        try {
+            const response = await ObtenerCitasPorFecha();
+            setCitasPorFecha(response);
+        } catch (err) {
+            console.error('Error al cargar citas por fecha', err);
+        }
+    };
+
+    useEffect(() => {
+        cargarCitasPorFecha();
+    }, []);
+
+    return { citasPorFecha, cargarCitasPorFecha };
+};
+
+
+export const useCitasInfoExtra = (id) => {
+    const [citasInfoExtra, setCitasInfoExtra] = useState([]);
+
+    const cargarCitasInfoExtra = async () => {
+        try {
+            const response = await ObtenerInfoCitasExtra(id);
+            setCitasInfoExtra(response);
+        } catch (err) {
+            console.error('Error al cargar citas info extra', err);
+        }
+    };
+
+    useEffect(() => {
+        if (id) cargarCitasInfoExtra();
+    }, [id]);
+
+    return { citasInfoExtra };
 };
