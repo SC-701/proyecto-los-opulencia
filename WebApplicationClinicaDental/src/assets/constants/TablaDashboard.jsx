@@ -17,12 +17,17 @@ export const columns = (editarEstadoCita, onEditarClick) =>
             cell: ({ getValue, row }) => {
                 const paciente = getValue();
                 const { idCita } = row.original;
-
+                const handleEditarClick = () => {
+                    onEditarClick(idCita);
+                    setTimeout(() => {
+                        document.getElementById('my_modal_info_extra').checked = true;
+                    }, 50);
+                }
                 return (<label
                     htmlFor='my_modal_info_extra'
                     className="hover:font-bold duration-100 delay-50 ease-in-out"
                     style={{ cursor: "pointer" }}
-                    onClick={() => onEditarClick(idCita)}
+                    onClick={handleEditarClick}
                 >{paciente}</label>);
             }
         }),
@@ -205,12 +210,18 @@ export const columnsCitas = (editarEstadoCita, onEditarClick) =>
             cell: ({ getValue, row }) => {
                 const paciente = getValue();
                 const { idCita } = row.original;
+                const handleEditarClick = () => {
+                    onEditarClick(idCita);
+                    setTimeout(() => {
+                        document.getElementById('my_modal_info_extra').checked = true;
+                    }, 50);
+                }
 
                 return (<label
                     htmlFor='my_modal_info_extra'
                     className="hover:font-bold duration-100 delay-50 ease-in-out"
                     style={{ cursor: "pointer" }}
-                    onClick={() => onEditarClick(idCita)}
+                    onClick={handleEditarClick}
                 >{paciente}</label>);
             }
         }),
