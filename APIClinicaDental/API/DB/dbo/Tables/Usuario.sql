@@ -8,6 +8,7 @@
     [direccion]       VARCHAR (100)    NULL,
     [fechaNacimiento] DATE             NULL,
     [idEstado]        INT              NULL,
+    [fechaCreacion]   DATETIME         CONSTRAINT [DF_Usuario_FechaCreacion] DEFAULT (dateadd(hour,(-6),getdate())) NOT NULL,
     PRIMARY KEY CLUSTERED ([idUsuario] ASC),
     CONSTRAINT [FK__Usuario__idEstad__07C12930] FOREIGN KEY ([idEstado]) REFERENCES [dbo].[Estado] ([IdEstado]),
     CONSTRAINT [FK_Usuario_Usuario] FOREIGN KEY ([idUsuario]) REFERENCES [dbo].[Usuario] ([idUsuario]),

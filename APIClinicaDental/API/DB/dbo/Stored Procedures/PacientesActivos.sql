@@ -3,7 +3,8 @@
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE ObtenerConteoFacturasCompletas
+CREATE PROCEDURE PacientesActivos
+	-- Add the parameters for the stored procedure here
 
 AS
 BEGIN
@@ -11,10 +12,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	DECLARE @ConteoFacCompletadas int;
-
-	select @ConteoFacCompletadas = COUNT(*) from Factura where idEstado = 3;
-
-	select @ConteoFacCompletadas;
-
+    SELECT COUNT(*) AS Activos
+    FROM Paciente
+    WHERE idEstado = 1;
 END
