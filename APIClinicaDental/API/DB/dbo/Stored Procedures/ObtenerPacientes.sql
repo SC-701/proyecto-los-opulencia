@@ -3,7 +3,7 @@
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE ObtenerPacientes 
+CREATE PROCEDURE [dbo].[ObtenerPacientes] 
 
 AS
 BEGIN
@@ -17,6 +17,7 @@ BEGIN
         u.telefono,
         u.direccion,
         u.fechaNacimiento,
+        u.fechaCreacion,
         p.grupoSangineo,
         p.alergias,
         p.observaciones,

@@ -58,14 +58,34 @@ namespace DA
             return respuesta;
         }
 
-        Task<Guid> IConsultorioDA.Editar(Guid id, ConsultorioRequest request)
+        public async Task<Guid> Editar(Guid id, ConsultorioRequest request)
         {
-            throw new NotImplementedException();
+            string query = @"EditarConsultorio";
+
+            var respuesta = await _Sqlconexion.ExecuteScalarAsync<Guid>(query, new
+            {
+                id = id,
+                nombre = request.Nombre,
+                ubicacion = request.Ubicacion,
+                doctor = request.idDoctor,
+                Estado = request.idEstado
+            });
+
+            return respuesta;
+
         }
 
-        Task<Guid> IConsultorioDA.Eliminar(Guid idConsultorio)
+        public Task<Guid> Eliminar(Guid idConsultorio)
         {
-            throw new NotImplementedException();
+
+            string query = @"EliminarConsultorio";
+            var respuesta = _Sqlconexion.ExecuteScalarAsync<Guid>(query, new
+            {
+                id = idConsultorio
+            });
+
+            return respuesta;
+
         }
     }
 }

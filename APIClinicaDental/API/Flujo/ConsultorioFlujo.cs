@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Abstracciones.Interface.DA;
 using Abstracciones.Interface.Flujo;
 using Abstracciones.Models;
+using Azure.Core;
 
 namespace Flujo
 {
@@ -34,14 +35,14 @@ namespace Flujo
             return await _consultorioDA.Agregar(request);
         }
 
-        Task<Guid> IConsultorioFlujo.Editar(Guid id, ConsultorioRequest request)
+        public async Task<Guid> Editar(Guid id, ConsultorioRequest request)
         {
-            throw new NotImplementedException();
+            return await _consultorioDA.Editar(id, request);
         }
 
-        Task<Guid> IConsultorioFlujo.Eliminar(Guid idConsultorio)
+        public async Task<Guid> Eliminar(Guid idConsultorio)
         {
-            throw new NotImplementedException();
+            return await _consultorioDA.Eliminar(idConsultorio);
         }
     }
 }
