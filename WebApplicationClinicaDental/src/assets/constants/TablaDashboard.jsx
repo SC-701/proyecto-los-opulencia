@@ -1,6 +1,6 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import Acciones from "../../components/Acciones/Acciones";
-import { EstadoFacturacion, EstadosCitas, EstadosServicios } from "./Estados.jsx";
+import { EstadoFacturacion, EstadosCitas, EstadosServicios, EstadosPacientes } from "./Estados.jsx";
 import { Ban, CalendarCheck, CircleAlert } from "lucide-react";
 import ModalEditar from "../../components/Modals/ModalEditarCitas/ModalEditar.jsx";
 import { Link } from 'react-router-dom';
@@ -17,12 +17,17 @@ export const columns = (editarEstadoCita, onEditarClick) =>
             cell: ({ getValue, row }) => {
                 const paciente = getValue();
                 const { idCita } = row.original;
-
+                const handleEditarClick = () => {
+                    onEditarClick(idCita);
+                    setTimeout(() => {
+                        document.getElementById('my_modal_info_extra').checked = true;
+                    }, 50);
+                }
                 return (<label
                     htmlFor='my_modal_info_extra'
                     className="hover:font-bold duration-100 delay-50 ease-in-out"
                     style={{ cursor: "pointer" }}
-                    onClick={() => onEditarClick(idCita)}
+                    onClick={handleEditarClick}
                 >{paciente}</label>);
             }
         }),
@@ -262,6 +267,7 @@ export const columnsCitas = (editarEstadoCita, onEditarClick) =>
 
 
 
+
 //! Columnas Tabla Facturas
 export const columnsFacturas = (editarEstadoFactura) =>
     [
@@ -318,38 +324,67 @@ columnHelper.accessor("acciones", {
 
 
 //tabla pacientes 
-const columnHelperPacientes = createColumnHelper()
 
-export const columnsPacientes = [
-    columnHelperPacientes.accessor('cedula', {
-        header: 'Cédula',
+
+export const columnsPacientes = (editarEstadoPaciente, onEditarClick) => [
+    columnHelper.accessor("nombre", {
+        header: "Paciente",
+        cell: ({ getValue, row }) => {
+            const nombre = getValue();
+            const { idPaciente } = row.original;
+
+            return (
+                <label
+                    htmlFor="modal_editar_paciente"
+                    className="hover:font-bold duration-100 delay-50 ease-in-out"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => onEditarClick(idPaciente)}
+                >
+                    {nombre}
+                </label>
+            );
+        },
     }),
-    columnHelperPacientes.accessor('nombre', {
-        header: 'Nombre',
+    columnHelper.accessor("cedula", {
+        header: "Cédula",
     }),
-    columnHelperPacientes.accessor('correo', {
-        header: 'Correo',
+    columnHelper.accessor("email", {
+        header: "Correo",
     }),
-    columnHelperPacientes.accessor('telefono', {
-        header: 'Teléfono',
+    columnHelper.accessor("telefono", {
+        header: "Teléfono",
     }),
-    columnHelperPacientes.accessor('estado', {
-        header: 'Estado',
+    columnHelper.accessor("estado", {
+        header: "Estado",
         cell: ({ getValue }) => {
-            const estado = getValue()
-            const color = {
-                Activo: 'bg-green-100 text-green-800',
-                Inactivo: 'bg-red-100 text-red-800',
-            }[estado] || 'bg-gray-100 text-gray-800'
+            const estado = getValue();
+            const color = EstadosPacientes.obtenerColor(estado);
 
             return (
                 <span className={`px-2 py-1 rounded text-xs font-semibold ${color}`}>
                     {estado}
                 </span>
-            )
-        }
+            );
+        },
     }),
-]
+    columnHelper.accessor("acciones", {
+        header: "Acciones",
+        cell: ({ row }) => {
+            const { idPaciente, estado } = row.original;
+
+            return (
+                <Acciones
+                    manager={EstadosPacientes}
+                    estado={estado}
+                   onToggleEstado={() => {editarEstadoPaciente(idPaciente, EstadosPacientes.conversionEstado(estado));
+                    }}
+                    onEditar={() => onEditarClick(idPaciente)}
+                    modalNameEditar="modal_editar_paciente"
+                />
+            );
+        },
+    }),
+];;
 
 export const dataPacientes = [
     {

@@ -3,7 +3,7 @@
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE ObtenerPaciente
+CREATE PROCEDURE [dbo].[ObtenerPaciente]
 
  @idPaciente UNIQUEIDENTIFIER
 
@@ -19,6 +19,7 @@ BEGIN
         u.telefono,
         u.direccion,
         u.fechaNacimiento,
+        u.fechaCreacion,
         p.grupoSangineo,
         p.alergias,
         p.observaciones,

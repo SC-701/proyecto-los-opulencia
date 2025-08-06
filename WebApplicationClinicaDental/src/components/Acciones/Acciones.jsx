@@ -5,12 +5,10 @@ import { EstadosCitas } from '../../assets/constants/Estados';
 
 const Acciones = ({ manager, estado, onToggleEstado, onEditar, modalNameEditar }) => {
     const iconosEstado = manager?.obtenerIcono(estado);
-     const handleEditarClick = () => {
-        // Acá primero actualizo el state
+    const handleEditarClick = () => {
         onEditar();
-        // Para darle chance al mdal de cargar respecto al clic puse un delay
         setTimeout(() => {
-            document.getElementById(modalName).checked = true;
+            document.getElementById(modalNameEditar).checked = true;
         }, 50);
     };
     return (

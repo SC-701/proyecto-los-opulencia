@@ -47,5 +47,7 @@ namespace Abstracciones.Models
         public string Alergias { get; set; }
         public string Observaciones { get; set; }
         public string Estado { get; set; }
+        public DateTime FechaCreacion { get; set; }
+
     }
 }

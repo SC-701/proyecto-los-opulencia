@@ -101,3 +101,35 @@ obtenerColor: (estadoNombre) =>
 obtenerIcono: (estadoNombre) =>
     EstadoFacturacion.obtenerElNombre(estadoNombre)?.icono ?? null
 }   
+
+
+
+
+export const EstadosPacientes = {
+    estados: [
+        {
+            nombre: "Activo",
+            color: "bg-green-100 text-green-800",
+            icono: <Eye size={20} className="text-green-500" />,
+            id: 2,
+        },
+        {
+            nombre: "Inactivo",
+            color: "bg-red-100 text-red-800",
+            icono: <EyeOff size={20} className="text-red-500" />,
+            id: 1,
+        },
+    ],
+
+    obtenerElNombre: (nombre) =>
+        EstadosPacientes.estados.find((e) => e.nombre === nombre),
+
+    conversionEstado: (estadoNombre) =>
+        EstadosPacientes.obtenerElNombre(estadoNombre)?.id ?? null,
+
+    obtenerColor: (estadoNombre) =>
+        EstadosPacientes.obtenerElNombre(estadoNombre)?.color ?? "bg-gray-100 text-gray-800",
+
+    obtenerIcono: (estadoNombre) =>
+        EstadosPacientes.obtenerElNombre(estadoNombre)?.icono ?? null,
+};
