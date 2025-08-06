@@ -9,14 +9,10 @@ namespace Abstracciones.Interface.DA
 {
     public interface IConsultorioDA
     {
-        public Task<IEnumerable<ConsultorioResponse>> ObtenerConsultorio();
-
-        //public Task<ConsultorioResponse> ObtenerConsultorio(Guid id);
-
-        //public Task<Guid> AgregarConsultorio(ConsultorioRequest request);
-
-        //public Task<Guid> EditarConsultorio(Guid id, ConsultorioRequest request);
-
-        //public Task<Guid> EliminarConsultorio(Guid idConsultorio);
+        public Task<IEnumerable<ConsultorioResponse>> ObtenerConsultorios();
+        public Task<ConsultorioResponse> ObtenerConsultorio(Guid id);
+        public Task<Guid> Agregar(ConsultorioRequest request);
+        public Task<Guid> Editar(Guid id, ConsultorioRequest request);
+        public Task<Guid> Eliminar(Guid idConsultorio);
     }
 }
