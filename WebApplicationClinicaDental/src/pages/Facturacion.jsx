@@ -32,6 +32,8 @@ const Facturacion = () => {
 
         const getDataCardFacturas = DataCardFacturacion({
             TotalFacturas: TotalFacturas,
+
+            
         });
 
         const handleSuccess = async () => {
@@ -42,6 +44,7 @@ const Facturacion = () => {
         const handleFacturaClick = (idFactura) => {
             const factura = Facturas.find(f => f.idFactura == idFactura)
             setFacturaSeleccionada(factura)
+            console.log(factura)
         }
 
   return (

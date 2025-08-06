@@ -13,7 +13,7 @@ BEGIN
 
 	DECLARE @ConteoFacCompletadas int;
 
-	select @ConteoFacCompletadas = COUNT(*) from Factura where idEstado = 3;
+	select @ConteoFacCompletadas = COUNT(*) from Factura where idEstado = 7;
 
 	select @ConteoFacCompletadas;
 

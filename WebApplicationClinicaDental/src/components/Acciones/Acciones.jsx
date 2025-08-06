@@ -1,7 +1,7 @@
 import { Ban, CalendarCheck, CircleAlert, SquarePen } from 'lucide-react';
 import React from 'react'
 import { EstadosCitas } from '../../assets/constants/Estados';
-
+import { EstadoFacturacion } from '../../assets/constants/Estados';
 
 const Acciones = ({ manager, estado, onToggleEstado, onEditar, modalName }) => {
     const iconosEstado = manager?.obtenerIcono(estado);

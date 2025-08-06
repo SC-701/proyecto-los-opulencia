@@ -243,9 +243,7 @@ export const columnsCitas = (editarEstadoCita, onEditarClick) =>
 export const columnsFacturas = (editarEstadoFactura, onEditarClick) =>
     
     [
-        columnHelper.accessor("factura", {
-            header: "Factura"
-        }),
+      
         columnHelper.accessor("servicio", {
             header: "Servicio"
         }),
@@ -278,23 +276,28 @@ export const columnsFacturas = (editarEstadoFactura, onEditarClick) =>
                 );
             },
         }),
-        columnHelper.accessor("acciones", {
+
+          columnHelper.accessor("acciones", {
             header: "Acciones",
             cell: ({ row }) => {
                 const { idFactura, estado } = row.original;
                 return (
-                    <Acciones
+                    <>
+                     <Acciones
                         manager={EstadoFacturacion}
                         estado={estado}
-                        onToggleEstado={() => editarEstadoFactura(idFactura, EstadoFacturacion.conversionEstado(estado))}
+                        onToggleEstado={() =>  editarEstadoFactura(idFactura, EstadoFacturacion.conversionEstado(estado)) }
+                    
                         onEditar={() => onEditarClick(idFactura)}
                         modalName="my_modal_edit"
                     />
+                    </>
                 )
             },
         })
     ]
 
+ 
 
 //tabla pacientes 
 const columnHelperPacientes = createColumnHelper()

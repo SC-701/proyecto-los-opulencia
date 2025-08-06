@@ -11,15 +11,16 @@ const ModalEditarFactura = ({ idModal, factura, onSuccess }) => {
     const { pacientes, cargarPacientes } = usePacientes();
     const { editarFacturaSub } = useFacturasEditar();
 
- const [FormFacActualizar, setFormFacActualizar] = useState({
-        idServicio: "" || "-1",
-        idDoctor: "" || "-1",
-        idPaciente: "" || "-1",
-        fecha: "",
-        subtotal: "" ,
-        total: "" 
-    });
-
+const [FormFacActualizar, setFormFacActualizar] = useState({
+  idFactura: "",
+  idServicio: "-1",
+  idDoctor: "-1",
+  idPaciente: "-1",
+  fecha: "",
+  subtotal: "",
+  total: "",
+  idEstado: 3
+});
 
     useEffect(() => {
         cargarServicios();
@@ -47,14 +48,16 @@ useEffect(() => {
         return fullName === factura.paciente;
     })?.idPaciente ?? '-1';
 
-    setFormFacActualizar({
-        idServicio: idServ,
-        idDoctor: idDoc,
-        idPaciente: idPac,
-        fecha: fechaISO,
-        subtotal: factura.subtotal ?? "",
-        total: factura.total ?? ""
-    });
+setFormFacActualizar({
+  idFactura: factura.idFactura,
+  idServicio: idServ,
+  idDoctor: idDoc,
+  idPaciente: idPac,
+  fecha: fechaISO,
+  subtotal: factura.subtotal ?? "",
+  total: factura.total ?? "",
+  idEstado: factura.idEstado ?? 3
+});
 }, [servicios, doctores, pacientes, factura]);
 
 
@@ -86,7 +89,7 @@ return (
 
         <form onSubmit={editarFacturaSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input type="hidden" value={FormFacActualizar.idfactura} name="idfactura" readOnly className="input w-full" />
+            <input type="hidden" value={FormFacActualizar.idFactura} name="idfactura" readOnly className="input w-full" />
             <fieldset className="fieldset">
               <legend className="fieldset-legend">Servicio</legend>
               <select
@@ -166,7 +169,6 @@ return (
               <span className="label">Requerido</span>
             </fieldset>
 
-            {/* Total */}
             <fieldset className="fieldset">
               <legend className="fieldset-legend">Total</legend>
               <input
