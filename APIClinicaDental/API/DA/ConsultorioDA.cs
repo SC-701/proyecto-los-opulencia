@@ -21,19 +21,51 @@ namespace DA
             _Sqlconexion = _repositorioDapper.ObtenerRepositorio();
         }
 
-
-
-        public async Task<IEnumerable<ConsultorioResponse>> ObtenerConsultorio()
+        public Task<IEnumerable<ConsultorioResponse>> ObtenerConsultorios()
         {
             string query = @"ObtenerConsultorios";
-
-            var resultado = await _Sqlconexion.QueryAsync<ConsultorioResponse>(query);
-
+            var resultado = _Sqlconexion.QueryAsync<ConsultorioResponse>(query);
             return resultado;
-
 
         }
 
+        public async Task<ConsultorioResponse> ObtenerConsultorio(Guid id)
+        {
+            string query = @"ObtenerConsultorio";
 
+            if (id == Guid.Empty) throw new Exception("No se encontró el consultorio");
+
+            var resultado = await _Sqlconexion.QueryAsync<ConsultorioResponse>(query, new
+            {
+                idConsultorio = id
+            });
+            return resultado.FirstOrDefault();
+        }
+
+        public async Task<Guid> Agregar(ConsultorioRequest request)
+        {
+            string query = @"AgregarConsultorio";
+
+            var respuesta = await _Sqlconexion.ExecuteScalarAsync<Guid>(query, new
+            {
+                idConsultorio = Guid.NewGuid(),
+                nombre = request.Nombre,
+                ubicacion = request.Ubicacion,
+                doctor = request.idDoctor,
+                Estado = request.idEstado
+            });
+
+            return respuesta;
+        }
+
+        Task<Guid> IConsultorioDA.Editar(Guid id, ConsultorioRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<Guid> IConsultorioDA.Eliminar(Guid idConsultorio)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
