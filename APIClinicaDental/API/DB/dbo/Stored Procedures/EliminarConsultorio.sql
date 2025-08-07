@@ -3,19 +3,18 @@
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE [dbo].[ObtenerConteoPendientesFacturas]
-
+CREATE PROCEDURE [dbo].[EliminarConsultorio]
+	@id uniqueidentifier
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
-
+	BEGIN TRANSACTION
     -- Insert statements for procedure here
-	DECLARE @GuardarFacPendientes int
+	DELETE FROM Consultorio where idConsultorio = @id
 
-select  @GuardarFacPendientes = COUNT(*) from Factura where idEstado = 4;
+	select @id
+	COMMIT TRANSACTION
 
-select @GuardarFacPendientes;
-	 
 END
