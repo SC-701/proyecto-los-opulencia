@@ -32,6 +32,8 @@ namespace Abstracciones.Interface.Flujo
         public Task<int> ObtenerConteoCitasDiarias();
         public Task<int> ObtenerConteoCitasDiariasPendientes();
         public Task<IEnumerable<CitasResponse>> ObtenerConteoCitasDiariasPacientes();
+        public Task<IEnumerable<CitasFecha>> ObtenerCitasPorFecha();
+        public Task<CitasResponseExtra> ObtenerCitasExtra(Guid id);
 
     }
 }

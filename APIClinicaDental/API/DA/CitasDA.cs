@@ -150,12 +150,34 @@ namespace DA
             return resultado;
         }
 
+        public async Task<CitasResponseExtra> ObtenerCitasExtra(Guid id)
+        {
+            string query = @"MostrarInfoExtraCitas";
+            var resultado = await _Sqlconexion.QueryAsync<CitasResponseExtra>(query, new
+            {
+                id = id
+            });
+            return resultado.FirstOrDefault();
+        }
+
         public async Task<int> ObtenerCitasPendientes()
         {
 
             string query = @"ObtenerConteoPendientesCitas";
 
             var resultado = await _Sqlconexion.QuerySingleAsync<int>(query);
+
+            return resultado;
+
+
+        }
+
+        public async Task<IEnumerable<CitasFecha>> ObtenerCitasPorFecha()
+        {
+
+            string query = @"CantidadCitasDia";
+
+            var resultado = await _Sqlconexion.QueryAsync<CitasFecha>(query);
 
             return resultado;
 

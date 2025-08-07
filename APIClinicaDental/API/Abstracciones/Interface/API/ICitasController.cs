@@ -24,6 +24,8 @@ namespace Abstracciones.Interface.API
         public Task<IActionResult> ObtenerConteoCitasDiarias();
         public Task<IActionResult> ObtenerConteoCitasDiariasPendientes();
         public Task<IActionResult> ObtenerConteoCitasDiariasPacientes();
+        public Task<IActionResult> ObtenerCitasPorFecha();
+        public Task<IActionResult> ObtenerCitasExtra(Guid id);
 
     }
 }

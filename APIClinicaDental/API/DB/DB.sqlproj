@@ -116,5 +116,6 @@
     <Build Include="dbo\Stored Procedures\EliminarServicio.sql" />
     <Build Include="dbo\Stored Procedures\EditarServicio.sql" />
     <Build Include="dbo\Stored Procedures\AgregarServicio.sql" />
+    <Build Include="dbo\Stored Procedures\CantidadCitasDia.sql" />
   </ItemGroup>
 </Project>

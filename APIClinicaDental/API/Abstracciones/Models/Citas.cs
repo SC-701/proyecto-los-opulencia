@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 
 
 namespace Abstracciones.Models
@@ -13,6 +14,15 @@ namespace Abstracciones.Models
         public string? notaMedica { get; set; }
 
 
+    }
+
+
+
+
+    public class CitasFecha
+    {
+        public DateTime fecha { get; set; }
+        public int Cantidad { get; set; }
     }
 
 
@@ -50,8 +60,23 @@ namespace Abstracciones.Models
     }
 
 
+    public class CitasResponseExtra : CitasResponse
+    {
+        public int cedula { get; set; }
+        public DateTime fechaNacimiento { get; set; }
+        public string? grupoSanguineo { get; set; }
+        public string?  alergias { get; set; }
+        public string? observaciones { get; set; }
+        public string? telefono { get; set; }
 
 
 
 
-}
+    }
+
+
+
+
+
+
+    }
