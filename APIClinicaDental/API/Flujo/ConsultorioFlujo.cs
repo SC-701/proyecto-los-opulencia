@@ -40,9 +40,9 @@ namespace Flujo
             return await _consultorioDA.Editar(id, request);
         }
 
-        public async Task<Guid> Eliminar(Guid idConsultorio)
+        public async Task<Guid> Eliminar(Guid id)
         {
-            return await _consultorioDA.Eliminar(idConsultorio);
+            return await _consultorioDA.Eliminar(id);
         }
     }
 }

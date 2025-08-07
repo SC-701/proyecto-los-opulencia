@@ -8,8 +8,8 @@ namespace Abstracciones.Models
 {
     public class Consultorio
     {
-        public string ? Nombre { get; set; }
-        public string Ubicacion { get; set; }
+        public string ? nombre { get; set; }
+        public string ubicacion { get; set; }
     }
 
     public class  ConsultorioRequest : Consultorio
@@ -22,7 +22,7 @@ namespace Abstracciones.Models
     public class ConsultorioResponse : Consultorio
     {
         public Guid id { get; set; }
-        public string ? doctor { get; set; }
-        public string ? Estado { get; set; }
+        public Guid ? idDoctor { get; set; }
+        public int ? idEstado { get; set; }
     }
 }
