@@ -13,6 +13,7 @@ import { useCitas, useCitasDiarias, useCitasDiariasPacientes, useCitasDiariasPen
 import { editarEstadoCita } from '../services/Citas.js'
 
 import ModalEditar from '../components/Modals/ModalEditarCitas/ModalEditar.jsx'
+import ModalInfoExtraCitas from '../components/Modals/ModalInfoExtraCitas/ModalInfoExtraCita.jsx'
 
 
 
@@ -60,8 +61,10 @@ const Home = () => {
 
 
     return (
+        
         <div className='flex-1 overflow-auto relative z-10'>
             <Header title='Inicio' />
+            
 
             <main className='max-w-7xl mx-auto py-6 px-4 lg:px-8'>
                 <div className='mb-6'>
@@ -69,7 +72,7 @@ const Home = () => {
                         Panel de Gestión - Clínica Dental
                     </h1>
                 </div>
-
+                
                 <motion.div
                     className='grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-8'
                     initial={{ opacity: 0, y: 20 }}
@@ -117,6 +120,7 @@ const Home = () => {
 
                 </motion.div>
                 <ModalEditar idModal="my_modal_edit" Cita={citaSeleccionada} onSuccess={handleSuccess} />
+                <ModalInfoExtraCitas idModal="my_modal_info_extra" Cita={citaSeleccionada} />
 
 
             </main>

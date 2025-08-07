@@ -40,6 +40,26 @@ namespace API.Controllers
             return Ok(respuesta);
         }
 
+        [HttpPut("EditarEstado/{idPaciente}/{idEstado}")]
+        public async Task<IActionResult> EditarEstado([FromRoute] Guid idPaciente, [FromRoute] int idEstado)
+        {
+            if (!await VerificarExistencias(idPaciente))
+            {
+                return NotFound(new
+                {
+                    message = "No se encontró el paciente con el ID proporcionado"
+                });
+            }
+
+            var respuesta = await _pacientesFlujo.EditarEstado(idPaciente, idEstado);
+
+            return Ok(new
+            {
+                response = respuesta,
+                message = $"Realizado con exito {idEstado}"
+            });
+        }
+
         [HttpDelete("{idPaciente}")]
         public async Task<IActionResult> Eliminar([FromRoute] Guid idPaciente)
         {
@@ -61,5 +81,44 @@ namespace API.Controllers
 
             return Ok(respuesta);
         }
+
+        [HttpGet("activos")]
+        public async Task<IActionResult> PacientesActivos()
+        {
+            var respuesta = await _pacientesFlujo.PacientesActivos();
+            return Ok(respuesta);
+        }
+
+        [HttpGet("inactivos")]
+        public async Task<IActionResult> PacientesInactivos()
+        {
+            var respuesta = await _pacientesFlujo.PacientesInactivos();
+            return Ok(respuesta);
+        }
+
+        [HttpGet("nuevos")]
+        public async Task<IActionResult> PacientesNuevos()
+        {
+            var respuesta = await _pacientesFlujo.PacientesNuevos();
+            return Ok(respuesta);
+        }
+
+        [HttpGet("total")]
+        public async Task<IActionResult> TotalPacientes()
+        {
+           var respuesta = await _pacientesFlujo.TotalPacientes();
+            return Ok(respuesta);
+        }
+
+
+
+        #region HELPERS 
+        private async Task<bool> VerificarExistencias(Guid id)
+        {
+            var respuesta = await _pacientesFlujo.ObtenerPacientes(id);
+            return respuesta != null;
+        }
+
+        #endregion
     }
 }

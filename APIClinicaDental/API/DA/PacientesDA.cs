@@ -20,6 +20,8 @@ namespace DA
         {
             var query = @"AgregarPaciente";
 
+            var idEstadoUsuario = request.IdEstadoUsuario == 0 ? 1 : request.IdEstadoUsuario;
+            var idEstadoPaciente = request.IdEstadoPaciente == 0 ? 1 : request.IdEstadoPaciente;
 
             var respuesta = await _Sqlconexion.ExecuteScalarAsync<Guid>(query, new
             {
@@ -32,14 +34,13 @@ namespace DA
                 telefono = request.Telefono,
                 direccion = request.Direccion,
                 fechaNacimiento = request.FechaNacimiento,
-                idEstadoUsuario = request.IdEstadoUsuario,
+                idEstadoUsuario = idEstadoUsuario,
 
                 idPaciente = Guid.NewGuid(),
                 grupoSangineo = request.GrupoSangineo,
                 alergias = request.Alergias,
                 observaciones = request.Observaciones,
-                idEstadoPaciente = request.IdEstadoPaciente
-
+                idEstadoPaciente = idEstadoPaciente
             });
 
             return respuesta;
@@ -106,6 +107,47 @@ namespace DA
         
         }
 
+        public async Task<int> TotalPacientes()
+        {
+            string query = @"TotalPacientes";
+            var resultado = await _Sqlconexion.QuerySingleAsync<int>(query);
+            return resultado;
+        }
+
+        public async Task<int> PacientesActivos()
+        {
+            string query = @"PacientesActivos";
+            var resultado = await _Sqlconexion.QuerySingleAsync<int>(query);
+            return resultado;
+        }
+
+        public async Task<int> PacientesInactivos()
+        {
+            string query = @"PacientesInactivos";
+            var resultado = await _Sqlconexion.QuerySingleAsync<int>(query);
+            return resultado;
+        }
+
+        public async Task<int> PacientesNuevos()
+        {
+            string query = @"PacientesNuevos"; 
+            var resultado = await _Sqlconexion.QuerySingleAsync<int>(query);
+            return resultado;
+        }
+
+        public async Task<Guid> EditarEstado(Guid idPaciente, int idEstado)
+        {
+            await VerificarExistenciaId(idPaciente);
+            string query = @"EditarPacienteEstado";
+            var resultado = await _Sqlconexion.ExecuteScalarAsync<Guid>(query, new
+            {
+                id = idPaciente,
+                idEstado = idEstado
+            });
+            return resultado;
+        }
+
+
 
         #region HELPERS
 
@@ -115,6 +157,7 @@ namespace DA
                 throw new Exception("No se encontró el paciente con el ID proporcionado.");
         }
 
+      
         #endregion
     }
 

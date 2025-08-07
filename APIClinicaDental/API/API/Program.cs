@@ -1,5 +1,6 @@
 using Abstracciones.Interface.DA;
 using Abstracciones.Interface.Flujo;
+using Abstracciones.Models;
 using DA;
 using DA.Repositorio;
 using Flujo;
@@ -32,6 +33,8 @@ builder.Services.AddScoped<IPacientesDA, PacientesDA>();
 builder.Services.AddScoped<IDoctoresDA, DoctoresDA>();
 builder.Services.AddScoped<IConsultorioDA, ConsultorioDA>();
 builder.Services.AddScoped<IServicioDA, ServicioDA>();
+builder.Services.AddScoped<IInventarioDA, InventarioDA>();
+
 
 //Inyecciones de Flujo
 builder.Services.AddScoped<ICitasFlujo, CitasFlujo>();
@@ -40,6 +43,7 @@ builder.Services.AddScoped<IPacienteFlujo, PacientesFlujo>();
 builder.Services.AddScoped<IDoctoresFlujo, DoctoresFlujo>();
 builder.Services.AddScoped<IConsultorioFlujo, ConsultorioFlujo>();
 builder.Services.AddScoped<IServicioFlujo, ServiciosFlujo>();
+builder.Services.AddScoped<IInventarioFlujo, InventarioFlujo>();
 
 var app = builder.Build();
 
