@@ -37,7 +37,7 @@ namespace DA
 
             var resultado = await _Sqlconexion.QueryAsync<ConsultorioResponse>(query, new
             {
-                idConsultorio = id
+                id = id
             });
             return resultado.FirstOrDefault();
         }
@@ -48,11 +48,11 @@ namespace DA
 
             var respuesta = await _Sqlconexion.ExecuteScalarAsync<Guid>(query, new
             {
-                idConsultorio = Guid.NewGuid(),
-                nombre = request.Nombre,
-                ubicacion = request.Ubicacion,
-                doctor = request.idDoctor,
-                Estado = request.idEstado
+                id = Guid.NewGuid(),
+                nombre = request.nombre,
+                ubicacion = request.ubicacion,
+                idDoctor = request.idDoctor,
+                idEstado = request.idEstado
             });
 
             return respuesta;
@@ -65,23 +65,23 @@ namespace DA
             var respuesta = await _Sqlconexion.ExecuteScalarAsync<Guid>(query, new
             {
                 id = id,
-                nombre = request.Nombre,
-                ubicacion = request.Ubicacion,
-                doctor = request.idDoctor,
-                Estado = request.idEstado
+                nombre = request.nombre,
+                ubicacion = request.ubicacion,
+                idDoctor = request.idDoctor,
+                idEstado = request.idEstado
             });
 
             return respuesta;
 
         }
 
-        public Task<Guid> Eliminar(Guid idConsultorio)
+        public Task<Guid> Eliminar(Guid id)
         {
 
             string query = @"EliminarConsultorio";
             var respuesta = _Sqlconexion.ExecuteScalarAsync<Guid>(query, new
             {
-                id = idConsultorio
+                id = id
             });
 
             return respuesta;
