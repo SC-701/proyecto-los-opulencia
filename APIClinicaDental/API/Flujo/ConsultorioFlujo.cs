@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Abstracciones.Interface.DA;
 using Abstracciones.Interface.Flujo;
 using Abstracciones.Models;
+using Azure.Core;
 
 namespace Flujo
 {
@@ -19,9 +20,29 @@ namespace Flujo
             _consultorioDA = consultorioDA;
         }
 
-        public async Task<IEnumerable<ConsultorioResponse>> ObtenerConsultorio()
+        public async Task<IEnumerable<ConsultorioResponse>> ObtenerConsultorios()
         {
-            return await _consultorioDA.ObtenerConsultorio(); 
+            return await _consultorioDA.ObtenerConsultorios();
+        }
+
+        public async Task<ConsultorioResponse> ObtenerConsultorio(Guid id)
+        {
+            return await _consultorioDA.ObtenerConsultorio(id);
+        }
+
+        public async Task<Guid> Agregar(ConsultorioRequest request)
+        {
+            return await _consultorioDA.Agregar(request);
+        }
+
+        public async Task<Guid> Editar(Guid id, ConsultorioRequest request)
+        {
+            return await _consultorioDA.Editar(id, request);
+        }
+
+        public async Task<Guid> Eliminar(Guid id)
+        {
+            return await _consultorioDA.Eliminar(id);
         }
     }
 }

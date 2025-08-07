@@ -21,19 +21,71 @@ namespace DA
             _Sqlconexion = _repositorioDapper.ObtenerRepositorio();
         }
 
-
-
-        public async Task<IEnumerable<ConsultorioResponse>> ObtenerConsultorio()
+        public Task<IEnumerable<ConsultorioResponse>> ObtenerConsultorios()
         {
             string query = @"ObtenerConsultorios";
-
-            var resultado = await _Sqlconexion.QueryAsync<ConsultorioResponse>(query);
-
+            var resultado = _Sqlconexion.QueryAsync<ConsultorioResponse>(query);
             return resultado;
-
 
         }
 
+        public async Task<ConsultorioResponse> ObtenerConsultorio(Guid id)
+        {
+            string query = @"ObtenerConsultorio";
 
+            if (id == Guid.Empty) throw new Exception("No se encontró el consultorio");
+
+            var resultado = await _Sqlconexion.QueryAsync<ConsultorioResponse>(query, new
+            {
+                id = id
+            });
+            return resultado.FirstOrDefault();
+        }
+
+        public async Task<Guid> Agregar(ConsultorioRequest request)
+        {
+            string query = @"AgregarConsultorio";
+
+            var respuesta = await _Sqlconexion.ExecuteScalarAsync<Guid>(query, new
+            {
+                id = Guid.NewGuid(),
+                nombre = request.nombre,
+                ubicacion = request.ubicacion,
+                idDoctor = request.idDoctor,
+                idEstado = request.idEstado
+            });
+
+            return respuesta;
+        }
+
+        public async Task<Guid> Editar(Guid id, ConsultorioRequest request)
+        {
+            string query = @"EditarConsultorio";
+
+            var respuesta = await _Sqlconexion.ExecuteScalarAsync<Guid>(query, new
+            {
+                id = id,
+                nombre = request.nombre,
+                ubicacion = request.ubicacion,
+                idDoctor = request.idDoctor,
+                idEstado = request.idEstado
+            });
+
+            return respuesta;
+
+        }
+
+        public Task<Guid> Eliminar(Guid id)
+        {
+
+            string query = @"EliminarConsultorio";
+            var respuesta = _Sqlconexion.ExecuteScalarAsync<Guid>(query, new
+            {
+                id = id
+            });
+
+            return respuesta;
+
+        }
     }
 }

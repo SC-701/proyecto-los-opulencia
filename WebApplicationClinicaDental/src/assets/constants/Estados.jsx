@@ -1,4 +1,4 @@
-import { Ban, CalendarCheck, CircleAlert, Eye,  EyeOff } from "lucide-react";
+import { Ban, CalendarCheck, Check, CircleAlert, Eye,  EyeOff } from "lucide-react";
 
 export const EstadosCitas = {
     estados: [
@@ -36,6 +36,40 @@ export const EstadosCitas = {
 
 }
 
+
+export const EstadoFacturacion = {
+    estados: [
+{
+nombre: "Pagada",
+color: "bg-yellow-100 text-yellow-800",
+icono: <CircleAlert size={20} className="text-yellow-500" />,
+id: 8,
+},
+
+{
+    nombre: "Por Pagar",
+    color: "bg-green-100 text-green-800",
+    icono: <Check size={20} className="text-green-500" />,
+    id: 7,
+},
+
+],
+
+obtenerElNombre: (nombre) =>
+    EstadoFacturacion.estados.find((e) => e.nombre === nombre),
+
+conversionEstado: (estadoNombre) =>
+    EstadoFacturacion.obtenerElNombre(estadoNombre)?.id ?? null,
+
+obtenerColor: (estadoNombre) =>
+    EstadoFacturacion.obtenerElNombre(estadoNombre)?.color ?? "bg-gray-100 text-gray-800",
+
+obtenerIcono: (estadoNombre) =>
+    EstadoFacturacion.obtenerElNombre(estadoNombre)?.icono ?? null
+}   
+
+
+
 export const EstadosServicios = {
     estados: [
         {
@@ -66,38 +100,36 @@ export const EstadosServicios = {
 }
 
 
-export const EstadoFacturacion = {
+
+
+
+
+
+export const EstadosPacientes = {
     estados: [
-{
-nombre: "Pendiente",
-color: "bg-yellow-100 text-yellow-800",
-icono: <CircleAlert size={20} className="text-yellow-500" />,
-id: 4,
-},
+        {
+            nombre: "Activo",
+            color: "bg-green-100 text-green-800",
+            icono: <Eye size={20} className="text-green-500" />,
+            id: 2,
+        },
+        {
+            nombre: "Inactivo",
+            color: "bg-red-100 text-red-800",
+            icono: <EyeOff size={20} className="text-red-500" />,
+            id: 1,
+        },
+    ],
 
-{
-    nombre: "Completada",
-    color: "bg-green-100 text-green-800",
-    icono: <CalendarCheck size={20} className="text-green-500" />,
-    id: 3,
-},
-{
-    nombre: "Cancelada",
-    color: "bg-red-100 text-red-800",
-    icono: <Ban size={20} className="text-red-500" />,
-    id: 5,
-},
-],
+    obtenerElNombre: (nombre) =>
+        EstadosPacientes.estados.find((e) => e.nombre === nombre),
 
-obtenerElNombre: (nombre) =>
-    EstadoFacturacion.estados.find((e) => e.nombre === nombre),
+    conversionEstado: (estadoNombre) =>
+        EstadosPacientes.obtenerElNombre(estadoNombre)?.id ?? null,
 
-conversionEstado: (estadoNombre) =>
-    EstadoFacturacion.obtenerElNombre(estadoNombre)?.id ?? null,
+    obtenerColor: (estadoNombre) =>
+        EstadosPacientes.obtenerElNombre(estadoNombre)?.color ?? "bg-gray-100 text-gray-800",
 
-obtenerColor: (estadoNombre) =>
-    EstadoFacturacion.obtenerElNombre(estadoNombre)?.color ?? "bg-gray-100 text-gray-800",
-
-obtenerIcono: (estadoNombre) =>
-    EstadoFacturacion.obtenerElNombre(estadoNombre)?.icono ?? null
-}   
+    obtenerIcono: (estadoNombre) =>
+        EstadosPacientes.obtenerElNombre(estadoNombre)?.icono ?? null,
+};
