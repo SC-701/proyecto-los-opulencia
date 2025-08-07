@@ -14,7 +14,7 @@ BEGIN
     -- Insert statements for procedure here
 	DECLARE @GuardarFacPendientes int
 
-select  @GuardarFacPendientes = COUNT(*) from Factura where idEstado = 4;
+select  @GuardarFacPendientes = COUNT(*) from Factura where idEstado = 8;
 
 select @GuardarFacPendientes;
 	 
