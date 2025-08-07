@@ -269,16 +269,30 @@ export const columnsCitas = (editarEstadoCita, onEditarClick) =>
 
 
 //! Columnas Tabla Facturas
-export const columnsFacturas = (editarEstadoFactura) =>
+export const columnsFacturas = (editarEstadoFactura, onEditarClick) =>
+    
     [
-        columnHelper.accessor("factura", {
-            header: "Factura"
+      
+        columnHelper.accessor("servicio", {
+            header: "Servicio"
         }),
-
-        columnHelper.accessor("fecha", {
+          columnHelper.accessor("doctor", {
+            header: "Doctor"
+        }),
+         columnHelper.accessor("paciente", {
+            header: "Paciente"
+        }),
+       
+       columnHelper.accessor("fecha", {
             header: "Fecha"
         }),
-        columnHelper.accessor("estado", {
+        columnHelper.accessor("subtotal", {
+            header: "subtotal"
+        }),
+        columnHelper.accessor("total", {
+            header: "Total"
+        }),
+         columnHelper.accessor("estado", {
             header: "Estado",
             cell: ({ getValue }) => {
                 const estado = getValue();
@@ -291,37 +305,28 @@ export const columnsFacturas = (editarEstadoFactura) =>
                 );
             },
         }),
-        columnHelper.accessor("acciones", {
+
+          columnHelper.accessor("acciones", {
             header: "Acciones",
             cell: ({ row }) => {
                 const { idFactura, estado } = row.original;
                 return (
-                    <Acciones
+                    <>
+                     <Acciones
+                        manager={EstadoFacturacion}
                         estado={estado}
-                        onToggleEstado={() => editarEstadoFactura(idFactura, EstadoFacturacion.conversionEstado(estado))}
-                        onEditar={() => console.log(`Editar cita con ID: ${idCita}`)}
+                        onToggleEstado={() =>  editarEstadoFactura(idFactura, EstadoFacturacion.conversionEstado(estado)) }
+                    
+                        onEditar={() => onEditarClick(idFactura)}
+                        modalName="my_modal_edit"
                     />
+                    </>
                 )
             },
         })
     ]
 
-
-columnHelper.accessor("acciones", {
-    header: "Acciones",
-    cell: ({ row }) => {
-        const { idCita, estado } = row.original;
-        return (
-            <Acciones
-                estado={estado}
-                onToggleEstado={() => editarEstadoCita(idCita, EstadosCitas.conversionEstado(estado))}
-                onEditar={() => console.log(`Editar cita con ID: ${idCita}`)}
-            />
-        )
-    },
-})
-
-
+ 
 
 //tabla pacientes 
 

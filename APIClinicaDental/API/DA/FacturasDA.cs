@@ -34,7 +34,7 @@ namespace DA
         {
             var query = @"AgregarFactura";
 
-            var idEstado = request.idEstado >= 0 ? 4 : request.idEstado;
+            var idEstado = request.idEstado >= 0 ? 7 : request.idEstado;
 
 
             var respuestaFac = await _Sqlconexion.ExecuteScalarAsync<Guid>(query, new
