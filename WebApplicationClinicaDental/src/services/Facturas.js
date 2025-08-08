@@ -27,6 +27,16 @@ export const obtenerTotalFacturas = async () => {
     return response.data;
 }
 
+export const ObtenerFacturasPagadas = async () => {
+    const response = await axios.get(`${facturas}/ObtenerFacturasPagadas`);
+    return response.data;
+}
+
+export const ObetenerFacturasPorPagar = async () => {
+    const response = await axios.get(`${facturas}/ObtenerFacturasPorPagar`);
+    return response.data;
+}   
+
 
 
 

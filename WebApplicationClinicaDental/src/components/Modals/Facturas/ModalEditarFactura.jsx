@@ -19,7 +19,7 @@ const [FormFacActualizar, setFormFacActualizar] = useState({
   fecha: "",
   subtotal: "",
   total: "",
-  idEstado: 3
+  idEstado: 7
 });
 
     useEffect(() => {
