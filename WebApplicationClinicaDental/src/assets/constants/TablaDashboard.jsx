@@ -318,7 +318,7 @@ export const columnsFacturas = (editarEstadoFactura, onEditarClick) =>
                         onToggleEstado={() =>  editarEstadoFactura(idFactura, EstadoFacturacion.conversionEstado(estado)) }
                     
                         onEditar={() => onEditarClick(idFactura)}
-                        modalName="my_modal_edit"
+                        modalNameEditar="my_modal_edit"
                     />
                     </>
                 )
