@@ -24,8 +24,8 @@ namespace Abstracciones.Interface.Flujo
 
         public Task<int> ObtenerTotalFacturas();
 
-        public Task<int> ObtenerFacturasPendientes();
+        public Task<int> ObtenerFacturasPagadas();
 
-        public Task<int> ObtenerFacturasCompletadas();
+        public Task<int> ObtenerFacturasPorPagar();
     }
 }

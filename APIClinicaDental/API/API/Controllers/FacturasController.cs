@@ -79,20 +79,20 @@ namespace API.Controllers
 
 
         [HttpGet]
-        [Route("ObtenerFacturasCompletadas")]
-        public async Task<IActionResult> ObtenerFacturasCompletadas()
+        [Route("ObtenerFacturasPagadas")]
+        public async Task<IActionResult> ObtenerFacturasPagadas()
         {
-            var respuesta = await _facturasFlujo.ObtenerTotalFacturas();
+            var respuesta = await _facturasFlujo.ObtenerFacturasPagadas();
 
             return Ok(respuesta);
         }
 
 
         [HttpGet]
-        [Route("ObtenerFacturasPendientes")]
-        public async Task<IActionResult> ObtenerFacturasPendientes()
+        [Route("ObtenerFacturasPorPagar")]
+        public async Task<IActionResult> ObtenerFacturasPorPagar()
         {
-            var respuesta = await _facturasFlujo.ObtenerFacturasPendientes();
+            var respuesta = await _facturasFlujo.ObtenerFacturasPorPagar();
 
             return Ok(respuesta);
         }
