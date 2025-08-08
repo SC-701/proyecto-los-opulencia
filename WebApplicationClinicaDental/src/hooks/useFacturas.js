@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AgregarFactura, editarFactura ,editarEstadoFacturas, obtenerFacturas, obtenerTotalFacturas } from "../services/Facturas";
+import { AgregarFactura, editarFactura ,editarEstadoFacturas, obtenerFacturas, obtenerTotalFacturas, ObtenerFacturasPagadas, ObetenerFacturasPorPagar } from "../services/Facturas";
 
 
 export const useFacturas = () => {
@@ -48,6 +48,21 @@ export const useFacturasEditar = () => {
     return { editarFacturaSub };
 };
 
+
+
+export const useFacturasAgregar = () => {
+    const agregarFactura = async (data) => {
+        try {
+            const response = await AgregarFactura(data);
+            return response;
+        } catch (err) {
+            console.error('Error al agregar factura', err);
+        }
+    };
+
+    return { agregarFactura };
+};
+
 export const useFacturasTotal = () => {
     const [TotalFacturas, setTotalFacturas] = useState(0);
     
@@ -67,16 +82,38 @@ export const useFacturasTotal = () => {
     return { TotalFacturas, cargarTotalFacturas };
 };
 
-export const useFacturasAgregar = () => {
-    const agregarFactura = async (data) => {
+export const useFacturasPagadas = () => {
+    const [FacturasPagadas, setFacturasPagadas] = useState([]);
+
+    const cargarFacturasPagadas = async () => {
         try {
-            const response = await AgregarFactura(data);
-            return response;
+            const response = await ObtenerFacturasPagadas();
+            setFacturasPagadas(response);
         } catch (err) {
-            console.error('Error al agregar factura', err);
+            console.error('Error al cargar facturas pagadas', err);
         }
     };
+    useEffect(() => {
+        cargarFacturasPagadas();
+    }, []);
 
-    return { agregarFactura };
+    return { FacturasPagadas, cargarFacturasPagadas };
 };
 
+export const useFacturasPorPagar = () => {
+    const [FacturasPorPagar, setFacturasPorPagar] = useState([]);
+
+    const cargarFacturasPorPagar = async () => {
+        try {
+            const response = await ObetenerFacturasPorPagar();
+            setFacturasPorPagar(response);
+        } catch (err) {
+            console.error('Error al cargar facturas por pagar', err);
+        }
+    };
+    useEffect(() => {
+        cargarFacturasPorPagar();
+    }, []);
+
+    return { FacturasPorPagar, cargarFacturasPorPagar };
+};

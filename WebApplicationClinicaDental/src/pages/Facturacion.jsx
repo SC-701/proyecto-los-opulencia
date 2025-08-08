@@ -9,7 +9,7 @@ import { DataCardFacturacion } from '../utils/utilsFacturas.js'
 import ChartLineTwo from '../components/Charts/ChartLineTwo.jsx'
 import { columnsFacturas } from '../assets/constants/TablaDashboard.jsx'
 import Tabla from '../components/Tabla/Tabla.jsx'
-import { useFacturas, useFacturasTotal } from '../hooks/useFacturas.js'
+import { useFacturas, useFacturasPagadas, useFacturasPorPagar, useFacturasTotal } from '../hooks/useFacturas.js'
 import { editarEstadoFacturas } from '../services/Facturas.js'
 import { useState } from 'react'
 import ModalAgregarFacturas from '../components/Modals/Facturas/ModalAgregarFacturas.jsx'
@@ -22,7 +22,7 @@ const Facturacion = () => {
         const { Facturas, cargar } = useFacturas();
         const { TotalFacturas, cargarTotalFacturas } = useFacturasTotal();
         const [facturaSeleccionada, setFacturaSeleccionada] = useState([null]);
-
+        
         const cargarEstado = async (id, nuevoEstado) => {
             await editarEstadoFacturas(id, nuevoEstado);
             await cargar();
