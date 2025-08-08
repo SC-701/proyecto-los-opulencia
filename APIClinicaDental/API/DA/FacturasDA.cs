@@ -128,7 +128,7 @@ namespace DA
 
         public async Task<int> ObtenerFacturasPagadas()
         {
-            string query = @"[ObtenerFacturasPagadas]";
+            string query = @"ObtenerFacturasPagadas";
 
             var resultado = await _Sqlconexion.QuerySingleAsync<int>(query);
 
