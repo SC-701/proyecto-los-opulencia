@@ -126,17 +126,17 @@ namespace DA
             return resultado.FirstOrDefault();
         }
 
-        public async Task<int> ObtenerFacturasCompletadas()
+        public async Task<int> ObtenerFacturasPagadas()
         {
-            string query = @"ObtenerConteoFacturasCompletas";
+            string query = @"ObtenerFacturasPagadas";
 
             var resultado = await _Sqlconexion.QuerySingleAsync<int>(query);
 
             return resultado;
         }
 
-        public async Task<int> ObtenerFacturasPendientes() { 
-            string query = @"ObtenerConteoPendientesFacturas";
+        public async Task<int> ObtenerFacturasPorPagar() { 
+            string query = @"ObtenerFacturasPorPagar";
 
         var resultado = await _Sqlconexion.QuerySingleAsync<int>(query);
 

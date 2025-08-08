@@ -17,8 +17,8 @@ namespace Abstracciones.Interface.API
         public Task<IActionResult> EditarEstado(Guid id, int estado);
         public Task<IActionResult> Eliminar(Guid idFactura);
         public Task<IActionResult> ObtenerTotalFacturas();
-        public Task<IActionResult> ObtenerFacturasPendientes();
-        public Task<IActionResult> ObtenerFacturasCompletadas();
+        public Task<IActionResult> ObtenerFacturasPagadas();
+        public Task<IActionResult> ObtenerFacturasPorPagar();
 
     }
 }
