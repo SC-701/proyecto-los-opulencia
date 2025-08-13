@@ -34,6 +34,7 @@ builder.Services.AddScoped<IDoctoresDA, DoctoresDA>();
 builder.Services.AddScoped<IConsultorioDA, ConsultorioDA>();
 builder.Services.AddScoped<IServicioDA, ServicioDA>();
 builder.Services.AddScoped<IInventarioDA, InventarioDA>();
+builder.Services.AddScoped<IEstadosDA, EstadosDA>();
 
 
 //Inyecciones de Flujo
@@ -44,6 +45,7 @@ builder.Services.AddScoped<IDoctoresFlujo, DoctoresFlujo>();
 builder.Services.AddScoped<IConsultorioFlujo, ConsultorioFlujo>();
 builder.Services.AddScoped<IServicioFlujo, ServiciosFlujo>();
 builder.Services.AddScoped<IInventarioFlujo, InventarioFlujo>();
+builder.Services.AddScoped<IEstadosFlujo, EstadosFlujo>();
 
 var app = builder.Build();
 

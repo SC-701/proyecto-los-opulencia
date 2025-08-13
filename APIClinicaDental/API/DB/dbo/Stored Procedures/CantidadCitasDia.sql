@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE CantidadCitasDia
+﻿CREATE PROCEDURE [dbo].[CantidadCitasDia]
 	-- Add the parameters for the stored procedure here
 AS
 BEGIN
@@ -7,5 +7,5 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	SELECT CAST(fecha AS DATE) ,  COUNT(*) AS Cantidad FROM CITA group by CAST(fecha as DATE) order by CAST(fecha as DATE)
+	SELECT CAST(fecha AS DATE) as fecha ,  COUNT(*) AS Cantidad FROM CITA group by CAST(fecha as DATE) order by CAST(fecha as DATE)
 END

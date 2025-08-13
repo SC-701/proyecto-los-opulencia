@@ -28,13 +28,16 @@ namespace DA
         {
             string query = @"AgregarServicio";
 
+            int idEstado = request.idEstado == 0 ? 1 : request.idEstado;
+
+
             var respuesta = await _Sqlconexion.ExecuteScalarAsync<Guid>(query, new
             {
                 id = Guid.NewGuid(),
                 nombre = request.nombre,
                 descripcion = request.descripcion,
                 precio = request.precio,
-                idEstado = request.idEstado
+                idEstado = idEstado
             });
 
             return respuesta;
@@ -55,6 +58,19 @@ namespace DA
 
             return respuesta;
 
+        }
+
+        public async Task<Guid> EditarEstado(Guid id, int estado)
+        {
+            string query = @"EditarEstadoServicio";
+
+            var resultado = await _Sqlconexion.ExecuteScalarAsync<Guid>(query, new
+            {
+                id = id,
+                idEstado = estado
+            });
+
+            return resultado;
         }
 
         public Task<Guid> Eliminar(Guid idServicio)
@@ -89,6 +105,42 @@ namespace DA
                 id = id
             });
             return resultado.FirstOrDefault();
+        }
+
+        public async Task<int> ObtenerServiciosActivos()
+        {
+            string query = @"ObtenerServiciosActivos";
+
+            var resultado = await _Sqlconexion.QuerySingleAsync<int>(query);
+
+            return resultado;
+        }
+
+        public async Task<int> ObtenerServiciosInactivos()
+        {
+            string query = @"ObtenerServiciosInactivos";
+
+            var resultado = await _Sqlconexion.QuerySingleAsync<int>(query);
+
+            return resultado;
+        }
+
+        public async Task<int> ObtenerServiciosTotales()
+        {
+            string query = @"ObtenerServiciosTotales";
+
+            var resultado = await _Sqlconexion.QuerySingleAsync<int>(query);
+
+            return resultado;
+        }
+
+        public async Task<int> ObtenerSumaCosto()
+        {
+            string query = @"ObtenerServiciosPrecioTotal";
+
+            var resultado = await _Sqlconexion.QuerySingleAsync<int>(query);
+
+            return resultado;
         }
     }
 }

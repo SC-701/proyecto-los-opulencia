@@ -17,9 +17,11 @@ namespace Abstracciones.Interface.DA
         public Task<Guid> AgregarServicio(ServiciosRequest request);
         public Task<Guid> Editar(Guid id, ServiciosRequest request);
         public Task<Guid> Eliminar(Guid idServicio);
-
-
-
+        public Task<Guid> EditarEstado(Guid id, int estado);
+        public Task<int> ObtenerServiciosTotales();
+        public Task<int> ObtenerServiciosActivos();
+        public Task<int> ObtenerServiciosInactivos();
+        public Task<int> ObtenerSumaCosto();
 
 
     }

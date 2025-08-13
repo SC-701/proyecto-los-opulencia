@@ -3,7 +3,7 @@
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE [dbo].[ObtenerConteoPendientesFacturas]
+CREATE PROCEDURE [dbo].[ObtenerFacturasPagadas]
 
 AS
 BEGIN
@@ -14,7 +14,7 @@ BEGIN
     -- Insert statements for procedure here
 	DECLARE @GuardarFacPendientes int
 
-select  @GuardarFacPendientes = COUNT(*) from Factura where idEstado = 4;
+select  @GuardarFacPendientes = COUNT(*) from Factura where idEstado = 7;
 
 select @GuardarFacPendientes;
 	 

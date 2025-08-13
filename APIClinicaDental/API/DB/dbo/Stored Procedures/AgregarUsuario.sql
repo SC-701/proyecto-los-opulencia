@@ -14,7 +14,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 	DECLARE @Id AS UniqueIdentifier =NEWID();
-	BEGIN TRAN
+	BEGIN TRANSACTION
 		INSERT INTO [dbo].[Usuarios]
 			   ([Id]
 			   ,[NombreUsuario]
@@ -33,5 +33,5 @@ BEGIN
            (@Id
            ,1)
 	SELECT @Id
-	COMMIT TRAN
+	COMMIT TRANSACTION
 END
