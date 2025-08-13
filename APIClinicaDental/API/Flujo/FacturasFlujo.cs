@@ -50,14 +50,14 @@ namespace Flujo
             return await _facturasDA.ObtenerFacturas(id);
         }
 
-        public async Task<int> ObtenerFacturasCompletadas()
+        public async Task<int> ObtenerFacturasPagadas()
         {
-            return await _facturasDA.ObtenerFacturasCompletadas();
+            return await _facturasDA.ObtenerFacturasPagadas();
         }
 
-        public async Task<int> ObtenerFacturasPendientes()
+        public async Task<int> ObtenerFacturasPorPagar()
         {
-            return await _facturasDA.ObtenerFacturasPendientes();
+            return await _facturasDA.ObtenerFacturasPorPagar();
         }
 
         public async Task<int> ObtenerTotalFacturas()
