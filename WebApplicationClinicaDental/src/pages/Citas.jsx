@@ -42,7 +42,6 @@ const Citas = () => {
         ])
     }
 
-
     const dailyOrdersData = citasPorFecha.map(({ fecha, cantidad }) => ({
         date: fecha,
         orders: cantidad

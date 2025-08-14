@@ -74,7 +74,7 @@ export const columns = (editarEstadoCita, onEditarClick) =>
     ]
 
 
-export const columnsServicios = () => [
+export const columnsServicios = (editarEstadoServicio) => [
     columnHelper.accessor("nombre", {
         header: "Servicio",
     }),
@@ -270,20 +270,20 @@ export const columnsCitas = (editarEstadoCita, onEditarClick) =>
 
 //! Columnas Tabla Facturas
 export const columnsFacturas = (editarEstadoFactura, onEditarClick) =>
-    
+
     [
-      
+
         columnHelper.accessor("servicio", {
             header: "Servicio"
         }),
-          columnHelper.accessor("doctor", {
+        columnHelper.accessor("doctor", {
             header: "Doctor"
         }),
-         columnHelper.accessor("paciente", {
+        columnHelper.accessor("paciente", {
             header: "Paciente"
         }),
-       
-       columnHelper.accessor("fecha", {
+
+        columnHelper.accessor("fecha", {
             header: "Fecha"
         }),
         columnHelper.accessor("subtotal", {
@@ -292,7 +292,7 @@ export const columnsFacturas = (editarEstadoFactura, onEditarClick) =>
         columnHelper.accessor("total", {
             header: "Total"
         }),
-         columnHelper.accessor("estado", {
+        columnHelper.accessor("estado", {
             header: "Estado",
             cell: ({ getValue }) => {
                 const estado = getValue();
@@ -306,27 +306,27 @@ export const columnsFacturas = (editarEstadoFactura, onEditarClick) =>
             },
         }),
 
-          columnHelper.accessor("acciones", {
+        columnHelper.accessor("acciones", {
             header: "Acciones",
             cell: ({ row }) => {
                 const { idFactura, estado } = row.original;
                 return (
                     <>
-                     <Acciones
-                        manager={EstadoFacturacion}
-                        estado={estado}
-                        onToggleEstado={() =>  editarEstadoFactura(idFactura, EstadoFacturacion.conversionEstado(estado)) }
-                    
-                        onEditar={() => onEditarClick(idFactura)}
-                        modalNameEditar="my_modal_edit"
-                    />
+                        <Acciones
+                            manager={EstadoFacturacion}
+                            estado={estado}
+                            onToggleEstado={() => editarEstadoFactura(idFactura, EstadoFacturacion.conversionEstado(estado))}
+
+                            onEditar={() => onEditarClick(idFactura)}
+                            modalNameEditar="my_modal_edit"
+                        />
                     </>
                 )
             },
         })
     ]
 
- 
+
 
 //tabla pacientes 
 
@@ -381,7 +381,8 @@ export const columnsPacientes = (editarEstadoPaciente, onEditarClick) => [
                 <Acciones
                     manager={EstadosPacientes}
                     estado={estado}
-                   onToggleEstado={() => {editarEstadoPaciente(idPaciente, EstadosPacientes.conversionEstado(estado));
+                    onToggleEstado={() => {
+                        editarEstadoPaciente(idPaciente, EstadosPacientes.conversionEstado(estado));
                     }}
                     onEditar={() => onEditarClick(idPaciente)}
                     modalNameEditar="modal_editar_paciente"

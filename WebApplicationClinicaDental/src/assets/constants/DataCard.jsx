@@ -11,6 +11,10 @@ import {
   Landmark,
   UserCog,
   UserSearch,
+  Accessibility,
+  ClipboardPlus,
+  ClipboardMinus,
+  Pill,
 } from "lucide-react";
 
 
@@ -73,6 +77,8 @@ export const DataCardPacientes = [
         color: '#f00808'
     }
 ];
+
+
 
 export const DataCardFacturacion = [
   {
