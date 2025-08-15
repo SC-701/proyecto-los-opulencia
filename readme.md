@@ -21,4 +21,4 @@ Adriela Lopez Paniagua
 - [2] Abrir el proyecto con Visual Studio Code
 - [3] Abrir la consola de CMD y ejecutar cd WebApplicationClinicaDental
 - [4] Ejecutar npm install
-- [5] Ejecutar npm start
+- [5] Ejecutar npm run dev
