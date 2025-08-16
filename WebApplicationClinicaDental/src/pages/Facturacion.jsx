@@ -1,4 +1,3 @@
-
 import Header from '../components/Header/Header.jsx'
 import React from 'react'
 import { motion } from 'framer-motion'
@@ -21,30 +20,37 @@ const Facturacion = () => {
 
         const { Facturas, cargar } = useFacturas();
         const { TotalFacturas, cargarTotalFacturas } = useFacturasTotal();
+        const {FacturasPagadas, cargarPagadas} = useFacturasPagadas();
+        const {FacturasPorPagar, cargarPorPagar} = useFacturasPorPagar();
         const [facturaSeleccionada, setFacturaSeleccionada] = useState([null]);
-
+        
         const cargarEstado = async (id, nuevoEstado) => {
             await editarEstadoFacturas(id, nuevoEstado);
             await cargar();
             await cargarTotalFacturas();
+            await cargarPagadas();
+            await cargarPorPagar();
 
         };
 
         const getDataCardFacturas = DataCardFacturacion({
-            TotalFacturas: TotalFacturas,
-
-            
+            TotalFacturas,
+            FacturasPagadas,
+            FacturasPorPagar,
         });
 
         const handleSuccess = async () => {
-            await cargar();
-            await cargarTotalFacturas();
+          await Promise.all([
+            cargar(),
+            cargarTotalFacturas(),
+            cargarPagadas(),
+            cargarPorPagar()
+          ])       
         };
 
         const handleFacturaClick = (idFactura) => {
             const factura = Facturas.find(f => f.idFactura == idFactura)
             setFacturaSeleccionada(factura)
-            console.log(factura)
         }
 
   return (
@@ -81,13 +87,11 @@ const Facturacion = () => {
           <div className='grid grid-cols-1 md:grid-cols-2 gap-6 sm:grid-cols-1'>
             <div className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6'>
               <h1 className='text-2xl font-bold py-4'>Mayor índice de facturas</h1>
-              <PieChartBoard orderStatusData={orderFacturas} COLORS={COLORSFacturas} />
-            </div>
-
-            <div className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6'>
-              <h1 className='text-2xl font-bold py-4'>Facturación del día</h1>
-              <ChartLineTwo />
-            </div>
+              <PieChartBoard
+               orderStatusData={orderFacturas({ FacturasPagadas, FacturasPorPagar})} 
+              COLORS={COLORS} 
+               />
+            </div>       
           </div>
         </motion.div>
                 <motion.div
@@ -100,7 +104,7 @@ const Facturacion = () => {
               <div className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6 mt-6'>
                 <div className='flex justify-between items-center mb-4'>
                 <h1 className='text-2xl font-bold py-4'>Facturas</h1>
-                <Agregar icon={<CirclePlus />} title="Agregar Factura" modalName="my_modal_6" />
+                <Agregar icon={<CirclePlus />} title="Facturación" modalName="my_modal_6" />
               </div>
                 <Tabla data={Facturas} columns={columnsFacturas(cargarEstado, handleFacturaClick)} />
             </div>
@@ -116,4 +120,4 @@ const Facturacion = () => {
   )
 }
 
-export default Facturacion
+export default Facturacion 

@@ -74,6 +74,7 @@ export const DataCardPacientes = [
     }
 ];
 
+/*
 export const DataCardFacturacion = [
   {
     nombre: "Ingresos totales",
@@ -82,7 +83,7 @@ export const DataCardFacturacion = [
     color: "#10B981",
   },
   {
-    nombre: "Facturas Realizadas",
+    nombre: "Facturas Pagadas",
     icon: ChartNoAxesCombined,
     valor: "130",
     color: "#5804ff",
@@ -93,13 +94,8 @@ export const DataCardFacturacion = [
     valor: "12",
     color: "#ffe104",
   },
-  {
-    nombre: "Facturas Vencidas",
-    icon: WalletMinimal,
-    valor: "18",
-    color: "#d107a3",
-  },
 ];
+*/
 
 export const DataCardAdministrativo = [
   {
