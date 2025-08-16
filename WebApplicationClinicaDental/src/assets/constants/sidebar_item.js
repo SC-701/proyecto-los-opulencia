@@ -7,6 +7,7 @@ import {
   PackageOpen,
   Stethoscope,
   Users,
+  BriefcaseMedical,
 } from "lucide-react";
 
 export const sidebar_item = [
@@ -27,6 +28,12 @@ export const sidebar_item = [
     icon: Users,
     color: "#375CA6",
     path: "/pacientes",
+  },
+  {
+    nombre: "Doctores",
+    icon: BriefcaseMedical,
+    color: "#375CA6",
+    path: "/doctores",
   },
   {
     nombre: "Inventario",

@@ -1,6 +1,6 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import Acciones from "../../components/Acciones/Acciones";
-import { EstadoFacturacion, EstadosCitas, EstadosServicios, EstadosPacientes } from "./Estados.jsx";
+import { EstadoFacturacion, EstadosCitas, EstadosServicios, EstadosPacientes, EstadosDoctores } from "./Estados.jsx";
 import { Ban, CalendarCheck, CircleAlert } from "lucide-react";
 import ModalEditar from "../../components/Modals/ModalEditarCitas/ModalEditar.jsx";
 import { Link } from 'react-router-dom';
@@ -391,6 +391,69 @@ export const columnsPacientes = (editarEstadoPaciente, onEditarClick) => [
         },
     }),
 ];;
+
+//tabla Doctores 
+export const columnsDoctores = (editarEstadoDoctor, onEditarClick) => [
+    columnHelper.accessor("nombre", {
+        header: "Doctor",
+        cell: ({ getValue, row }) => {
+            const nombre = getValue();
+            const { idDoctor } = row.original;
+
+            return (
+                <label
+                    htmlFor="modal_editar_doctor"
+                    className="hover:font-bold duration-100 delay-50 ease-in-out"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => onEditarClick(idDoctor)}
+                >
+                    {nombre}
+                </label>
+            );
+        },
+    }),
+    columnHelper.accessor("cedula", {
+        header: "Cédula",
+    }),
+    columnHelper.accessor("especialidad", {
+        header: "Especialidad",
+    }),
+    columnHelper.accessor("servicio", {
+        header: "servicio",
+    }),
+    columnHelper.accessor("estado", {
+        header: "Estado",
+        cell: ({ getValue }) => {
+            const estado = getValue();
+            const color = EstadosDoctores.obtenerColor(estado);
+
+            return (
+                <span className={`px-2 py-1 rounded text-xs font-semibold ${color}`}>
+                    {estado}
+                </span>
+            );
+        },
+    }),
+    columnHelper.accessor("acciones", {
+        header: "Acciones",
+        cell: ({ row }) => {
+            const { idDoctor, estado } = row.original;
+
+            return (
+                <Acciones
+                    manager={EstadosDoctores}
+                    estado={estado}
+                    onToggleEstado={() => {
+                        editarEstadoDoctor(idDoctor, EstadosDoctores.conversionEstado(estado));
+                    }}
+                    onEditar={() => onEditarClick(idDoctor)}
+                    modalNameEditar="modal_editar_doctor"
+                />
+            );
+        },
+    }),
+];
+
 
 export const dataPacientes = [
     {

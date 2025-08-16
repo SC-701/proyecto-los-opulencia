@@ -11,19 +11,25 @@ namespace Flujo
             _doctoresDA = doctoresDA;
         }
 
-        public Task<Guid> AgregarDoctor(DoctorRequest request)
+        public async Task<Guid> AgregarDoctor(DoctorRequest request)
         {
-            throw new NotImplementedException();
+            return await _doctoresDA.AgregarDoctor(request);
         }
 
-        public Task<Guid> Editar(Guid id, DoctorRequest request)
+
+        public async Task<Guid> Editar(Guid id, DoctorRequest request)
         {
-            throw new NotImplementedException();
+           return await _doctoresDA.Editar(id, request);
         }
 
-        public Task<Guid> Eliminar(Guid idDoctor)
+        public async Task<Guid> EditarEstado(Guid idDoctor, int idEstado)
         {
-            throw new NotImplementedException();
+           return await _doctoresDA.EditarEstado(idDoctor, idEstado);
+        }
+
+        public async Task<Guid> Eliminar(Guid idDoctor)
+        {
+            return await _doctoresDA.Eliminar(idDoctor);
         }
 
         public async Task<IEnumerable<DoctorResponse>> ObtenerDoctores()
@@ -33,6 +39,24 @@ namespace Flujo
         public async Task<DoctorResponse> ObtenerDoctores(Guid id)
         {
             return await _doctoresDA.ObtenerDoctores(id);
+        }
+        public async Task<int> DoctoresActivos()
+        {
+           return await _doctoresDA.DoctoresActivos();
+        }
+
+        public async Task<int> DoctoresInactivos()
+        {
+           return await _doctoresDA.DoctoresInactivos();
+        }
+
+        public async Task<int> DoctoresNuevos()
+        {
+            return await _doctoresDA.DoctoresNuevos();
+        }
+        public async Task<int> TotalDoctores()
+        {
+           return await _doctoresDA.TotalDoctores();
         }
     }
 }
