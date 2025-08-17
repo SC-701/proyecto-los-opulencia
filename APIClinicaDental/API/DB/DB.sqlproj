@@ -135,5 +135,6 @@
     <Build Include="dbo\Stored Procedures\AgregarConsultorio.sql" />
     <Build Include="dbo\Stored Procedures\AgregarCita.sql" />
     <Build Include="dbo\Stored Procedures\ActualizarEstadosInventario.sql" />
+    <Build Include="dbo\Stored Procedures\EditarEstadoConsultorios.sql" />
   </ItemGroup>
 </Project>
