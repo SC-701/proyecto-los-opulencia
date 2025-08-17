@@ -36,6 +36,8 @@ const ModalAgregar = ({ idModal, onSuccess }) => {
         }));
     }
 
+    const hoyLocal = new Date().toLocaleDateString('en-CA');
+
     const Submit = async (e) => {
         e.preventDefault();
         try {
@@ -154,6 +156,7 @@ const ModalAgregar = ({ idModal, onSuccess }) => {
                                     onChange={ManejadorCambios}
                                     className="input w-full"
                                     required
+                                    min={hoyLocal}
                                 />
                                 <p className="label">Requerido</p>
                             </fieldset>

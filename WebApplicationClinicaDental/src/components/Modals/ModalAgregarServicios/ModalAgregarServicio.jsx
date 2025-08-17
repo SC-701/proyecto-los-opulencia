@@ -72,6 +72,7 @@ const ModalAgregarServicio = ({ idModal, onSuccess }) => {
                                     value={form.precio}
                                     onChange={handleChange}
                                     required
+                                    min="1"
                                 />
                                 <p className="label">Requerido</p>
                             </fieldset>
