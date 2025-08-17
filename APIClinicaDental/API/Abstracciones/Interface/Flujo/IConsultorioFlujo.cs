@@ -12,6 +12,7 @@ namespace Abstracciones.Interface.Flujo
         public Task<IEnumerable<ConsultorioResponse>> ObtenerConsultorios();
         public Task<ConsultorioResponse> ObtenerConsultorio(Guid id);
         public Task<Guid> Agregar(ConsultorioRequest request);
+        public Task<Guid> EditarEstado(Guid id, int estado);
         public Task<Guid> Editar(Guid id, ConsultorioRequest request);
         public Task<Guid> Eliminar(Guid idConsultorio);
     }

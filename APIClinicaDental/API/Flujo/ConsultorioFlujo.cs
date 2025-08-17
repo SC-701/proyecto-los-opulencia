@@ -35,6 +35,11 @@ namespace Flujo
             return await _consultorioDA.Agregar(request);
         }
 
+        public async Task<Guid> EditarEstado(Guid id, int estado)
+        {
+            return await _consultorioDA.EditarEstado(id, estado);
+        }
+
         public async Task<Guid> Editar(Guid id, ConsultorioRequest request)
         {
             return await _consultorioDA.Editar(id, request);
