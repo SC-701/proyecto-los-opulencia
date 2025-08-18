@@ -133,6 +133,9 @@
     <Build Include="dbo\Stored Procedures\AgregarConsultorio.sql" />
     <Build Include="dbo\Stored Procedures\AgregarCita.sql" />
     <Build Include="dbo\Stored Procedures\ActualizarEstadosInventario.sql" />
+
+    <Build Include="dbo\Stored Procedures\EditarEstadoConsultorios.sql" />
+
     <Build Include="dbo\Tables\Usuarios.sql" />
     <Build Include="dbo\Tables\PerfilesxUsuario.sql" />
     <Build Include="dbo\Tables\Perfiles.sql" />
