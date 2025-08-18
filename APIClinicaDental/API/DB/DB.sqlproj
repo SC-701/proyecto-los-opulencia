@@ -155,5 +155,15 @@
     <Build Include="dbo\Stored Procedures\ObtenerAdministrativoLogin.sql" />
     <Build Include="dbo\Stored Procedures\AgregarEstado.sql" />
     <Build Include="dbo\Stored Procedures\AgregarAdministrativo.sql" />
+    <Build Include="dbo\Stored Procedures\TotalDoctores.sql" />
+    <Build Include="dbo\Stored Procedures\EliminarEstado.sql" />
+    <Build Include="dbo\Stored Procedures\EliminarDoctor.sql" />
+    <Build Include="dbo\Stored Procedures\EditarEstado.sql" />
+    <Build Include="dbo\Stored Procedures\EditarDoctorEstado.sql" />
+    <Build Include="dbo\Stored Procedures\EditarDoctor.sql" />
+    <Build Include="dbo\Stored Procedures\DoctoresNuevos.sql" />
+    <Build Include="dbo\Stored Procedures\DoctoresInactivos.sql" />
+    <Build Include="dbo\Stored Procedures\DoctoresActivos.sql" />
+    <Build Include="dbo\Stored Procedures\AgregarDoctor.sql" />
   </ItemGroup>
 </Project>
