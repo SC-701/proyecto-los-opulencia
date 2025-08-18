@@ -75,6 +75,19 @@ namespace DA
 
         }
 
+        public async Task<Guid> EditarEstado(Guid id, int estado)
+        {
+            string query = @"EditarConsultorioEstado";
+
+            var respuesta = await _Sqlconexion.ExecuteScalarAsync<Guid>(query, new
+            {
+                id = id,
+                idEstado = estado
+            });
+
+            return respuesta;
+        }
+
         public Task<Guid> Eliminar(Guid id)
         {
 
