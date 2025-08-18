@@ -25,12 +25,7 @@ import {
 
 
 export const DataCardInventarios = [
-  {
-    nombre: "Total de insumos",
-    icon: Clipboard,
-    valor: "120",
-    color: "#36f0c3",
-  },
+
   {
     nombre: "Insumos por agotarse",
     icon: AlertTriangle,
