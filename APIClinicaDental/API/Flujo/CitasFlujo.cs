@@ -81,5 +81,15 @@ namespace Flujo
         {
             return await _citasDA.ObtenerConteoCitasDiariasPacientes();
         }
+
+        public async Task<IEnumerable<CitasFecha>> ObtenerCitasPorFecha()
+        {
+            return await _citasDA.ObtenerCitasPorFecha();
+        }
+
+        public async Task<CitasResponseExtra> ObtenerCitasExtra(Guid id)
+        {
+            return await _citasDA.ObtenerCitasExtra(id);
+        }
     }
 }

@@ -16,7 +16,10 @@ namespace Abstracciones.Interface.API
         public Task<IActionResult> EliminarServicio(Guid idServicio);
         public Task<IActionResult> ObtenerServicios();
         public Task<IActionResult> ObtenerServicios(Guid id);
-
-
+        public Task<IActionResult> EditarEstado(Guid id, int estado);
+        public Task<IActionResult> ObtenerServiciosTotales();
+        public Task<IActionResult> ObtenerServiciosActivos();
+        public Task<IActionResult> ObtenerServiciosInactivos();
+        public Task<IActionResult> ObtenerSumaCosto();
     }
 }

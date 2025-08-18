@@ -22,7 +22,7 @@ namespace Abstracciones.Models
     public class ConsultorioResponse : Consultorio
     {
         public Guid id { get; set; }
-        public Guid ? idDoctor { get; set; }
-        public int ? idEstado { get; set; }
+        public string ? doctor { get; set; }
+        public string ? Estado { get; set; }
     }
 }

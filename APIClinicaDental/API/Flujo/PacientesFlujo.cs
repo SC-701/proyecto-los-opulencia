@@ -23,6 +23,11 @@ namespace Flujo
             return await _pacientesDA.Editar(id, request);
         }
 
+        public async Task<Guid> EditarEstado(Guid idPaciente, int idEstado)
+        {
+            return await _pacientesDA.EditarEstado(idPaciente, idEstado);
+        }
+
         public async Task<Guid> Eliminar(Guid idPaciente)
         {
             return await _pacientesDA.Eliminar(idPaciente);
@@ -36,6 +41,26 @@ namespace Flujo
         public async Task<PacienteResponse> ObtenerPacientes(Guid id)
         {
             return await _pacientesDA.ObtenerPacientes(id);
+        }
+
+        public async Task<int> PacientesActivos()
+        {
+            return await _pacientesDA.PacientesActivos();
+        }
+
+        public async Task<int> PacientesInactivos()
+        {
+            return await _pacientesDA.PacientesInactivos();
+        }
+
+        public async Task<int> PacientesNuevos()
+        {
+            return await _pacientesDA.PacientesNuevos();
+        }
+
+        public async Task<int> TotalPacientes()
+        {
+            return await _pacientesDA.TotalPacientes();
         }
     }
 }

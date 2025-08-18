@@ -5,6 +5,7 @@ import { useDoctores } from '../../../hooks/useDoctores';
 import { useServicios } from '../../../hooks/useServicio';
 import { toast } from 'react-toastify';
 import { useCitasEditar } from '../../../hooks/useCita';
+import { useObtenerEstados } from '../../../hooks/useEstados';
 
 const ModalEditar = ({ idModal, Cita, onSuccess }) => {
     const { servicios, cargarServicios } = useServicios();
@@ -12,6 +13,8 @@ const ModalEditar = ({ idModal, Cita, onSuccess }) => {
     const { pacientes, cargarPacientes } = usePacientes();
     const { consultorios, cargarConsultorios } = useConsultorios();
     const { editarCitaSub } = useCitasEditar();
+    const { estados, cargarEstados } = useObtenerEstados();
+
 
 
 
@@ -23,7 +26,7 @@ const ModalEditar = ({ idModal, Cita, onSuccess }) => {
         hora: "",
         notaMedica: "" || "Sin Nota Medica",
         idConsultorio: "" || "-1",
-        idEstado: 3
+        idEstado: ""
     });
 
     useEffect(() => {
@@ -31,6 +34,7 @@ const ModalEditar = ({ idModal, Cita, onSuccess }) => {
         cargarDoctores();
         cargarPacientes();
         cargarConsultorios();
+        cargarEstados();
     }, []);
 
 
@@ -44,6 +48,7 @@ const ModalEditar = ({ idModal, Cita, onSuccess }) => {
         const fechaISO = Cita.fecha
             ? new Date(Cita.fecha).toISOString().split('T')[0]
             : '';
+        
 
         const idServ = servicios.find(s => s.nombre === Cita.servicio)?.id ?? '-1';
         const idDoc = doctores.find(d => {
@@ -54,7 +59,8 @@ const ModalEditar = ({ idModal, Cita, onSuccess }) => {
             const fullName = `${p.nombre} ${p.apellido}`.trim();
             return fullName === Cita.paciente
         })?.idPaciente ?? '-1';
-        const idCons = consultorios.find(c => c.nombre === Cita.consultorio)?.id ?? '-1';
+        const idCons = consultorios.find(c => c.descripcion === Cita.consultorio)?.id ?? '-1';
+        const idEst = estados.find(e => e.nombre === Cita.estado)?.id ?? '-1';
         setFormActualizar({
             idServicio: idServ,
             idDoctor: idDoc,
@@ -63,7 +69,7 @@ const ModalEditar = ({ idModal, Cita, onSuccess }) => {
             hora: Cita.hora,
             notaMedica: Cita.notaMedica,
             idConsultorio: idCons,
-            idEstado: 3
+            idEstado: idEst
         })
     }, [servicios, doctores, pacientes, consultorios, Cita])
 
@@ -165,6 +171,7 @@ const ModalEditar = ({ idModal, Cita, onSuccess }) => {
                                     onChange={handleChange}
                                     className="input w-full"
                                     required
+                                    
                                 />
                                 <p className="label">Requerido</p>
                             </fieldset>

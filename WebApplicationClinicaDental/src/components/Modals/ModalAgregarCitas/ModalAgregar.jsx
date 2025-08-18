@@ -36,6 +36,8 @@ const ModalAgregar = ({ idModal, onSuccess }) => {
         }));
     }
 
+    const hoyLocal = new Date().toLocaleDateString('en-CA');
+
     const Submit = async (e) => {
         e.preventDefault();
         try {
@@ -73,7 +75,6 @@ const ModalAgregar = ({ idModal, onSuccess }) => {
                 setDoctor(await cargarDoctores());
                 setConsultorio(await cargarConsultorios());
                 setPaciente(await cargarPacientes());
-                
             } catch (err) {
                 console.error("Error cargando servicios:", err);
             }
@@ -104,7 +105,7 @@ const ModalAgregar = ({ idModal, onSuccess }) => {
                                 >
                                     <option value={'-1'} selected>Agregar Servicio</option>
                                     {
-                                        servicios.map((s, i) => (
+                                        servicios.filter(s => s.estado === "Activo").map((s, i) => (
                                             <option key={i} value={s.id}>{s.nombre}</option>
                                         ))
                                     }
@@ -155,6 +156,7 @@ const ModalAgregar = ({ idModal, onSuccess }) => {
                                     onChange={ManejadorCambios}
                                     className="input w-full"
                                     required
+                                    min={hoyLocal}
                                 />
                                 <p className="label">Requerido</p>
                             </fieldset>

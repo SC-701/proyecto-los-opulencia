@@ -28,6 +28,11 @@ namespace Flujo
             return await _servicioDA.Editar(id, request);
         }
 
+        public async Task<Guid> EditarEstado(Guid id, int estado)
+        {
+            return await _servicioDA.EditarEstado(id, estado);
+        }
+
         public async Task<Guid> Eliminar(Guid idServicio)
         {
             return await _servicioDA.Eliminar(idServicio);
@@ -41,6 +46,26 @@ namespace Flujo
         public async Task<ServiciosResponse> ObtenerServicios(Guid id)
         {
             return await _servicioDA.ObtenerServicios(id);
+        }
+
+        public async Task<int> ObtenerServiciosActivos()
+        {
+            return await _servicioDA.ObtenerServiciosActivos();
+        }
+
+        public async Task<int> ObtenerServiciosInactivos()
+        {
+            return await _servicioDA.ObtenerServiciosInactivos();
+        }
+
+        public async Task<int> ObtenerServiciosTotales()
+        {
+            return await _servicioDA.ObtenerServiciosTotales();
+        }
+
+        public async Task<int> ObtenerSumaCosto()
+        {
+            return await _servicioDA.ObtenerSumaCosto();
         }
     }
 }

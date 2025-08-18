@@ -11,6 +11,10 @@ import {
   Landmark,
   UserCog,
   UserSearch,
+  Accessibility,
+  ClipboardPlus,
+  ClipboardMinus,
+  Pill,
 } from "lucide-react";
 
 
@@ -21,12 +25,7 @@ import {
 
 
 export const DataCardInventarios = [
-  {
-    nombre: "Total de insumos",
-    icon: Clipboard,
-    valor: "120",
-    color: "#36f0c3",
-  },
+
   {
     nombre: "Insumos por agotarse",
     icon: AlertTriangle,
@@ -73,6 +72,8 @@ export const DataCardPacientes = [
         color: '#f00808'
     }
 ];
+
+
 
 export const DataCardFacturacion = [
   {

@@ -1,73 +1,81 @@
+import { useState } from 'react'
 import Header from '../components/Header/Header'
 import { motion } from 'framer-motion'
-import { DataCardCitas } from '../utils/utilsCitas.js'
 import DashBoardCard from '../components/Cards/DashBoardCard.jsx'
 import Tabla from '../components/Tabla/Tabla.jsx'
 import ChartLineTwo from '../components/Charts/ChartLineTwo.jsx'
 import PieChartBoard from '../components/Charts/PieChartBoard.jsx'
-import { COLORS, orderStatusData } from '../assets/constants/piechart.js'
-import { columnsCitas } from '../assets/constants/TablaDashboard.jsx'
-import { useCitas, useCitasCanceladas, useCitasCompletadas, useCitasPendientes, useCitasPorFecha, useCitasTotal } from "../hooks/useCita.js";
-import { editarEstadoCita } from '../services/Citas.js'
 import Agregar from '../components/Botones/Agregar.jsx'
 import ModalAgregar from '../components/Modals/ModalAgregarCitas/ModalAgregar.jsx'
-import { CirclePlus } from 'lucide-react'
 import ModalEditar from '../components/Modals/ModalEditarCitas/ModalEditar.jsx'
-import { useState } from 'react'
 import ModalInfoExtraCitas from '../components/Modals/ModalInfoExtraCitas/ModalInfoExtraCita.jsx'
-
+import { CirclePlus } from 'lucide-react'
+import { DataCardCitas } from '../utils/utilsCitas.js'
+import { COLORS, orderStatusData } from '../assets/constants/piechart.js'
+import { columnsCitas } from '../assets/constants/TablaDashboard.jsx'
+import { 
+    useCitas, 
+    useCitasCanceladas, 
+    useCitasCompletadas, 
+    useCitasPendientes, 
+    useCitasPorFecha, 
+    useCitasTotal 
+} from "../hooks/useCita.js"
+import { editarEstadoCita } from '../services/Citas.js'
 
 const Citas = () => {
-    const { citas, cargar } = useCitas();
-    const { totalCitas, cargarTotalCitas } = useCitasTotal();
-    const { citasPendientes, cargarCitasPendientes } = useCitasPendientes();
-    const { citasCompletadas, cargarCitasCompletadas } = useCitasCompletadas();
-    const { citasCanceladas, cargarCitasCanceladas } = useCitasCanceladas();
+    const { citas, cargar } = useCitas()
+    const { totalCitas, cargarTotalCitas } = useCitasTotal()
+    const { citasPendientes, cargarCitasPendientes } = useCitasPendientes()
+    const { citasCompletadas, cargarCitasCompletadas } = useCitasCompletadas()
+    const { citasCanceladas, cargarCitasCanceladas } = useCitasCanceladas()
+    const { citasPorFecha } = useCitasPorFecha()
     const [citaSeleccionada, setCitaSeleccionada] = useState(null)
-    const { citasPorFecha, cargarCitasPorFecha } = useCitasPorFecha();
-
 
     const cargarEstado = async (id, nuevoEstado) => {
-        await editarEstadoCita(id, nuevoEstado);
-        await cargar();
-        await cargarCitasPendientes();
-        await cargarCitasCompletadas();
-        await cargarCitasCanceladas();
-    };
-
-
-
-    const dailyOrdersData = citasPorFecha
-        .map(({ fecha, cantidad }) => ({
-            date: fecha,
-            orders: cantidad
-        }));
-
-    const getDataCardCitas = DataCardCitas({
-        totalCitas: totalCitas,
-        citasPendientes: citasPendientes,
-        citasCompletadas: citasCompletadas,
-        citasCanceladas: citasCanceladas
-    });
-
-    const handleSuccess = async () => {
-        await cargar();
-        await cargarCitasPendientes();
-        await cargarTotalCitas();
-    };
-
-    const handleCitaClick = (idCita) => {
-        const cita = citas.find(c => c.idCita == idCita)
-        setCitaSeleccionada(cita)
+        await editarEstadoCita(id, nuevoEstado)
+        await Promise.all([
+            cargar(),
+            cargarCitasPendientes(),
+            cargarCitasCompletadas(),
+            cargarCitasCanceladas()
+        ])
     }
 
+    const dailyOrdersData = citasPorFecha.map(({ fecha, cantidad }) => ({
+        date: fecha,
+        orders: cantidad
+    }))
+
+
+    const getDataCardCitas = DataCardCitas({
+        totalCitas,
+        citasPendientes,
+        citasCompletadas,
+        citasCanceladas
+    })
+
+
+    const handleSuccess = async () => {
+        await Promise.all([
+            cargar(),
+            cargarCitasPendientes(),
+            cargarTotalCitas()
+        ])
+    }
+
+
+    const handleCitaClick = (idCita) => {
+        const cita = citas.find(c => c.idCita === idCita)
+        setCitaSeleccionada(cita)
+    }
 
     return (
         <div className='flex-1 overflow-auto relative z-10'>
             <Header title='Citas' />
             <main className='max-w-7xl mx-auto py-6 px-4 lg:px-8'>
                 <div className='mb-6'>
-                    <h1 className='font-bold tracking-tight text-[#263238]  sm:text-3xl'>
+                    <h1 className='font-bold tracking-tight text-[#263238] sm:text-3xl'>
                         Panel de Citas - Clínica Dental
                     </h1>
                 </div>
@@ -94,12 +102,15 @@ const Citas = () => {
                 >
                     <div className='grid grid-cols-1 md:grid-cols-2 gap-6 sm:grid-cols-1'>
                         <div className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6'>
-                            <h1 className='text-2xl font-bold py-4'>Citas del dia</h1>
+                            <h1 className='text-2xl font-bold py-4'>Citas del día</h1>
                             <ChartLineTwo dailyOrdersData={dailyOrdersData} />
                         </div>
                         <div className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6'>
                             <h1 className='text-2xl font-bold py-4'>Mayor Porcentaje de citas</h1>
-                            <PieChartBoard orderStatusData={orderStatusData({ citasPendientes, citasCompletadas, citasCanceladas })} COLORS={COLORS} />
+                            <PieChartBoard 
+                                orderStatusData={orderStatusData({ citasPendientes, citasCompletadas, citasCanceladas })} 
+                                COLORS={COLORS} 
+                            />
                         </div>
                     </div>
                 </motion.div>
@@ -114,22 +125,21 @@ const Citas = () => {
                                 <h1 className='text-2xl font-bold py-4'>Citas</h1>
                                 <Agregar icon={<CirclePlus />} title="Agregar Cita" modalName="my_modal_6" />
                             </div>
-
-                            <Tabla data={citas} columns={columnsCitas(cargarEstado, handleCitaClick)} />
+                            <Tabla 
+                                data={citas} 
+                                columns={columnsCitas(cargarEstado, handleCitaClick)} 
+                            />
                         </div>
                     </div>
                 </motion.div>
                 <ModalAgregar idModal="my_modal_6" onSuccess={handleSuccess} />
                 {citaSeleccionada && (
-                    <ModalEditar idModal="my_modal_edit" Cita={citaSeleccionada} onSuccess={handleSuccess} />
+                    <>
+                        <ModalEditar idModal="my_modal_edit" Cita={citaSeleccionada} onSuccess={handleSuccess} />
+                        <ModalInfoExtraCitas idModal="my_modal_info_extra" Cita={citaSeleccionada} />
+                    </>
                 )}
-                {citaSeleccionada && (
-                    <ModalInfoExtraCitas idModal="my_modal_info_extra" Cita={citaSeleccionada} />
-                )}
-
             </main>
-
-
         </div>
     )
 }

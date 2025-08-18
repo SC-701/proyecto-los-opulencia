@@ -9,6 +9,7 @@ import Pacientes from '../pages/Pacientes'
 import Consultorios from '../pages/Consultorios'
 import Administrativos from '../pages/Administrativos'
 import Servicios from '../pages/Servicios'
+import Doctores from '../pages/Doctores'
 import { Bounce, ToastContainer } from 'react-toastify';
 
 
@@ -25,6 +26,7 @@ const AppRoutes = () => {
                 <Route path="/Consultorios" element={<Consultorios />} />
                 <Route path="/administrativos" element={<Administrativos />} />
                 <Route path="/Servicios" element={<Servicios />} />
+                <Route path="/doctores" element={<Doctores />} />
             </Routes>
 
             <ToastContainer

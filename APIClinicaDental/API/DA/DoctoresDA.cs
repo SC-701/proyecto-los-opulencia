@@ -16,19 +16,89 @@ namespace DA
             _Sqlconexion = _repositorioDapper.ObtenerRepositorio(); ;
         }
 
-        public Task<Guid> AgregarDoctor(DoctorRequest request)
+        public async Task<Guid> AgregarDoctor(DoctorRequest request)
         {
-            throw new NotImplementedException();
+            var query = @"AgregarDoctor";
+
+            var idEstadoUsuario = request.IdEstadoUsuario == 0 ? 1 : request.IdEstadoUsuario;
+            var idEstadoDoctor = request.IdEstadoDoctor == 0 ? 1 : request.IdEstadoDoctor;
+
+            var respuesta = await _Sqlconexion.ExecuteScalarAsync<Guid>(query, new
+            {
+                idUsuario = Guid.NewGuid(),
+                nombre = request.Nombre,
+                apellido = request.Apellido,
+                email = request.Email,
+                cedula = request.Cedula,
+                telefono = request.Telefono,
+                direccion = request.Direccion,
+                fechaNacimiento = request.FechaNacimiento,
+                idEstadoUsuario = idEstadoUsuario,
+
+                idDoctor = Guid.NewGuid(),
+                especialidad = request.Especialidad,
+                licenciaProfesional = request.LicenciaProfesional,
+                fechaInicio = request.FechaInicio,
+                idServicio = request.IdServicio,
+                idEstadoDoctor = idEstadoDoctor
+            });
+
+            return respuesta;
         }
 
-        public Task<Guid> Editar(Guid id, DoctorRequest request)
+        public async  Task<Guid> Editar(Guid id, DoctorRequest request)
         {
-            throw new NotImplementedException();
+            await VerificarExistenciaId(id); 
+
+            const string query = @"EditarDoctor";
+
+            var resultado = await _Sqlconexion.ExecuteScalarAsync<Guid>(query, new
+            {
+                idDoctor = id,
+                nombre = request.Nombre,
+                apellido = request.Apellido,
+                email = request.Email,
+                cedula = request.Cedula,
+                telefono = request.Telefono,
+                direccion = request.Direccion,
+                fechaNacimiento = request.FechaNacimiento,
+                idEstadoUsuario = request.IdEstadoUsuario,
+
+                especialidad = request.Especialidad,
+                licenciaProfesional = request.LicenciaProfesional,
+                fechaInicio = request.FechaInicio,
+                idServicio = request.IdServicio,
+                idEstadoDoctor = request.IdEstadoDoctor
+            });
+
+            return resultado;
         }
 
-        public Task<Guid> Eliminar(Guid idDoctor)
+        public async Task<Guid> EditarEstado(Guid idDoctor, int idEstado)
         {
-            throw new NotImplementedException();
+            await VerificarExistenciaId(idDoctor);
+            string query = @"EditarDoctorEstado";
+            var resultado = await _Sqlconexion.ExecuteScalarAsync<Guid>(query, new
+            {
+                id = idDoctor,
+                idEstado = idEstado
+            });
+            return resultado;
+        }
+
+
+        public async Task<Guid> Eliminar(Guid idDoctor)
+        {
+            await VerificarExistenciaId(idDoctor); 
+
+            const string query = @"EliminarDoctor";
+
+            var resultado = await _Sqlconexion.ExecuteScalarAsync<Guid>(query, new
+            {
+                idDoctor = idDoctor
+            });
+
+            return resultado;
         }
 
         public async Task<IEnumerable<DoctorResponse>> ObtenerDoctores()
@@ -52,6 +122,35 @@ namespace DA
 
             return resultado.FirstOrDefault();
         }
+
+        public async Task<int> TotalDoctores()
+        {
+            string query = @"TotalDoctores";
+            var resultado = await _Sqlconexion.QuerySingleAsync<int>(query);
+            return resultado;
+        }
+
+        public async Task<int> DoctoresActivos()
+        {
+            string query = @"DoctoresActivos";
+            var resultado = await _Sqlconexion.QuerySingleAsync<int>(query);
+            return resultado;
+        }
+
+        public async Task<int> DoctoresInactivos()
+        {
+            string query = @"DoctoresInactivos";
+            var resultado = await _Sqlconexion.QuerySingleAsync<int>(query);
+            return resultado;
+        }
+
+        public async Task<int> DoctoresNuevos()
+        {
+            string query = @"DoctoresNuevos";
+            var resultado = await _Sqlconexion.QuerySingleAsync<int>(query);
+            return resultado;
+        }
+
 
         #region HELPERS
         private async Task VerificarExistenciaId(Guid id)

@@ -14,5 +14,10 @@ namespace Abstracciones.Interface.DA
         public Task<Guid> AgregarPaciente(PacienteRequest request);
         public Task<Guid> Editar(Guid id, PacienteRequest request);
         public Task<Guid> Eliminar(Guid idPaciente);
+        public Task<int> TotalPacientes();
+        public Task<int> PacientesActivos();
+        public Task<int> PacientesInactivos();
+        public Task<int> PacientesNuevos();
+        public Task<Guid> EditarEstado(Guid idPaciente, int idEstado);
     }
 }

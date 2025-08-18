@@ -19,21 +19,47 @@ namespace API.Controllers
             _logger = logger;
         }
         [HttpPost]
-        public Task<IActionResult> AgregarDoctor(DoctorRequest request)
+        public async Task<IActionResult> AgregarDoctor([FromBody] DoctorRequest request)
         {
-            throw new NotImplementedException();
+           var respuesta = await _doctoresFlujo.AgregarDoctor(request);
+            return CreatedAtAction(nameof(ObtenerDoctores), new
+            {
+                id = respuesta
+            });
         }
 
+      
+
         [HttpPut("{id}")]
-        public Task<IActionResult> Editar(Guid id, DoctorRequest request)
+        public async Task<IActionResult> Editar(Guid id, DoctorRequest request)
         {
-            throw new NotImplementedException();
+           var respuesta = await _doctoresFlujo.Editar(id, request);
+            return Ok(respuesta);
+        }
+
+        [HttpPut("EditarEstado/{idDoctor}/{idEstado}")]
+        public async Task<IActionResult> EditarEstado(Guid idDoctor, int idEstado)
+        {
+            if (!await VerificarExistencias(idDoctor))
+            {
+                return NotFound(new
+                {
+                    message = "No se encontró el doctor con el ID proporcionado"
+                });
+            }
+            var respuesta = await _doctoresFlujo.EditarEstado(idDoctor, idEstado);
+            return Ok(new
+            {
+                response = respuesta,
+                message = $"Realizado con éxito {idEstado}"
+            });
         }
 
         [HttpDelete("{idDoctor}")]
-        public Task<IActionResult> Eliminar(Guid idDoctor)
+        public async Task<IActionResult> Eliminar(Guid idDoctor)
         {
-            throw new NotImplementedException();
+           var respuesta = await _doctoresFlujo.Eliminar(idDoctor);
+           return NoContent();
         }
 
         [HttpGet]
@@ -50,5 +76,43 @@ namespace API.Controllers
 
             return Ok(respuesta);
         }
+
+        [HttpGet("total")]
+        public async Task<IActionResult> TotalDoctores()
+        {
+            var respuesta = await _doctoresFlujo.TotalDoctores();
+            return Ok(respuesta);
+        }
+
+        [HttpGet("activos")]
+        public async Task<IActionResult> DoctoresActivos()
+        {
+           var respuesta = await _doctoresFlujo.DoctoresActivos();
+            return Ok(respuesta);
+        }
+
+        [HttpGet("inactivos")]
+        public async Task<IActionResult> DoctoresInactivos()
+        {
+         var respuesta = await _doctoresFlujo.DoctoresInactivos();
+            return Ok(respuesta);
+        }
+
+
+        [HttpGet("nuevos")]
+        public async Task<IActionResult> DoctoresNuevos()
+        {
+           var respuesta = await _doctoresFlujo.DoctoresNuevos();
+            return Ok(respuesta);
+        }
+
+        #region HELPERS 
+        private async Task<bool> VerificarExistencias(Guid id)
+        {
+            var respuesta = await _doctoresFlujo.ObtenerDoctores(id);
+            return respuesta != null;
+        }
+
+        #endregion
     }
 }
