@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Agregar from '../components/Botones/Agregar'
 import Header from '../components/Header/Header'
 import { motion } from 'framer-motion'
@@ -9,6 +9,7 @@ import { columnsServicios } from '../assets/constants/TablaDashboard'
 import ModalAgregarServicio from '../components/Modals/ModalAgregarServicios/ModalAgregarServicio'
 import DashBoardCard from '../components/Cards/DashBoardCard'
 import { DataCardServicios } from '../utils/utilsServicios'
+import ModalEditarServicios from '../components/Modals/ModalEditarServicios/ModalEditarServicios'
 
 const Servicios = () => {
     const { servicios, cargarServicios } = useServicios();
@@ -17,6 +18,7 @@ const Servicios = () => {
     const {ServiciosTotales , obtenerServiciosTotalesAsync} = useServicioObtenerTotales();
     const {ServiciosInactivos , obtenerServiciosInactivosAsync} = useServicioObtenerInactivos();
     const {ServiciosSumaCosto , obtenerServiciosSumaCostoAsync} = useServicioObtenerSumaCosto();
+    const [servicioSeleccionado, setServicioSeleccionado] = useState(null);
     const cargarEstado = async (id, estado) => {
         await editarEstado(id, estado);
         await cargarServicios();
@@ -43,7 +45,12 @@ const Servicios = () => {
             obtenerServiciosTotalesAsync(),
             obtenerServiciosInactivosAsync(),
             obtenerServiciosSumaCostoAsync()
-        ])
+        ]);
+    }
+
+    const handleServicioClick = (id) => {
+        const servicio = servicios.find(s => s.id === id);
+        setServicioSeleccionado(servicio);
     }
 
     return (
@@ -82,11 +89,12 @@ const Servicios = () => {
                                 <h1 className='text-2xl font-bold py-4'>Ofrecimiento de Servicios</h1>
                                 <Agregar icon={<CirclePlus />} title="Agregar Servicio" modalName="my_modal_servicio" />
                             </div>
-                            <Tabla data={servicios} columns={columnsServicios(cargarEstado)} />
+                            <Tabla data={servicios} columns={columnsServicios(cargarEstado, handleServicioClick)} />
                         </div>
                     </div>
                 </motion.div>
                 <ModalAgregarServicio idModal="my_modal_servicio" onSuccess={handleSuccess} />
+                <ModalEditarServicios idModal="my_modal_editar_servicio" Servicio={servicioSeleccionado} onSuccess={handleSuccess} />
 
             </main>
 
