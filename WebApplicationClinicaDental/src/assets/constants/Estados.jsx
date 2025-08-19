@@ -43,35 +43,37 @@ export const EstadosCitas = {
 };
 
 export const EstadoFacturacion = {
-  estados: [
-    {
-      nombre: "Pagada",
-      color: "bg-yellow-100 text-yellow-800",
-      icono: <CircleAlert size={20} className="text-yellow-500" />,
-      id: 8,
-    },
+    estados: [
+{
+nombre: "Pagada",
+color: "bg-yellow-100 text-yellow-800",
+icono: <CircleAlert size={20} className="text-yellow-500" />,
+id: 8,
+},
 
-    {
-      nombre: "Por Pagar",
-      color: "bg-green-100 text-green-800",
-      icono: <Check size={20} className="text-green-500" />,
-      id: 7,
-    },
-  ],
+{
+    nombre: "Por Pagar",
+    color: "bg-green-100 text-green-800",
+    icono: <Check size={20} className="text-green-500" />,
+    id: 7,
+},
 
-  obtenerElNombre: (nombre) =>
+],
+
+obtenerElNombre: (nombre) =>
     EstadoFacturacion.estados.find((e) => e.nombre === nombre),
 
-  conversionEstado: (estadoNombre) =>
+conversionEstado: (estadoNombre) =>
     EstadoFacturacion.obtenerElNombre(estadoNombre)?.id ?? null,
 
-  obtenerColor: (estadoNombre) =>
-    EstadoFacturacion.obtenerElNombre(estadoNombre)?.color ??
-    "bg-gray-100 text-gray-800",
+obtenerColor: (estadoNombre) =>
+    EstadoFacturacion.obtenerElNombre(estadoNombre)?.color ?? "bg-gray-100 text-gray-800",
 
-  obtenerIcono: (estadoNombre) =>
-    EstadoFacturacion.obtenerElNombre(estadoNombre)?.icono ?? null,
-};
+obtenerIcono: (estadoNombre) =>
+    EstadoFacturacion.obtenerElNombre(estadoNombre)?.icono ?? null
+}   
+
+
 
 export const EstadosServicios = {
   estados: [

@@ -75,33 +75,6 @@ export const DataCardPacientes = [
 
 
 
-export const DataCardFacturacion = [
-  {
-    nombre: "Ingresos totales",
-    icon: BadgeCent,
-    valor: "$100.000",
-    color: "#10B981",
-  },
-  {
-    nombre: "Facturas Realizadas",
-    icon: ChartNoAxesCombined,
-    valor: "130",
-    color: "#5804ff",
-  },
-  {
-    nombre: "Facturas Pendientes",
-    icon: Landmark,
-    valor: "12",
-    color: "#ffe104",
-  },
-  {
-    nombre: "Facturas Vencidas",
-    icon: WalletMinimal,
-    valor: "18",
-    color: "#d107a3",
-  },
-];
-
 export const DataCardAdministrativo = [
   {
     nombre: "Administrativos",
