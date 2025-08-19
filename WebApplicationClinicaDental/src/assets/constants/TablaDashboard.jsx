@@ -300,8 +300,7 @@ export const columnsCitas = (editarEstadoCita, onEditarClick) => [
 ];
 
 //! Columnas Tabla Facturas
-export const columnsFacturas = (editarEstadoFactura, onEditarClick) =>
-
+export const columnsFacturas = (editarEstadoFactura, onEditarClick, onPagarClick) =>
     [
 
         columnHelper.accessor("servicio", {
@@ -344,8 +343,8 @@ export const columnsFacturas = (editarEstadoFactura, onEditarClick) =>
                     <>
                         <Acciones
                           
-                            onEditar={() => onEditarClick(idFactura)}
-                            modalNameEditar="my_modal_pagar"
+                            onEditarPagarFactura={() => onPagarClick(idFactura)}
+                            modalNameEditarPago="my_modal_pagar"
                         />
                     </>
                 )
