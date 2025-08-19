@@ -300,63 +300,78 @@ export const columnsCitas = (editarEstadoCita, onEditarClick) => [
 ];
 
 //! Columnas Tabla Facturas
-export const columnsFacturas = (editarEstadoFactura, onEditarClick) => [
-  columnHelper.accessor("servicio", {
-    header: "Servicio",
-  }),
-  columnHelper.accessor("doctor", {
-    header: "Doctor",
-  }),
-  columnHelper.accessor("paciente", {
-    header: "Paciente",
-  }),
+export const columnsFacturas = (editarEstadoFactura, onEditarClick) =>
 
-  columnHelper.accessor("fecha", {
-    header: "Fecha",
-  }),
-  columnHelper.accessor("subtotal", {
-    header: "subtotal",
-  }),
-  columnHelper.accessor("total", {
-    header: "Total",
-  }),
-  columnHelper.accessor("estado", {
-    header: "Estado",
-    cell: ({ getValue }) => {
-      const estado = getValue();
-      const color = EstadoFacturacion.obtenerColor(estado);
+    [
 
-      return (
-        <span className={`px-2 py-1 rounded text-xs font-semibold ${color}`}>
-          {estado}
-        </span>
-      );
-    },
-  }),
+        columnHelper.accessor("servicio", {
+            header: "Servicio"
+        }),
+        columnHelper.accessor("doctor", {
+            header: "Doctor"
+        }),
+        columnHelper.accessor("paciente", {
+            header: "Paciente"
+        }),
 
-  columnHelper.accessor("acciones", {
-    header: "Acciones",
-    cell: ({ row }) => {
-      const { idFactura, estado } = row.original;
-      return (
-        <>
-          <Acciones
-            manager={EstadoFacturacion}
-            estado={estado}
-            onToggleEstado={() =>
-              editarEstadoFactura(
-                idFactura,
-                EstadoFacturacion.conversionEstado(estado)
-              )
-            }
-            onEditar={() => onEditarClick(idFactura)}
-            modalNameEditar="my_modal_edit"
-          />
-        </>
-      );
-    },
-  }),
-];
+        columnHelper.accessor("fecha", {
+            header: "Fecha"
+        }),
+        columnHelper.accessor("subtotal", {
+            header: "subtotal"
+        }),
+        columnHelper.accessor("total", {
+            header: "Total"
+        }),
+        columnHelper.accessor("estado", {
+            header: "Estado",
+            cell: ({ getValue }) => {
+                const estado = getValue();
+                const color = EstadoFacturacion.obtenerColor(estado);
+
+                return (
+                    <span className={`px-2 py-1 rounded text-xs font-semibold ${color}`}>
+                        {estado}
+                    </span>
+                );
+            },
+        }),
+        columnHelper.accessor("pagar", {
+            header: "Pagar",
+            cell: ({ row }) => {
+                const { idFactura } = row.original;
+                return (
+                    <>
+                        <Acciones
+                          
+                            onEditar={() => onEditarClick(idFactura)}
+                            modalNameEditar="my_modal_pagar"
+                        />
+                    </>
+                )
+            },
+        }),
+
+        columnHelper.accessor("acciones", {
+            header: "Acciones",
+            cell: ({ row }) => {
+                const { idFactura, estado } = row.original;
+                return (
+                    <>
+                        <Acciones
+                            manager={EstadoFacturacion}
+                            estado={estado}
+                            onToggleEstado={() => editarEstadoFactura(idFactura, EstadoFacturacion.conversionEstado(estado))}
+
+                            onEditar={() => onEditarClick(idFactura)}
+                            modalNameEditar="my_modal_edit"
+                        />
+                    </>
+                )
+            },
+        })
+    ]
+
 
 //tabla pacientes
 
