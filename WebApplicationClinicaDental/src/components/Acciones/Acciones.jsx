@@ -1,5 +1,5 @@
 import React from "react";
-import { SquarePen, Trash2 } from "lucide-react";
+import { CreditCard, SquarePen, Trash2 } from "lucide-react";
 import Swal from "sweetalert2";
 
 const Acciones = ({
@@ -7,8 +7,10 @@ const Acciones = ({
   estado,
   onToggleEstado,
   onEditar,
+  onEditarPagarFactura,
   onEliminar,
   modalNameEditar,
+  modalNameEditarPago,
 }) => {
   const iconoEstado = manager?.obtenerIcono?.(estado);
 
@@ -17,6 +19,18 @@ const Acciones = ({
     if (modalNameEditar) {
       setTimeout(() => {
         const chk = document.getElementById(modalNameEditar);
+        if (chk) chk.checked = true;
+      }, 50);
+    }
+  };
+
+
+  
+  const handleEditarPagoClick = () => {
+    onEditarPagarFactura?.();
+    if (modalNameEditarPago) {
+      setTimeout(() => {
+        const chk = document.getElementById(modalNameEditarPago);
         if (chk) chk.checked = true;
       }, 50);
     }
@@ -68,6 +82,19 @@ const Acciones = ({
         >
           <SquarePen size={20} className="text-blue-500" />
         </label>
+      )}
+
+
+      
+    {onEditarPagarFactura && (
+        <label
+             htmlFor={modalNameEditarPago ?? ""}
+          onClick={handleEditarPagoClick}
+           className="px-2 py-1 hover:scale-110 transition-transform cursor-pointer"
+            title="Pagar"
+        >
+          <CreditCard size={20} className="text-green-500" />
+          </label>
       )}
 
       {onEliminar && (

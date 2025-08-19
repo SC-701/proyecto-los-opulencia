@@ -3,13 +3,13 @@ import Header from '../components/Header/Header.jsx'
 import React from 'react'
 import { motion } from 'framer-motion'
 import PieChartBoard from '../components/Charts/PieChartBoard.jsx'
-import {  COLORSFacturas,  orderFacturas } from '../assets/constants/piechart.js'
+import { COLORS, COLORSFacturas, COLORSInventario, orderFacturas, orderInventario } from '../assets/constants/piechart.js'
 import DashBoardCard from '../components/Cards/DashBoardCard.jsx'
 import { DataCardFacturacion } from '../utils/utilsFacturas.js'
 import ChartLineTwo from '../components/Charts/ChartLineTwo.jsx'
 import { columnsFacturas } from '../assets/constants/TablaDashboard.jsx'
 import Tabla from '../components/Tabla/Tabla.jsx'
-import { useFacturas,  useFacturasTotal } from '../hooks/useFacturas.js'
+import { useFacturas, useFacturasPagadas, useFacturasPorPagar, useFacturasTotal } from '../hooks/useFacturas.js'
 import { editarEstadoFacturas } from '../services/Facturas.js'
 import { useState } from 'react'
 import ModalAgregarFacturas from '../components/Modals/Facturas/ModalAgregarFacturas.jsx'
@@ -21,30 +21,37 @@ const Facturacion = () => {
 
         const { Facturas, cargar } = useFacturas();
         const { TotalFacturas, cargarTotalFacturas } = useFacturasTotal();
-        const [facturaSeleccionada, setFacturaSeleccionada] = useState([null]);
-        
+        const {FacturasPagadas, cargarFacturasPagadas} = useFacturasPagadas();
+        const {FacturasPorPagar, cargarFacturasPorPagar} = useFacturasPorPagar();
+        const [facturaSeleccionada, setFacturaSeleccionada] = useState(null);
+
         const cargarEstado = async (id, nuevoEstado) => {
             await editarEstadoFacturas(id, nuevoEstado);
             await cargar();
             await cargarTotalFacturas();
+            await cargarFacturasPagadas();
+            await cargarFacturasPorPagar();
 
         };
 
         const getDataCardFacturas = DataCardFacturacion({
-            TotalFacturas: TotalFacturas,
-
-            
+            TotalFacturas,
+            FacturasPagadas,
+            FacturasPorPagar,
         });
 
         const handleSuccess = async () => {
-            await cargar();
-            await cargarTotalFacturas();
+          await Promise.all([
+            cargar(),
+            cargarTotalFacturas(),
+            cargarFacturasPagadas(),
+            cargarFacturasPorPagar()
+          ])       
         };
 
         const handleFacturaClick = (idFactura) => {
             const factura = Facturas.find(f => f.idFactura == idFactura)
             setFacturaSeleccionada(factura)
-            console.log(factura)
         }
 
   return (
@@ -81,13 +88,11 @@ const Facturacion = () => {
           <div className='grid grid-cols-1 md:grid-cols-2 gap-6 sm:grid-cols-1'>
             <div className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6'>
               <h1 className='text-2xl font-bold py-4'>Mayor índice de facturas</h1>
-              <PieChartBoard orderStatusData={orderFacturas} COLORS={COLORSFacturas} />
-            </div>
-
-            <div className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6'>
-              <h1 className='text-2xl font-bold py-4'>Facturación del día</h1>
-              <ChartLineTwo />
-            </div>
+              <PieChartBoard
+               orderStatusData={orderFacturas({ FacturasPagadas, FacturasPorPagar})} 
+              COLORS={COLORS} 
+               />
+            </div>       
           </div>
         </motion.div>
                 <motion.div
@@ -100,13 +105,13 @@ const Facturacion = () => {
               <div className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6 mt-6'>
                 <div className='flex justify-between items-center mb-4'>
                 <h1 className='text-2xl font-bold py-4'>Facturas</h1>
-                <Agregar icon={<CirclePlus />} title="Agregar Factura" modalName="my_modal_6" />
+
               </div>
-                <Tabla data={Facturas} columns={columnsFacturas(cargarEstado, handleFacturaClick)} />
+                    <Tabla data={Facturas} columns={columnsFacturas(cargarEstado, handleFacturaClick, handleFacturaClick)} />
             </div>
             </div>
           </motion.div>
-              <ModalAgregarFacturas idModal="my_modal_6" onSuccess={handleSuccess} />
+              <ModalAgregarFacturas idModal="my_modal_pagar" factura={facturaSeleccionada} onSuccess={handleSuccess} />
                <ModalEditarFactura idModal="my_modal_edit" factura={facturaSeleccionada} onSuccess={handleSuccess}  />
 
 
@@ -116,4 +121,4 @@ const Facturacion = () => {
   )
 }
 
-export default Facturacion
+export default Facturacion 

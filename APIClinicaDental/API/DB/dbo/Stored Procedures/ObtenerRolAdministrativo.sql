@@ -4,15 +4,13 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    SELECT
+   SELECT
         R.idRol,
-        R.nombre AS NombreRol
-    FROM
-        Administrativo A
-        INNER JOIN Rol R
-            ON A.idRol = R.idRol
-        INNER JOIN Usuario U
-            ON A.idUsuario = U.idUsuario
-    WHERE
-        U.email = @CorreoElectronico;
+        A.idAdministrativo
+    FROM Administrativo A
+    INNER JOIN Rol R
+        ON A.idRol = R.idRol
+    INNER JOIN Usuario U
+        ON A.idUsuario = U.idUsuario
+    WHERE U.email = @CorreoElectronico;
 END
