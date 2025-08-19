@@ -7,6 +7,7 @@ namespace Abstracciones.Interface.API
     public interface IConsultorioController
     {
         public Task<IActionResult> Agregar(ConsultorioRequest request);
+        public Task<IActionResult> EditarEstado(Guid id, int estado);
         public Task<IActionResult> Editar(Guid id, ConsultorioRequest request);
         public Task<IActionResult> Eliminar(Guid idConsultorio);
         public Task<IActionResult> ObtenerConsultorios();
