@@ -78,6 +78,7 @@ const ModalEditar = ({ idModal, Cita, onSuccess }) => {
         setFormActualizar(f => ({ ...f, [name]: value }));
     };
 
+    const hoyLocal = new Date().toLocaleDateString('en-CA');
 
     const editarCitaSubmit = async (e) => {
         e.preventDefault();
@@ -169,7 +170,7 @@ const ModalEditar = ({ idModal, Cita, onSuccess }) => {
                                     onChange={handleChange}
                                     className="input w-full"
                                     required
-                                    
+                                    min={hoyLocal}
                                 />
                                 <p className="label">Requerido</p>
                             </fieldset>
