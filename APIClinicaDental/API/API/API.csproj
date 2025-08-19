@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -7,13 +7,33 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.18" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
+	 
+    
+	  
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Abstracciones\Abstracciones.csproj" />
     <ProjectReference Include="..\DA\DA.csproj" />
     <ProjectReference Include="..\Flujo\Flujo.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Autorizacion.Abstracciones">
+      <HintPath>..\..\..\SeguridadAPI\Seguridad.MiddlewareAutorizacion\Autorizacion.Abstracciones\bin\Debug\net8.0\Autorizacion.Abstracciones.dll</HintPath>
+    </Reference>
+    <Reference Include="Autorizacion.DA">
+      <HintPath>..\..\..\SeguridadAPI\Seguridad.MiddlewareAutorizacion\Autorizacion.DA\bin\Debug\net8.0\Autorizacion.DA.dll</HintPath>
+    </Reference>
+    <Reference Include="Autorizacion.Flujo">
+      <HintPath>..\..\..\SeguridadAPI\Seguridad.MiddlewareAutorizacion\Abstracciones.BW\bin\Debug\net8.0\Autorizacion.Flujo.dll</HintPath>
+    </Reference>
+    <Reference Include="Autorizacion.Middleware">
+      <HintPath>..\..\..\SeguridadAPI\Seguridad.MiddlewareAutorizacion\Autorizacion.Middleware\bin\Debug\net8.0\Autorizacion.Middleware.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

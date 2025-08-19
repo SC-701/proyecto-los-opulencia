@@ -3,6 +3,7 @@ using Abstracciones.Flujo;
 using Abstracciones.Modelos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace API.Controllers
 {
@@ -32,6 +33,21 @@ namespace API.Controllers
         {
             var resultado = await _administrativoFlujo.CrearAdministrativo(administrativo);
             return CreatedAtAction(nameof(ObtenerAdministrativo), null, resultado);
+        }
+
+        [HttpGet("verificar")]
+        [Authorize] 
+        public async Task<IActionResult> ObtenerDelToken()
+        {
+            var email = User.FindFirstValue(System.Security.Claims.ClaimTypes.Email);
+            if (string.IsNullOrWhiteSpace(email))
+                return Unauthorized();     
+
+            var resultado = await _administrativoFlujo.ObtenerAdministrativo(email);
+            if (resultado == null)
+                return NotFound();         
+
+            return Ok(resultado);
         }
 
     }

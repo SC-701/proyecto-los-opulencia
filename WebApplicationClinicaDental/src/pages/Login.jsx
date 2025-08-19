@@ -1,71 +1,85 @@
-import React, { useState } from 'react'
-import { motion } from 'framer-motion'
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Eye, EyeOff } from 'lucide-react';
+import { useLogin } from '../hooks/UseLogin';  
+import { toast, ToastContainer } from "react-toastify";
+
 
 const Login = () => {
-    const [showPassword, setShowPassword] = useState(false);
-    return (
-        <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 to-blue-300">
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                className="card w-full max-w-md shadow-xl bg-white rounded-2xl p-6"
-            >
+  const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const login = useLogin((s) => s.login);
 
-                <div className="text-center mb-6">
-                    <h1 className="text-2xl font-bold text-blue-700">Clínica Dental</h1>
-                    <p className="text-gray-500 text-sm">Inicia sesión para continuar</p>
-                </div>
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const ok = await login(email, password);
 
+    if (ok) {
+      toast.success("Inicio de sesion exitoso");
+    } else {
+      toast.error("Credenciales invalidas");
+    }
+  };
 
-                <form>
-                    <div className="form-control mb-4">
-                        <label className="label">
-                            <span className="label-text font-medium">Correo electrónico</span>
-                        </label>
-                        <input
-                            type="email"
-                            placeholder="ejemplo@correo.com"
-                            className="input input-bordered w-full"
-                            required
-                        />
-                    </div>
-
-                    <div className="form-control mb-4 relative">
-                        <label className="label">
-                            <span className="label-text font-medium">Contraseña</span>
-                        </label>
-                        <input
-                            type={showPassword ? "text" : "password"}
-                            placeholder="********"
-                            className="input input-bordered w-full pr-10"
-                            required
-                        />
-
-                        <button
-                            type="button"
-                            onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-4 top-8.5 text-gray-500 hover:text-gray-700"
-                        >
-                            {showPassword ? (
-                                <Eye size={22} />
-                            ) : (
-                                <EyeOff size={22} />
-                            )}
-                        </button>
-                    </div>
-
-
-                    <button type="submit" className="btn btn-primary w-full mt-2">
-                        Iniciar sesión
-                    </button>
-                </form>
-
-
-            </motion.div>
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 to-blue-300">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="card w-full max-w-md shadow-xl bg-white rounded-2xl p-6"
+      >
+        <div className="text-center mb-6">
+          <h1 className="text-2xl font-bold text-blue-700">Clínica Dental</h1>
+          <p className="text-gray-500 text-sm">Inicia sesión para continuar</p>
         </div>
-    )
-}
 
-export default Login
+        <form onSubmit={handleSubmit}>
+          <div className="form-control mb-4">
+            <label className="label">
+              <span className="label-text font-medium">Correo electrónico</span>
+            </label>
+            <input
+              type="email"
+              placeholder="ejemplo@correo.com"
+              className="input input-bordered w-full"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+
+          <div className="form-control mb-4 relative">
+            <label className="label">
+              <span className="label-text font-medium">Contraseña</span>
+            </label>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              placeholder="********"
+              className="input input-bordered w-full pr-10"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-4 top-8.5 text-gray-500 hover:text-gray-700"
+            >
+              {showPassword ? <Eye size={22} /> : <EyeOff size={22} />}
+            </button>
+          </div>
+
+          <button type="submit" className="btn btn-primary w-full mt-2">
+            Iniciar sesión
+          </button>
+        </form>
+      </motion.div>
+       <ToastContainer position="top-right" autoClose={4000} />
+    </div>
+  );
+};
+
+export default Login;
