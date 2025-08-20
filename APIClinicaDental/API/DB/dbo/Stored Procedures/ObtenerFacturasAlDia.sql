@@ -3,23 +3,14 @@
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE EditarConsultorioEstado
+CREATE PROCEDURE [dbo].[ObtenerFacturasAlDia]
 	-- Add the parameters for the stored procedure here
-	@idEstado int,
-	@id uniqueidentifier
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	BEGIN TRANSACTION
     -- Insert statements for procedure here
-	UPDATE Consultorio
-	SET idEstado = @idEstado
-	where idConsultorio = @id;
-
-	select @id 
-	
-	COMMIT TRANSACTION
+		SELECT CAST(fecha AS DATE) as fecha ,  COUNT(*) AS Cantidad FROM Factura group by CAST(fecha as DATE) order by CAST(fecha as DATE)
 END

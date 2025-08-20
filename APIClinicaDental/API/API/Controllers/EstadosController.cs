@@ -30,20 +30,20 @@ namespace API.Controllers
             });
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditarEstado(int id, Estados estado)
+        public async Task<IActionResult> EditarEstado([FromRoute]int id, [FromBody]Estados estado)
         {
             var respuesta = await _estadosFlujo.EditarEstado(id, estado);
             return Ok(respuesta);
         }
         [HttpDelete("{id}")]
-        public async Task<IActionResult> EliminarEstado(int id)
+        public async Task<IActionResult> EliminarEstado([FromRoute] int id)
         {
             var respuesta = await _estadosFlujo.EliminarEstado(id);
             return NoContent();
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> ObtenerEstado(int id)
+        public async Task<IActionResult> ObtenerEstado([FromRoute] int id)
         {
             if (id <= 0)
             {

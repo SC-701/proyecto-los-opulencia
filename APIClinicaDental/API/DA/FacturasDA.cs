@@ -168,5 +168,23 @@ namespace DA
 
 
         }
+
+        public async Task<int> ObtenerIngresosMes()
+        {
+            string query = @"IngresosMes";
+
+            var resultado = await _Sqlconexion.QuerySingleAsync<int>(query);
+
+            return resultado;
+        }
+
+        public async Task<IEnumerable<FacturaFecha>> ObtenerFacturaPorFecha()
+        {
+            string query = @"ObtenerFacturasAlDia";
+
+            var resultado = await _Sqlconexion.QueryAsync<FacturaFecha>(query);
+
+            return resultado;
+        }
     }
 }

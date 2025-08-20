@@ -52,4 +52,11 @@ namespace Abstracciones.Models
         public decimal pago { get; set; }
     }
 
+    public class FacturaFecha
+    {
+        public DateTime fecha { get; set; }
+        public int Cantidad { get; set; }
+    }
+
+
 }

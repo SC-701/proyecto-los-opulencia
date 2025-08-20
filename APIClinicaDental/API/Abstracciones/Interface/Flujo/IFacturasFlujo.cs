@@ -27,8 +27,8 @@ namespace Abstracciones.Interface.Flujo
         public Task<int> ObtenerFacturasPagadas();
 
         public Task<int> ObtenerFacturasPorPagar();
-
-
+        public Task<int> ObtenerIngresosMes();
         public Task<Guid> PagoFactura(Guid id, pagar pago);
+        public Task<IEnumerable<FacturaFecha>> ObtenerFacturaPorFecha();
     }
 }

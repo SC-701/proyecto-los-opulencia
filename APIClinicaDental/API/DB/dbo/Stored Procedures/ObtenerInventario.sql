@@ -1,7 +1,18 @@
-﻿CREATE PROCEDURE [dbo].[ObtenerInventario]
+﻿CREATE PROCEDURE dbo.ObtenerInventario
 AS
 BEGIN
-    SET NOCOUNT ON;
+  SET NOCOUNT ON;
 
-    SELECT * FROM [dbo].[Inventario]
+  SELECT
+    i.IdInventario,
+    i.Producto,
+    i.Descripcion,
+    i.Cantidad,
+    i.IdEstado,
+    i.FechaVencimiento,
+    i.Categoria,
+    i.Unidad,
+    e.Descripcion AS Estado  -- 👈 agrega el nombre del estado
+  FROM dbo.Inventario i
+  INNER JOIN dbo.Estado e ON e.IdEstado = i.IdEstado;
 END

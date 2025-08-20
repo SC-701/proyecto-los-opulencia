@@ -60,6 +60,13 @@ namespace API.Controllers
             var respuesta = await _facturasFlujo.Eliminar(idFactura);
             return NoContent();
         }
+        [HttpGet]
+        [Route("ObtenerFacturaPorFecha")]
+        public async Task<IActionResult> ObtenerFacturaPorFecha()
+        {
+            var respuesta = await _facturasFlujo.ObtenerFacturaPorFecha();
+            return Ok(respuesta);
+        }
 
         [HttpGet]
         public async Task<IActionResult> ObtenerFacturas()
@@ -98,6 +105,14 @@ namespace API.Controllers
             return Ok(respuesta);
         }
 
+        [HttpGet]
+        [Route("ObtenerIngresosMes")]
+        public async Task<IActionResult> ObtenerIngresosMes()
+        {
+            var respuestas = await _facturasFlujo.ObtenerIngresosMes();
+
+            return Ok(respuestas);
+        }
 
         [HttpGet]
         [Route("ObtenerTotalFacturas")]
@@ -111,7 +126,7 @@ namespace API.Controllers
         [HttpPut]
         [Route("Pagofactura")]
 
-        public async Task<IActionResult> PagoFactura(Guid id, pagar pago)
+        public async Task<IActionResult> PagoFactura(Guid id, [FromBody]pagar pago)
         {
             var ObtenerFacturaID = await _facturasFlujo.ObtenerFacturas(id);
             var total = ObtenerFacturaID.total;

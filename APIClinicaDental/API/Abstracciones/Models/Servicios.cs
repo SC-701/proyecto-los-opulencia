@@ -9,9 +9,11 @@ namespace Abstracciones.Models
 {
     public class Servicios
     {
+        [Required]
         public string ? nombre { get; set; }
-
+        [Required]
         public string ? descripcion { get; set; }
+        [Required]
         public decimal precio { get; set; }
 
     }

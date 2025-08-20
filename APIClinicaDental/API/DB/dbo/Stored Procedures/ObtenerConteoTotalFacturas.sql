@@ -11,10 +11,10 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    	 DECLARE @GuardarTotalCitas int
+    	 DECLARE @GuardarTotalFacturas int
 
-	 select  @GuardarTotalCitas = COUNT(*) from Factura;
+	 select  @GuardarTotalFacturas = COUNT(*) from Factura;
 
-	 select @GuardarTotalCitas;
+	 select @GuardarTotalFacturas;
 	 
 END

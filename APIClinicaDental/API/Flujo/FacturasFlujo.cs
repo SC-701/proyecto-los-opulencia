@@ -40,6 +40,11 @@ namespace Flujo
             return await _facturasDA.Eliminar(idFactura);
         }
 
+        public async Task<IEnumerable<FacturaFecha>> ObtenerFacturaPorFecha()
+        {
+            return await _facturasDA.ObtenerFacturaPorFecha();
+        }
+
         public async Task<IEnumerable<FacturasResponse>> ObtenerFacturas()
         {
             return await _facturasDA.ObtenerFacturas();
@@ -58,6 +63,11 @@ namespace Flujo
         public async Task<int> ObtenerFacturasPorPagar()
         {
             return await _facturasDA.ObtenerFacturasPorPagar();
+        }
+
+        public async Task<int> ObtenerIngresosMes()
+        {
+            return await _facturasDA.ObtenerIngresosMes();
         }
 
         public async Task<int> ObtenerTotalFacturas()
