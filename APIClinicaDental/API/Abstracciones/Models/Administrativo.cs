@@ -1,8 +1,11 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-
-namespace Abstracciones.Modelos
+namespace Abstracciones.Models
 {
     public class Administrativo
     {
@@ -35,9 +38,7 @@ namespace Abstracciones.Modelos
 
         [Required(ErrorMessage = "El rol del administrativo es requerido")]
         public int IdRol { get; set; }
-
-        [Required(ErrorMessage = "La contraseña es requerida")]
-        public string PasswordHash { get; set; }
+        public string? PasswordHash { get; set; }
     }
 
     public class AdministrativoResponse : Administrativo
@@ -47,24 +48,6 @@ namespace Abstracciones.Modelos
         public string Estado { get; set; }
         public DateTime FechaCreacion { get; set; }
     }
-   
-    
-    public class AdministrativoLoginResponse
-    {
-        public Guid IdAdministrativo { get; set; }
-        public string Nombre { get; set; } 
-        public string Apellido { get; set; }
-        public string Email { get; set; }
-        public string PasswordHash { get; set; }
-        public string Rol { get; set; }
-    }
 
-
-    public class CorreoRequest
-    {
-        [Required(ErrorMessage = "El correo electrónico es requerido")]
-        [EmailAddress(ErrorMessage = "El correo electrónico no tiene un formato válido")]
-        public string Email { get; set; } = default!;
-    }
 
 }

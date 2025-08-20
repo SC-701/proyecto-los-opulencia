@@ -222,3 +222,33 @@ export const EstadosInventario = {
       return i === -1 ? 1 : orden[(i + 1) % orden.length];
     },
   };
+
+  export const EstadosAdministrativos = {
+  estados: [
+    {
+      nombre: "Activo",
+      color: "bg-green-100 text-green-800",
+      icono: <Eye size={20} className="text-green-500" />,
+      id: 2,
+    },
+    {
+      nombre: "Inactivo",
+      color: "bg-red-100 text-red-800",
+      icono: <EyeOff size={20} className="text-red-500" />,
+      id: 1,
+    },
+  ],
+
+  obtenerElNombre: (nombre) =>
+    EstadosAdministrativos.estados.find((e) => e.nombre === nombre),
+
+  conversionEstado: (estadoNombre) =>
+    EstadosAdministrativos.obtenerElNombre(estadoNombre)?.id ?? null,
+
+  obtenerColor: (estadoNombre) =>
+    EstadosAdministrativos.obtenerElNombre(estadoNombre)?.color ??
+    "bg-gray-100 text-gray-800",
+
+  obtenerIcono: (estadoNombre) =>
+    EstadosAdministrativos.obtenerElNombre(estadoNombre)?.icono ?? null,
+};

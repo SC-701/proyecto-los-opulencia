@@ -24,10 +24,14 @@ export const orderFacturas = ({FacturasPagadas = 0, FacturasPorPagar = 0}) => [
 
 export const COLORSFacturas = ["#5804ff", "#ffe104", "#d107a3"];
 
-export const orderAdministrativos = [
-  { name: "Administrados", value: 2 },
-  { name: "Recepcionistas", value: 1 },
-  { name: "Inactivos", value: 1 },
+export const orderAdministrativos = ({
+  totalAdministadores = 0,
+  totalRecepcionistas = 0,
+  administrativosInactivos = 0,
+}) => [
+  { name: "Administrados",  value: totalAdministadores },
+  { name: "Recepcionistas", value: totalRecepcionistas },
+  { name: "Inactivos",      value: administrativosInactivos },
 ];
 
 export const COLORSAdministradores = ["#2fa8f0", "#3adc33", "#f00808"];
