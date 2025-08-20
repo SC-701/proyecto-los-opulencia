@@ -4,6 +4,10 @@ import {
   CircleAlert,
   Eye,
   EyeOff,
+  PackageCheck,
+  AlertTriangle,
+  PackageX,
+  Ban,
 } from "lucide-react";
 
 export const EstadosCitas = {
@@ -43,37 +47,35 @@ export const EstadosCitas = {
 };
 
 export const EstadoFacturacion = {
-    estados: [
-{
-nombre: "Pagada",
-color: "bg-yellow-100 text-yellow-800",
-icono: <CircleAlert size={20} className="text-yellow-500" />,
-id: 8,
-},
+  estados: [
+    {
+      nombre: "Pagada",
+      color: "bg-yellow-100 text-yellow-800",
+      icono: <CircleAlert size={20} className="text-yellow-500" />,
+      id: 8,
+    },
 
-{
-    nombre: "Por Pagar",
-    color: "bg-green-100 text-green-800",
-    icono: <Check size={20} className="text-green-500" />,
-    id: 7,
-},
+    {
+      nombre: "Por Pagar",
+      color: "bg-green-100 text-green-800",
+      icono: <Check size={20} className="text-green-500" />,
+      id: 7,
+    },
+  ],
 
-],
-
-obtenerElNombre: (nombre) =>
+  obtenerElNombre: (nombre) =>
     EstadoFacturacion.estados.find((e) => e.nombre === nombre),
 
-conversionEstado: (estadoNombre) =>
+  conversionEstado: (estadoNombre) =>
     EstadoFacturacion.obtenerElNombre(estadoNombre)?.id ?? null,
 
-obtenerColor: (estadoNombre) =>
-    EstadoFacturacion.obtenerElNombre(estadoNombre)?.color ?? "bg-gray-100 text-gray-800",
+  obtenerColor: (estadoNombre) =>
+    EstadoFacturacion.obtenerElNombre(estadoNombre)?.color ??
+    "bg-gray-100 text-gray-800",
 
-obtenerIcono: (estadoNombre) =>
-    EstadoFacturacion.obtenerElNombre(estadoNombre)?.icono ?? null
-}   
-
-
+  obtenerIcono: (estadoNombre) =>
+    EstadoFacturacion.obtenerElNombre(estadoNombre)?.icono ?? null,
+};
 
 export const EstadosServicios = {
   estados: [
@@ -165,60 +167,26 @@ export const EstadosDoctores = {
     EstadosDoctores.obtenerElNombre(estadoNombre)?.icono ?? null,
 };
 
-import { PackageCheck, AlertTriangle, PackageX, Ban } from "lucide-react";
-
 export const EstadosInventario = {
-    estados: [
-      {
-        id: 1,
-        nombre: "Disponible",
-        color: "bg-green-100 text-green-800",
-        icono: <PackageCheck size={20} className="text-green-500" />,
-      },
-      {
-        id: 2,
-        nombre: "Por vencer",
-        color: "bg-yellow-100 text-yellow-800",
-        icono: <AlertTriangle size={20} className="text-yellow-500" />,
-      },
-      {
-        id: 3,
-        nombre: "Agotado",
-        color: "bg-red-100 text-red-800",
-        icono: <PackageX size={20} className="text-red-500" />,
-      },
-      {
-        id: 4,
-        nombre: "Vencido",
-        color: "bg-purple-100 text-purple-800",
-        icono: <Ban size={20} className="text-purple-500" />,
-      },
-    ],
-  
-    // helpers por nombre
-    obtenerPorNombre: (nombre) =>
-      EstadosInventario.estados.find((e) => e.nombre === nombre) ?? null,
-    conversionEstado: (nombre) =>
-      EstadosInventario.obtenerPorNombre(nombre)?.id ?? null,
-    obtenerColor: (nombre) =>
-      EstadosInventario.obtenerPorNombre(nombre)?.color ??
-      "bg-gray-100 text-gray-800",
-    obtenerIcono: (nombre) =>
-      EstadosInventario.obtenerPorNombre(nombre)?.icono ?? null,
-  
-    // helpers por id
-    obtenerPorId: (id) =>
-      EstadosInventario.estados.find((e) => e.id === id) ?? null,
-    obtenerNombrePorId: (id) =>
-      EstadosInventario.obtenerPorId(id)?.nombre ?? "Desconocido",
-    obtenerColorPorId: (id) =>
-      EstadosInventario.obtenerPorId(id)?.color ?? "bg-gray-100 text-gray-800",
-    obtenerIconoPorId: (id) =>
-      EstadosInventario.obtenerPorId(id)?.icono ?? null,
+  estados: [
+    { id: 6,  nombre: "Disponible", color: "bg-green-100 text-green-800",  icono: <PackageCheck size={20} className="text-green-500" /> },
+    { id: 11, nombre: "Por vencer",  color: "bg-yellow-100 text-yellow-800", icono: <AlertTriangle size={20} className="text-yellow-500" /> },
+    { id: 12, nombre: "Agotado",     color: "bg-red-100 text-red-800",      icono: <PackageX size={20} className="text-red-500" /> },
+    { id: 13, nombre: "Vencido",     color: "bg-purple-100 text-purple-800", icono: <Ban size={20} className="text-purple-500" /> },
+  ],
 
-    siguienteId: (idActual) => {
-      const orden = [1, 2, 3, 4];
-      const i = orden.indexOf(idActual);
-      return i === -1 ? 1 : orden[(i + 1) % orden.length];
-    },
-  };
+  obtenerElNombre: (nombre) =>
+    EstadosInventario.estados.find(e => e.nombre === nombre) ?? null,
+  conversionEstado: (nombre) =>
+    EstadosInventario.obtenerElNombre(nombre)?.id ?? null,
+  obtenerColor: (nombre) =>
+    EstadosInventario.obtenerElNombre(nombre)?.color ?? "bg-gray-100 text-gray-800",
+  obtenerIcono: (nombre) =>
+    EstadosInventario.obtenerElNombre(nombre)?.icono ?? null,
+
+  siguienteId: (idActual) => {
+    const orden = [6, 11, 12, 13];
+    const i = orden.indexOf(Number(idActual));
+    return i === -1 ? 6 : orden[(i + 1) % orden.length];
+  },
+};
