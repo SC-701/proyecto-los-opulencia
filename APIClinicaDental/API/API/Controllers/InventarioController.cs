@@ -41,6 +41,14 @@ namespace API.Controllers
         [HttpPost]
         public async Task<IActionResult> AgregarInventario([FromBody] InventarioRequest request)
         {
+            
+            if (!request.FechaEsValida())
+                return BadRequest(new { message = "La fecha de vencimiento no puede ser anterior a hoy." });
+
+            
+            if (request.IdEstado == 13)
+                return BadRequest(new { message = "No se puede crear un item con estado Vencido." });
+
             var respuesta = await _inventarioFlujo.AgregarInventario(request);
             return CreatedAtAction(nameof(ObtenerInventario), new { id = respuesta });
         }
@@ -50,6 +58,12 @@ namespace API.Controllers
         {
             if (!await VerificarExistencias(id))
                 return NotFound(new { message = "No se encontró el inventario" });
+
+            
+            if (!request.FechaEsValida())
+                return BadRequest(new { message = "La fecha de vencimiento no puede ser anterior a hoy." });
+
+            
 
             var respuesta = await _inventarioFlujo.Editar(id, request);
             return Ok(respuesta);
@@ -114,7 +128,6 @@ namespace API.Controllers
             return Ok(datos);
         }
 
-        
         private async Task<bool> VerificarExistencias(Guid id)
         {
             var inventario = await _inventarioFlujo.ObtenerInventario(id);

@@ -26,5 +26,7 @@ namespace Abstracciones.Interface.DA
         public Task<int> ObtenerFacturasPagadas();
 
         public Task<int> ObtenerFacturasPorPagar();
+        public Task<Guid> PagoFactura(Guid id, pagar pago);
+
     }
 }

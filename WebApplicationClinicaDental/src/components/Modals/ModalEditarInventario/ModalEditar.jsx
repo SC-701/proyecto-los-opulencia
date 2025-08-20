@@ -6,10 +6,8 @@ import { EstadosInventario } from "../../../assets/constants/Estados.jsx";
 const ModalEditarInventario = ({ idModal, Item, onSuccess }) => {
   const { editar } = useInventarioEditar();
 
-
   const baseCategorias = ["Protección","Medicamentos","Higiene","Consumo","Instrumental","Insumos","Equipos","Sueros","Curación","Otros"];
   const baseUnidades   = ["unidades","pares","ampollas","rollos","bolsas","cajas","botellas","tubos","jeringas","agujas","frascos"];
-
 
   const ensureOption = (arr, value) => {
     if (value == null || value === "") return arr;
@@ -33,7 +31,6 @@ const ModalEditarInventario = ({ idModal, Item, onSuccess }) => {
   useEffect(() => {
     if (!Item) return;
 
-   
     const rawEstado =
       Item.idEstado ?? Item.estadoId ?? Item.estado ?? Item.Estado ?? null;
     const idEstadoStr =
@@ -41,11 +38,9 @@ const ModalEditarInventario = ({ idModal, Item, onSuccess }) => {
         ? String(rawEstado)
         : String(EstadosInventario.conversionEstado(rawEstado ?? "Disponible"));
 
-    
     const currentCategoria = Item.categoria ?? Item.Categoria ?? "-1";
     const currentUnidad    = Item.unidad ?? Item.Unidad ?? "-1";
 
-  
     setCategoriasOpts(prev => ensureOption(prev.length ? prev : baseCategorias, currentCategoria));
     setUnidadesOpts(prev   => ensureOption(prev.length   ? prev : baseUnidades,   currentUnidad));
 
@@ -78,8 +73,9 @@ const ModalEditarInventario = ({ idModal, Item, onSuccess }) => {
       return;
     }
 
-    if (cantidadNum === 0) form.idEstado = String(3);
-    
+    // ✅ calcular sin mutar el state y con ID correcto (11 = Agotado)
+    const idEstadoFinal = (cantidadNum === 0) ? 11 : Number(form.idEstado);
+
     const idSeguro =
       Item?.id ??
       Item?.idInventario ??
@@ -94,11 +90,11 @@ const ModalEditarInventario = ({ idModal, Item, onSuccess }) => {
 
     try {
       const payload = {
-        id: idSeguro,
+        // ❌ no enviar 'id' en el body (va en la URL)
         producto: form.producto.trim(),
         descripcion: form.descripcion?.trim() ?? "",
-        cantidad: Number(cantidadNum),
-        idEstado: Number(form.idEstado),
+        cantidad: cantidadNum,
+        idEstado: idEstadoFinal, // ✅ usar el calculado
         fechaVencimiento: form.fechaVencimiento ? String(form.fechaVencimiento) : null,
         categoria: form.categoria,
         unidad: form.unidad,

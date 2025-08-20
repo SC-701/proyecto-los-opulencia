@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { useConsultorios } from '../../../hooks/useConsultorios';
 import { usePacientes } from '../../../hooks/usePacientes';
 import { useCitasAgregar } from '../../../hooks/useCita';
+import { useFacturasAgregar } from '../../../hooks/useFacturas';
 
 const ModalAgregar = ({ idModal, onSuccess }) => {
     const [servicio, setServicios] = useState([]);
@@ -16,6 +17,7 @@ const ModalAgregar = ({ idModal, onSuccess }) => {
     const { pacientes, cargarPacientes } = usePacientes();
     const [paciente, setPaciente] = useState([]);
     const { agregarCita } = useCitasAgregar();
+    const { agregarFactura } = useFacturasAgregar();
 
     const [Form, setForm] = useState({
         idServicio: "" || "-1",
@@ -31,17 +33,18 @@ const ModalAgregar = ({ idModal, onSuccess }) => {
     const ManejadorCambios = (e) => {
         const { name, value } = e.target;
         setForm(prev => ({
-            ...prev, 
+            ...prev,
             [name]: value
         }));
     }
 
     const hoyLocal = new Date().toLocaleDateString('en-CA');
 
+
     const Submit = async (e) => {
         e.preventDefault();
         try {
-            if (Form.idServicio === "-1" || Form.idDoctor === "-1" || Form.idPaciente === "-1") {
+            if (Form.idServicio === "-1" || Form.idDoctor === "-1" || Form.idPaciente === "-1" || Form.idConsultorio === "-1") {
                 toast.error("Favor seleccionar todos los campos");
                 return;
             }
@@ -50,13 +53,38 @@ const ModalAgregar = ({ idModal, onSuccess }) => {
                 return;
             }
             await agregarCita(Form);
+            
+            const costo = servicios.find(s => s.id === Form.idServicio)?.precio ?? 0;
+            const IVA = costo * 0.13;
+            const total = costo + IVA;
+
+            const FormFacActualizar = {
+                idServicio: Form.idServicio,
+                idDoctor: Form.idDoctor,
+                idPaciente: Form.idPaciente,
+                fecha: Form.fecha,
+                subtotal: costo,
+                total: total, 
+                idEstado: 0
+            };
+           
+
+            await agregarFactura(FormFacActualizar);
             await onSuccess();
             toast.success("Cita agregada correctamente");
             limpiarForm();
         } catch (err) {
             console.error('Error al agregar cita', err);
         }
+
+
+
+
+
+
     }
+
+
 
     const limpiarForm = () => {
         setForm({

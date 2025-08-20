@@ -19,7 +19,7 @@ namespace API.Controllers
             _administrativoFlujo = administrativoFlujo;
         }
 
-        [Authorize(Roles = "1")]
+        [AllowAnonymous]
         [HttpPost("ObtenerInformacionAdministrativo")]
         public async Task<IActionResult> ObtenerAdministrativo([FromBody] CorreoRequest request)
         {

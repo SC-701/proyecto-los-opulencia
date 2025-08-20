@@ -1,3 +1,4 @@
+import { data } from 'react-router-dom';
 import axios from './AxiosInstance.service';
 const facturas = '/Facturas'
 
@@ -36,6 +37,11 @@ export const ObetenerFacturasPorPagar = async () => {
     const response = await axios.get(`${facturas}/ObtenerFacturasPorPagar`);
     return response.data;
 }   
+
+export const PagoFactura = async ( data, id) => {
+    const response = await axios.put(`${facturas}/Pagofactura?id=${id}`, data);
+    return response.data;
+}
 
 
 

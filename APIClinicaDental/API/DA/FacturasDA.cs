@@ -1,5 +1,6 @@
 ﻿using Abstracciones.Interface.DA;
 using Abstracciones.Models;
+using Azure.Core;
 using Dapper;
 using Microsoft.Data.SqlClient;
 using System;
@@ -34,7 +35,7 @@ namespace DA
         {
             var query = @"AgregarFactura";
 
-            var idEstado = request.idEstado >= 0 ? 7 : request.idEstado;
+            var idEstado = request.idEstado >= 0 ? 8 : request.idEstado;
 
 
             var respuestaFac = await _Sqlconexion.ExecuteScalarAsync<Guid>(query, new
@@ -141,8 +142,6 @@ namespace DA
         var resultado = await _Sqlconexion.QuerySingleAsync<int>(query);
 
             return resultado;
-
-
         }
 
         public async Task<int> ObtenerTotalFacturas()
@@ -152,6 +151,21 @@ namespace DA
             var resultado = await _Sqlconexion.QuerySingleAsync<int>(query);
 
             return resultado;
+        }
+
+        public async  Task<Guid> PagoFactura(Guid id, pagar pago)
+        {
+            string query = @"PagarFactura";
+
+
+            var resultadoPago = await _Sqlconexion.ExecuteScalarAsync<Guid>(query, new
+            {
+                id = id,
+                Pago = pago.pago,
+            });
+
+            return resultadoPago;
+
 
         }
     }

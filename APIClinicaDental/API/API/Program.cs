@@ -63,6 +63,9 @@ builder.Services.AddScoped<IConsultorioDA, ConsultorioDA>();
 builder.Services.AddScoped<IServicioDA, ServicioDA>();
 builder.Services.AddScoped<IInventarioDA, InventarioDA>();
 builder.Services.AddScoped<IEstadosDA, EstadosDA>();
+builder.Services.AddScoped<IAdministrativoDA, AdministrativoDA>();
+
+
 
 
 //Inyecciones de Flujo
@@ -74,6 +77,7 @@ builder.Services.AddScoped<IConsultorioFlujo, ConsultorioFlujo>();
 builder.Services.AddScoped<IServicioFlujo, ServiciosFlujo>();
 builder.Services.AddScoped<IInventarioFlujo, InventarioFlujo>();
 builder.Services.AddScoped<IEstadosFlujo, EstadosFlujo>();
+builder.Services.AddScoped<IAdministrativoFlujo, AdministrativoFlujo>();
 
 builder.Services.AddTransient<Autorizacion.Abstracciones.Flujo.IAutorizacionFlujo, Autorizacion.Flujo.AutorizacionFlujo>();
 builder.Services.AddTransient<Autorizacion.Abstracciones.DA.ISeguridadDA, Autorizacion.DA.SeguridadDA>();
