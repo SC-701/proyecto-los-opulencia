@@ -36,8 +36,6 @@ namespace Abstracciones.Modelos
         [Required(ErrorMessage = "El rol del administrativo es requerido")]
         public int IdRol { get; set; }
 
-
-        [RegularExpression(@"^(?=.*[A-Z])(?!.*[A-Z].*[A-Z]).{8}$", ErrorMessage = "La contraseña debe tener exactamente 8 caracteres y exactamente 1 mayúscula")]
         public string PasswordHash { get; set; }
     }
 
