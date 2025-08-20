@@ -48,6 +48,10 @@ const ModalAgregar = ({ idModal, onSuccess }) => {
                 toast.error("Favor seleccionar todos los campos");
                 return;
             }
+            if(hoyLocal > Form.fecha) {
+                toast.error("La fecha no puede ser menor a la fecha actual");
+                return;
+            }
             await agregarCita(Form);
             
             const costo = servicios.find(s => s.id === Form.idServicio)?.precio ?? 0;

@@ -8,6 +8,7 @@ import {
   EstadosDoctores,
   EstadosInventario,
   EstadosConsultorios,
+  EstadosAdministrativos ,
 } from "./Estados.jsx";
 import { Ban, CalendarCheck, CircleAlert } from "lucide-react";
 import ModalEditar from "../../components/Modals/ModalEditarCitas/ModalEditar.jsx";
@@ -131,59 +132,50 @@ export const columnsInventario = (
   onEditarClick,
   onEliminar
 ) => [
-  columnHelper.accessor("producto", {
-    header: "Insumo",
-  }),
-  columnHelper.accessor("categoria", {
-    header: "Categoría",
-  }),
-  columnHelper.accessor("cantidad", {
-    header: "Cantidad",
-  }),
-  columnHelper.accessor("unidad", {
-    header: "Unidad",
-  }),
+  columnHelper.accessor("producto", { header: "Insumo" }),
+  columnHelper.accessor("categoria", { header: "Categoría" }),
+  columnHelper.accessor("cantidad", { header: "Cantidad" }),
+  columnHelper.accessor("unidad", { header: "Unidad" }),
+
   columnHelper.accessor("fechaVencimiento", {
     header: "Vencimiento",
     cell: ({ getValue }) => {
       const fecha = getValue();
       if (!fecha) return "—";
       const d = new Date(fecha);
-      if (isNaN(d)) return "—";
-      return d.toISOString().split("T")[0];
+      return isNaN(d) ? "—" : d.toISOString().split("T")[0];
     },
   }),
-  columnHelper.accessor("idEstado", {
+
+  columnHelper.accessor("estado", {
     header: "Estado",
     cell: ({ getValue }) => {
-      const e = EstadosInventario.obtenerPorId(getValue());
-      const nombre = e?.nombre ?? "Desconocido";
-      const color = e?.color ?? "bg-gray-100 text-gray-800";
+      const estado = getValue();
+      const color = EstadosInventario.obtenerColor(estado);
       return (
         <span className={`px-2 py-1 rounded text-xs font-semibold ${color}`}>
-          {nombre}
+          {estado}
         </span>
       );
     },
   }),
+
   columnHelper.accessor("acciones", {
     header: "Acciones",
     cell: ({ row }) => {
-      const o = row.original;
-      const id = o.idInventario;
+      const { idInventario, estado } = row.original;
 
       return (
         <Acciones
           manager={EstadosInventario}
-          estado={EstadosInventario.obtenerNombrePorId(o.idEstado)}
-          onToggleEstado={() =>
-            editarEstadoInventario(
-              id,
-              EstadosInventario.siguienteId(o.idEstado)
-            )
-          }
-          onEditar={() => onEditarClick(id)}
-          onEliminar={() => onEliminar(id)}
+          estado={estado}
+          onToggleEstado={() => {
+            const idActual = EstadosInventario.conversionEstado(estado);
+            const nextId = EstadosInventario.siguienteId(idActual);
+            editarEstadoInventario(idInventario, nextId);
+          }}
+          onEditar={() => onEditarClick(idInventario)}
+          onEliminar={() => onEliminar(idInventario)}
           modalNameEditar="modal_editar_inventario"
         />
       );
@@ -365,26 +357,29 @@ export const columnsFacturas = (editarEstadoFactura, onEditarClick, onPagarClick
             },
         }),
 
-        columnHelper.accessor("acciones", {
-            header: "Acciones",
-            cell: ({ row }) => {
-                const { idFactura, estado } = row.original;
-                return (
-                    <>
-                        <Acciones
-                            manager={EstadoFacturacion}
-                            estado={estado}
-                            onToggleEstado={() => editarEstadoFactura(idFactura, EstadoFacturacion.conversionEstado(estado))}
-
-                            onEditar={() => onEditarClick(idFactura)}
-                            modalNameEditar="my_modal_edit"
-                        />
-                    </>
-                )
-            },
-        })
-    ]
-
+  columnHelper.accessor("acciones", {
+    header: "Acciones",
+    cell: ({ row }) => {
+      const { idFactura, estado } = row.original;
+      return (
+        <>
+          <Acciones
+            manager={EstadoFacturacion}
+            estado={estado}
+            onToggleEstado={() =>
+              editarEstadoFactura(
+                idFactura,
+                EstadoFacturacion.conversionEstado(estado)
+              )
+            }
+            onEditar={() => onEditarClick(idFactura)}
+            modalNameEditar="my_modal_edit"
+          />
+        </>
+      );
+    },
+  }),
+];
 
 //tabla pacientes
 
@@ -611,12 +606,27 @@ export const dataAdministrativos = [
 ];
 
 //! Columnas Tabla Administración
-export const columnsAdministrativos = [
+export const columnsAdministrativos = (editarEstadoAdministrativo, onEditarClick) => [
   columnHelper.accessor("nombre", {
-    header: "Nombre",
+    header: "Administrativo",
+    cell: ({ getValue, row }) => {
+      const nombre = getValue();
+      const { idAdministrativo } = row.original;
+
+      return (
+        <label
+          htmlFor="modal_editar_administrativo"
+          className="hover:font-bold duration-100 delay-50 ease-in-out"
+          style={{ cursor: "pointer" }}
+          onClick={() => onEditarClick(idAdministrativo)}
+        >
+          {nombre}
+        </label>
+      );
+    },
   }),
-  columnHelper.accessor("telefono", {
-    header: "Teléfono",
+  columnHelper.accessor("rol", {
+    header: "Rol",
   }),
   columnHelper.accessor("email", {
     header: "Correo",
@@ -625,16 +635,31 @@ export const columnsAdministrativos = [
     header: "Estado",
     cell: ({ getValue }) => {
       const estado = getValue();
-      const color =
-        {
-          Activo: "bg-green-100 text-green-800",
-          Inactivo: "bg-red-100 text-red-800",
-        }[estado] || "bg-gray-100 text-gray-800";
-
+      const color = EstadosAdministrativos.obtenerColor(estado);
       return (
         <span className={`px-2 py-1 rounded text-xs font-semibold ${color}`}>
           {estado}
         </span>
+      );
+    },
+  }),
+  columnHelper.accessor("acciones", {
+    header: "Acciones",
+    cell: ({ row }) => {
+      const { idAdministrativo, estado } = row.original;
+      return (
+        <Acciones
+          manager={EstadosAdministrativos}
+          estado={estado}
+          onToggleEstado={() =>
+            editarEstadoAdministrativo(
+              idAdministrativo,
+              EstadosAdministrativos.conversionEstado(estado)
+            )
+          }
+          onEditar={() => onEditarClick(idAdministrativo)}
+          modalNameEditar="modal_editar_administrativo"
+        />
       );
     },
   }),

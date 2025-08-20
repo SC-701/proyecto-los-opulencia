@@ -13,6 +13,7 @@ import { useCitas, useCitasDiarias, useCitasDiariasPacientes, useCitasDiariasPen
 import ModalEditar from '../components/Modals/ModalEditarCitas/ModalEditar.jsx'
 import ModalInfoExtraCitas from '../components/Modals/ModalInfoExtraCitas/ModalInfoExtraCita.jsx'
 import { useFacturasPorPagar } from '../hooks/useFacturas.js'
+import { usePacientesTotal } from '../hooks/usePacientes.js'
 
 
 
@@ -25,11 +26,12 @@ const Home = () => {
         const {FacturasPorPagar, cargarFacturasPorPagar} = useFacturasPorPagar();
     const { citas, cargar } = useCitas();
     const [citaSeleccionada, setCitaSeleccionada] = useState([])
+    const { totalPacientes, cargarTotalPacientes } = usePacientesTotal();
 
 
     const getDataHomeCard = DataCard({
         CitasHoy: citasDiarias,
-        pacientes: 0,
+        pacientes: totalPacientes,
         citasPendientesHoy: citasDiariasPendientes,
         obtenerFacturasPorPagar: FacturasPorPagar
     });

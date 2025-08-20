@@ -1,31 +1,9 @@
 import axios from "./AxiosInstance.service";
 const inventario = "/inventario";
 
-
-const toDateOnlyOrNull = (v) => {
-  if (!v) return null;
-  const d = new Date(v);
-  if (isNaN(d)) return null;
-  return d.toISOString().split("T")[0]; 
-};
-
-const mapToApiBody = (body) => {
-  
-  return {
-    Producto: (body.Producto ?? body.producto ?? "").toString().trim(),
-    Descripcion: body.Descripcion ?? body.descripcion ?? null,
-    Cantidad: Number(body.Cantidad ?? body.cantidad ?? 0),
-    FechaVencimiento: toDateOnlyOrNull(body.FechaVencimiento ?? body.fechaVencimiento),
-    Categoria: (body.Categoria ?? body.categoria ?? "").toString().trim(),
-    Unidad: (body.Unidad ?? body.unidad ?? "").toString().trim(),
-    IdEstado: Number(body.IdEstado ?? body.idEstado ?? 1),
-  };
-};
-
-
 export const obtenerInventario = async () => {
   const { data } = await axios.get(inventario);
-  return data; 
+  return data;
 };
 
 export const obtenerInventarioPorId = async (id) => {
@@ -33,32 +11,26 @@ export const obtenerInventarioPorId = async (id) => {
   return data;
 };
 
-// CRUD
+
 export const AgregarInventario = async (body) => {
-  
-  const payload = mapToApiBody(body);
-  const { data } = await axios.post(inventario, payload);
-  return data; 
+  const { data } = await axios.post(inventario, body);
+  return data;
 };
 
 export const editarInventario = async (body, id) => {
-  
-  const payload = mapToApiBody(body);
-  const { data } = await axios.put(`${inventario}/${id}`, payload);
-  return data; 
+  const { data } = await axios.put(`${inventario}/${id}`, body);
+  return data;
 };
 
 export const editarEstadoInventario = async (id, idEstado) => {
-  
   const { data } = await axios.put(`${inventario}/EditarEstado/${id}/${idEstado}`);
-  return data; 
+  return data;
 };
 
 export const eliminarInventario = async (id) => {
   const { data } = await axios.delete(`${inventario}/${id}`);
-  return data; 
+  return data;
 };
-
 
 export const obtenerTotalInsumos = async () => {
   const { data } = await axios.get(`${inventario}/ContarTotalInsumos`);
@@ -71,7 +43,6 @@ export const obtenerInsumosPorEstado = async (idEstado) => {
   const n = typeof data === "number" ? data : Number(data?.Total ?? data?.total ?? 0);
   return Number.isFinite(n) ? n : 0;
 };
-
 
 export const obtenerConteoPorEstado = async () => {
   const { data } = await axios.get(`${inventario}/ConteoPorEstado`);
@@ -92,7 +63,6 @@ export const obtenerConteoPorCategoria = async () => {
       }))
     : [];
 };
-
 
 export const actualizarEstadosVencidos = async () => {
   const { data } = await axios.put(`${inventario}/ActualizarEstadosVencidos`);

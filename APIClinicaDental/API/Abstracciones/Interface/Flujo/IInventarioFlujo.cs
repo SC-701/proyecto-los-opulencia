@@ -19,11 +19,11 @@ namespace Abstracciones.Interface.Flujo
         public Task<int> ActualizarEstadosVencidos();
 
         // ---------- MÉTODOS PARA LAS CARDS DEL DASHBOARD ----------
-        public Task<int> ContarTotalInsumos();                // Total de insumos
-        public Task<int> ContarInsumosPorEstado(int estado);  // Por ejemplo: Agotado, Vencido, Por vencer
+        public Task<int> ContarTotalInsumos();               
+        public Task<int> ContarInsumosPorEstado(int estado);  
 
         // ---------- MÉTODOS PARA LOS GRÁFICOS DEL DASHBOARD ----------
-        public Task<IEnumerable<InventarioPorEstado>> ConteoPorEstado();     // Pie chart: Estados
-        public Task<IEnumerable<InventarioPorCategoria>> ConteoPorCategoria(); // Bar chart: Categorías
+        public Task<IEnumerable<InventarioPorEstado>> ConteoPorEstado();    
+        public Task<IEnumerable<InventarioPorCategoria>> ConteoPorCategoria(); 
     }
 }
