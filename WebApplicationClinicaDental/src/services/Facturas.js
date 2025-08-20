@@ -43,6 +43,12 @@ export const PagoFactura = async ( data, id) => {
     return response.data;
 }
 
+export const ObtenerIngresosMes = async () => {
+    const response = await axios.get(`${facturas}/ObtenerIngresosMes`);
+    return response.data;
+}
 
-
-
+export const ObtenerFacturasPorFecha = async () => {
+    const response = await axios.get(`${facturas}/ObtenerFacturaPorFecha`);
+    return response.data;
+}

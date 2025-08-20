@@ -12,9 +12,10 @@ import { dataLineChart } from '../assets/constants/Charts.js'
 import { useCitas, useCitasDiarias, useCitasDiariasPacientes, useCitasDiariasPendientes } from '../hooks/useCita.js'
 import ModalEditar from '../components/Modals/ModalEditarCitas/ModalEditar.jsx'
 import ModalInfoExtraCitas from '../components/Modals/ModalInfoExtraCitas/ModalInfoExtraCita.jsx'
-import { useFacturasPorPagar } from '../hooks/useFacturas.js'
+import { useFacturasPorFecha, useFacturasPorPagar } from '../hooks/useFacturas.js'
 import { usePacientesTotal } from '../hooks/usePacientes.js'
 import { editarEstadoCita } from '../services/Citas.js'
+import ChartLineTwo from '../components/Charts/ChartLineTwo.jsx'
 
 
 
@@ -23,12 +24,17 @@ const Home = () => {
     const { citasDiariasPacientes, cargarCitasDiariasPacientes } = useCitasDiariasPacientes();
     const { citasDiarias, cargarCitasDiarias } = useCitasDiarias();
     const { citasDiariasPendientes, cargarCitasDiariasPendientes } = useCitasDiariasPendientes();
-        const {FacturasPorPagar, cargarFacturasPorPagar} = useFacturasPorPagar();
+    const { FacturasPorPagar, cargarFacturasPorPagar } = useFacturasPorPagar();
     const { citas, cargar } = useCitas();
     const [citaSeleccionada, setCitaSeleccionada] = useState([])
     const { totalPacientes, cargarTotalPacientes } = usePacientesTotal();
+    const { FacturasPorFecha } = useFacturasPorFecha();
 
 
+    const dailyOrdersData = FacturasPorFecha.map(({ fecha, cantidad }) => ({
+        date: fecha,
+        orders: cantidad
+    }))
     const getDataHomeCard = DataCard({
         CitasHoy: citasDiarias,
         pacientes: totalPacientes,
@@ -64,10 +70,10 @@ const Home = () => {
 
 
     return (
-        
+
         <div className='flex-1 overflow-auto relative z-10'>
             <Header title='Inicio' />
-            
+
 
             <main className='max-w-7xl mx-auto py-6 px-4 lg:px-8'>
                 <div className='mb-6'>
@@ -75,7 +81,7 @@ const Home = () => {
                         Panel de Gestión - Clínica Dental
                     </h1>
                 </div>
-                
+
                 <motion.div
                     className='grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-8'
                     initial={{ opacity: 0, y: 20 }}
@@ -118,7 +124,7 @@ const Home = () => {
                         className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6 mt-6'
                     >
                         <h1 className='text-2xl font-bold py-4'>Facturación Diaria</h1>
-                        <LineChartBoard data={dataLineChart} />
+                        <ChartLineTwo dailyOrdersData={dailyOrdersData} />
                     </div>
 
                 </motion.div>

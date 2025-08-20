@@ -41,3 +41,6 @@ export const editarServicios = async (id, data) => {
     const response = await axios.put(`${servicios}/${id}`, data);
     return response.data;
 }
+
+
+

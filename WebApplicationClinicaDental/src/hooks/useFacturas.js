@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AgregarFactura, editarFactura ,editarEstadoFacturas, obtenerFacturas, obtenerTotalFacturas, ObtenerFacturasPagadas, ObetenerFacturasPorPagar, PagoFactura } from "../services/Facturas";
+import { AgregarFactura, editarFactura ,editarEstadoFacturas, obtenerFacturas, obtenerTotalFacturas, ObtenerFacturasPagadas, ObetenerFacturasPorPagar, PagoFactura, ObtenerIngresosMes, ObtenerFacturasPorFecha } from "../services/Facturas";
 
 
 export const useFacturas = () => {
@@ -127,4 +127,42 @@ export const usePagoFactura = () => {
         }
     };
     return { PagoFacturaAsync };
+};
+
+export const useIngresosMes = () => {
+    const [IngresosMes, setIngresosMes] = useState(0);
+
+    const cargarIngresosMes = async () => {
+        try {
+            const response = await ObtenerIngresosMes();
+            setIngresosMes(response);
+        } catch (err) {
+            console.error('Error al cargar ingresos del mes', err);
+        }
+    };
+
+    useEffect(() => {
+        cargarIngresosMes();
+    }, []);
+
+    return { IngresosMes, cargarIngresosMes };
+};
+
+export const useFacturasPorFecha = () => {
+    const [FacturasPorFecha, setFacturasPorFecha] = useState([]);
+
+    const cargarFacturasPorFecha = async () => {
+        try {
+            const response = await ObtenerFacturasPorFecha();
+            setFacturasPorFecha(response);
+        } catch (err) {
+            console.error('Error al cargar facturas por fecha', err);
+        }
+    };
+
+    useEffect(() => {
+        cargarFacturasPorFecha();
+    }, []);
+
+    return { FacturasPorFecha, cargarFacturasPorFecha };
 };
