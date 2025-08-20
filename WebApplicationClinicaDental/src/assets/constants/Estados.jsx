@@ -9,6 +9,10 @@ import {
   PackageX,
   Ban,
 } from "lucide-react";
+import { PackageCheck, AlertTriangle, PackageX, Ban } from "lucide-react";
+
+import { PackageCheck, AlertTriangle, PackageX, Ban } from "lucide-react";
+
 
 export const EstadosCitas = {
   estados: [
