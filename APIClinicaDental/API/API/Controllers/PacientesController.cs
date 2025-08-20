@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
     [ApiController]
     public class PacientesController : ControllerBase, IPacientesController
     {
@@ -24,7 +23,6 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "1")]
         public async Task<IActionResult> AgregarPaciente([FromBody] PacienteRequest request)
         {
             var respuesta = await _pacientesFlujo.AgregarPaciente(request);
@@ -37,7 +35,6 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "1")]
         public async Task<IActionResult> Editar([FromRoute]Guid id,[FromBody]PacienteRequest request)
         {
             var respuesta = await _pacientesFlujo.Editar(id ,request);
@@ -46,7 +43,6 @@ namespace API.Controllers
 
        
         [HttpPut("EditarEstado/{idPaciente}/{idEstado}")]
-        [Authorize(Roles = "1")]
         public async Task<IActionResult> EditarEstado([FromRoute] Guid idPaciente, [FromRoute] int idEstado)
         {
             if (!await VerificarExistencias(idPaciente))
@@ -68,7 +64,6 @@ namespace API.Controllers
 
         
         [HttpDelete("{idPaciente}")]
-        [Authorize(Roles = "1")]
         public async Task<IActionResult> Eliminar([FromRoute] Guid idPaciente)
         {
             var respuesta = await _pacientesFlujo.Eliminar(idPaciente);
@@ -77,7 +72,6 @@ namespace API.Controllers
 
        
         [HttpGet]
-        [Authorize(Roles = "1")]
         public async Task<IActionResult> ObtenerPacientes()
         {
             var respuesta = await _pacientesFlujo.ObtenerPacientes();
@@ -86,7 +80,6 @@ namespace API.Controllers
 
        
         [HttpGet("{id}")]
-        [Authorize(Roles = "1")]
         public  async Task<IActionResult> ObtenerPacientes([FromRoute] Guid id)
         {
             var respuesta = await _pacientesFlujo.ObtenerPacientes(id);
@@ -96,7 +89,6 @@ namespace API.Controllers
 
  
         [HttpGet("activos")]
-        [Authorize(Roles = "1")]
         public async Task<IActionResult> PacientesActivos()
         {
             var respuesta = await _pacientesFlujo.PacientesActivos();
@@ -105,7 +97,6 @@ namespace API.Controllers
 
         
         [HttpGet("inactivos")]
-        [Authorize(Roles = "1")]
         public async Task<IActionResult> PacientesInactivos()
         {
             var respuesta = await _pacientesFlujo.PacientesInactivos();
@@ -114,7 +105,6 @@ namespace API.Controllers
 
        
         [HttpGet("nuevos")]
-        [Authorize(Roles = "1")]
         public async Task<IActionResult> PacientesNuevos()
         {
             var respuesta = await _pacientesFlujo.PacientesNuevos();
@@ -122,7 +112,6 @@ namespace API.Controllers
         }
 
         [HttpGet("total")]
-        [Authorize(Roles = "1")]
         public async Task<IActionResult> TotalPacientes()
         {
            var respuesta = await _pacientesFlujo.TotalPacientes();

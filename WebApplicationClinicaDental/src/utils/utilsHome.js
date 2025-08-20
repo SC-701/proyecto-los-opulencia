@@ -10,7 +10,7 @@ export const DataCard = ({ CitasHoy = 0, pacientes = 0, citasPendientesHoy = 0, 
     {
         nombre: "Pacientes",
         icon: Users,
-        valor: "1,234",
+        valor: pacientes.toString(),
         color: "#8B5CF6",
     },
     {
