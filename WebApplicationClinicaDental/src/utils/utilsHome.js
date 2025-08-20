@@ -1,6 +1,6 @@
 import { Activity, BarChart2, HeartMinus, Users } from "lucide-react";
 
-export const DataCard = ({ CitasHoy = 0, pacientes = 0, citasPendientesHoy = 0, facturacionDiaria = 0 }) => [
+export const DataCard = ({ CitasHoy = 0, pacientes = 0, citasPendientesHoy = 0, obtenerFacturasPorPagar = 0 }) => [
     {
         nombre: "Citas Hoy",
         icon: Activity,
@@ -20,9 +20,9 @@ export const DataCard = ({ CitasHoy = 0, pacientes = 0, citasPendientesHoy = 0, 
         color: "#EC4899",
     },
     {
-        nombre: "Facturación del día",
+        nombre: "Facturación pendientes",
         icon: BarChart2,
-        valor: "$12.600",
+        valor: obtenerFacturasPorPagar.toString(),
         color: "#10B981",
     },
 ];

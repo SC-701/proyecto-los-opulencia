@@ -105,13 +105,13 @@ const Facturacion = () => {
               <div className='bg-white bg-opacity-50 backdrop-blur-md overflow-hidden shadow-lg rounded-xl p-6 mt-6'>
                 <div className='flex justify-between items-center mb-4'>
                 <h1 className='text-2xl font-bold py-4'>Facturas</h1>
-                <Agregar icon={<CirclePlus />} title="Pagar Factura" modalName="my_modal_6" />
+
               </div>
-                <Tabla data={Facturas} columns={columnsFacturas(cargarEstado, handleFacturaClick)} />
+                    <Tabla data={Facturas} columns={columnsFacturas(cargarEstado, handleFacturaClick, handleFacturaClick)} />
             </div>
             </div>
           </motion.div>
-              <ModalAgregarFacturas idModal="my_modal_6" onSuccess={handleSuccess} />
+              <ModalAgregarFacturas idModal="my_modal_pagar" factura={facturaSeleccionada} onSuccess={handleSuccess} />
                <ModalEditarFactura idModal="my_modal_edit" factura={facturaSeleccionada} onSuccess={handleSuccess}  />
 
 

@@ -1,9 +1,14 @@
 using Abstracciones.Interface.DA;
 using Abstracciones.Interface.Flujo;
+using Abstracciones.Modelos;
 using Abstracciones.Models;
+using Autorizacion.Middleware;
 using DA;
 using DA.Repositorio;
 using Flujo;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +22,29 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 });
+
+//Autenticacion
+var tokenConfiguration = builder.Configuration.GetSection("Token").Get<TokenConfiguracion>();
+var jwtIssuer = tokenConfiguration.Issuer;
+var jwtAudience = tokenConfiguration.Audience;
+var jwtKey = tokenConfiguration.key;
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
+    options => {
+        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = jwtIssuer,
+            ValidAudience = jwtAudience,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+        };
+    }
+    );
+
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -34,7 +62,6 @@ builder.Services.AddScoped<IDoctoresDA, DoctoresDA>();
 builder.Services.AddScoped<IConsultorioDA, ConsultorioDA>();
 builder.Services.AddScoped<IServicioDA, ServicioDA>();
 builder.Services.AddScoped<IInventarioDA, InventarioDA>();
-builder.Services.AddScoped<IEstadosDA, EstadosDA>();
 
 
 //Inyecciones de Flujo
@@ -45,7 +72,11 @@ builder.Services.AddScoped<IDoctoresFlujo, DoctoresFlujo>();
 builder.Services.AddScoped<IConsultorioFlujo, ConsultorioFlujo>();
 builder.Services.AddScoped<IServicioFlujo, ServiciosFlujo>();
 builder.Services.AddScoped<IInventarioFlujo, InventarioFlujo>();
-builder.Services.AddScoped<IEstadosFlujo, EstadosFlujo>();
+
+builder.Services.AddTransient<Autorizacion.Abstracciones.Flujo.IAutorizacionFlujo, Autorizacion.Flujo.AutorizacionFlujo>();
+builder.Services.AddTransient<Autorizacion.Abstracciones.DA.ISeguridadDA, Autorizacion.DA.SeguridadDA>();
+builder.Services.AddTransient<Autorizacion.Abstracciones.DA.IRepositorioDapper, Autorizacion.DA.Repositorios.RepositorioDapper>();
+
 
 var app = builder.Build();
 
@@ -64,8 +95,10 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors("Cors");
-
+app.AutorizacionClaims();
 app.UseAuthorization();
+
+
 
 app.MapControllers();
 

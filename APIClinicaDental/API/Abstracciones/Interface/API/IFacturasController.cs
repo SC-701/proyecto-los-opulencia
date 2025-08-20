@@ -19,6 +19,8 @@ namespace Abstracciones.Interface.API
         public Task<IActionResult> ObtenerTotalFacturas();
         public Task<IActionResult> ObtenerFacturasPagadas();
         public Task<IActionResult> ObtenerFacturasPorPagar();
+        public Task<IActionResult> PagoFactura(Guid id, pagar pago);
+
 
     }
 }
