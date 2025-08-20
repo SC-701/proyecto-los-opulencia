@@ -40,7 +40,7 @@ namespace Abstracciones.Models
         [Required(ErrorMessage = "El rol del administrativo es requerido")]
         public int IdRol { get; set; }
 
-       
+        
         public string? PasswordHash { get; set; }
     }
 
