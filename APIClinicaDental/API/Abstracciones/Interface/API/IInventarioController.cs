@@ -18,11 +18,11 @@ namespace Abstracciones.Interface.API
         public Task<IActionResult> ActualizarEstadosVencidos();
 
         // ---------- MÉTODOS PARA LAS CARDS DEL DASHBOARD ----------
-        public Task<IActionResult> ContarTotalInsumos();                // Total de insumos
-        public Task<IActionResult> ContarInsumosPorEstado(int estado); // Por ejemplo: Agotado, Vencido, Por vencer
+        public Task<IActionResult> ContarTotalInsumos();                
+        public Task<IActionResult> ContarInsumosPorEstado(int estado);
 
         // ---------- MÉTODOS PARA LOS GRÁFICOS DEL DASHBOARD ----------
-        public Task<IActionResult> ConteoPorEstado();     // Pie chart: Estados
-        public Task<IActionResult> ConteoPorCategoria();  // Bar chart: Categorías
+        public Task<IActionResult> ConteoPorEstado();     
+        public Task<IActionResult> ConteoPorCategoria();  
     }
 }

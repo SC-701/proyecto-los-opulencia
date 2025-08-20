@@ -10,10 +10,9 @@ import { eventos, localizer } from '../assets/constants/Calendario.jsx'
 import LineChartBoard from '../components/Charts/LineChartBoard.jsx'
 import { dataLineChart } from '../assets/constants/Charts.js'
 import { useCitas, useCitasDiarias, useCitasDiariasPacientes, useCitasDiariasPendientes } from '../hooks/useCita.js'
-import { editarEstadoCita } from '../services/Citas.js'
-
 import ModalEditar from '../components/Modals/ModalEditarCitas/ModalEditar.jsx'
 import ModalInfoExtraCitas from '../components/Modals/ModalInfoExtraCitas/ModalInfoExtraCita.jsx'
+import { useFacturasPorPagar } from '../hooks/useFacturas.js'
 
 
 
@@ -23,6 +22,7 @@ const Home = () => {
     const { citasDiariasPacientes, cargarCitasDiariasPacientes } = useCitasDiariasPacientes();
     const { citasDiarias, cargarCitasDiarias } = useCitasDiarias();
     const { citasDiariasPendientes, cargarCitasDiariasPendientes } = useCitasDiariasPendientes();
+        const {FacturasPorPagar, cargarFacturasPorPagar} = useFacturasPorPagar();
     const { citas, cargar } = useCitas();
     const [citaSeleccionada, setCitaSeleccionada] = useState([])
 
@@ -31,7 +31,7 @@ const Home = () => {
         CitasHoy: citasDiarias,
         pacientes: 0,
         citasPendientesHoy: citasDiariasPendientes,
-        facturacionDiaria: 0
+        obtenerFacturasPorPagar: FacturasPorPagar
     });
 
     const cargarEstado = async (id, nuevoEstado) => {
@@ -39,6 +39,7 @@ const Home = () => {
         await cargarCitasDiarias();
         await cargarCitasDiariasPacientes();
         await cargarCitasDiariasPendientes();
+        await cargarFacturasPorPagar();
     };
 
     const handleSuccess = async () => {

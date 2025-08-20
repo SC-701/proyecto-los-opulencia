@@ -1,49 +1,50 @@
 import React, { useEffect, useState } from 'react'
-import { toast } from 'react-toastify'
-import { useFacturasEditar } from '../../../hooks/useFacturas'
+import { toast } from 'react-toastify';
+import {  usePagoFactura } from '../../../hooks/useFacturas';
 
-const ModalPagarFactura = ({ idModal, factura, onSuccess }) => {
-  const { editarFacturaSub } = useFacturasEditar()
+const modalAgregarFacturas = ({ idModal, factura, onSuccess }) => {
+  const { PagoFacturaAsync } = usePagoFactura();
 
   const [FormFacActualizar, setFormFacActualizar] = useState({
-    idFactura: '',
-    fecha: '',
-    subtotal: '',
-    total: '',
-    idEstado: 7,
-  })
+    pago: ""
+  });
 
-  useEffect(() => {
-    if (!factura) return
-    const fechaISO = factura.fecha
-      ? new Date(factura.fecha).toISOString().split('T')[0]
-      : ''
 
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setFormFacActualizar(f => ({ ...f, [name]: value }));
+  };
+
+  const limpiarForm = () => {
     setFormFacActualizar({
-      total: factura.total ?? '',
-      idEstado: factura.idEstado ?? 3,
-    })
-  }, [factura])
-
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormFacActualizar((f) => ({ ...f, [name]: value }))
+      pago: ""
+    });
   }
 
   const editarFacturaSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
+    
+    
     try {
-      await editarFacturaSub(FormFacActualizar, factura.idFactura)
-      await onSuccess?.()
-      toast.success('Factura editada correctamente')
-
-      const chk = document.getElementById(idModal)
-      if (chk) chk.checked = false
+      if (FormFacActualizar.pago > factura.total) {
+        toast.error("Debe ingresar un monto menor al total");
+        return;
+      }
+      if (FormFacActualizar.pago <= 0) {
+        toast.error("Debe ingresar un monto mayor a 0");
+        return;
+      }
+      await PagoFacturaAsync(FormFacActualizar, factura.idFactura);
+       limpiarForm();
+      await onSuccess();
+      toast.success("Factura pagada correctamente");
     } catch (err) {
-      console.error('Error al editar factura', err)
-      toast.error('No se pudo editar la factura')
+      console.error('Error al pagar la factura', err);
     }
+    
   }
+
+
 
   return (
     <div>
@@ -64,81 +65,35 @@ const ModalPagarFactura = ({ idModal, factura, onSuccess }) => {
                 className="input w-full"
               />
 
-              <fieldset className="fieldset">
-                <legend className="fieldset-legend">Servicio</legend>
-                <input
-                  type="text"
-                  value={factura?.servicio }
-                  readOnly
-                  className="input w-full"
-                />
-              </fieldset>
 
-              <fieldset className="fieldset">
-                <legend className="fieldset-legend">Doctor</legend>
-                <input
-                  type="text"
-                  value={factura?.doctor }
-                  readOnly
-                  className="input w-full"
-                />
-              </fieldset>
 
-              <fieldset className="fieldset">
-                <legend className="fieldset-legend">Paciente</legend>
-                <input
-                  type="text"
-                  value={factura?.paciente }
-                  readOnly
-                  className="input w-full"
-                />
-              </fieldset>
-
-             
-              <fieldset className="fieldset">
-                <legend className="fieldset-legend">Fecha</legend>
-                <input
-                  type="date"
-                  name="fecha"
-                  value={FormFacActualizar.fecha}
-                  onChange={handleChange}
-                  className="input w-full"
-                  readOnly
-                />
-              </fieldset>
-
-              <fieldset className="fieldset">
-                <legend className="fieldset-legend">Subtotal</legend>
-                <input
-                  type="number"
-                  name="subtotal"
-                  value={factura?.subtotal}
-                  className="input w-full"
-                  readOnly
-                  required
-                />
-                <span className="label">Requerido</span>
-              </fieldset>
 
               <fieldset className="fieldset">
                 <legend className="fieldset-legend">Total</legend>
-                <input
-                  type="number"
-                  name="total"
-                  value={FormFacActualizar.total}
-                  onChange={handleChange}
-                  className="input w-full"
-                  min="0"
-                  step="0.01"
-                  required
-                />
-                <span className="label">Requerido</span>
+                <h1 className="text-2xl font-bold py-4"> Por pagar:   {factura?.total ?? ""}
+                </h1>
+
               </fieldset>
             </div>
 
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Monto a cancelar</legend>
+              <input
+                type="number"
+                name="pago"
+                className="input w-full"
+                required
+                value={FormFacActualizar.pago}
+                onChange={handleChange}
+                min={0}
+              />
+              <p className="label">Requerido</p>
+            </fieldset>
+
+
             <div className="text-center mt-6">
               <button type="submit" className="btn btn-primary btn-lg">
-                Guardar Cambios
+                Pagar
               </button>
             </div>
           </form>
@@ -154,4 +109,4 @@ const ModalPagarFactura = ({ idModal, factura, onSuccess }) => {
   )
 }
 
-export default ModalPagarFactura
+export default modalAgregarFacturas

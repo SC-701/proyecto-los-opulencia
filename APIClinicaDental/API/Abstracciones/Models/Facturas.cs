@@ -47,5 +47,9 @@ namespace Abstracciones.Models
 
     }
 
+    public class pagar
+    {
+        public decimal pago { get; set; }
+    }
 
 }
