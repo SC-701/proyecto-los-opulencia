@@ -65,5 +65,10 @@ namespace Flujo
             return await _facturasDA.ObtenerTotalFacturas();
 
         }
+
+        public async Task<Guid> PagoFactura(Guid id, pagar pago)
+        {
+            return await _facturasDA.PagoFactura(id, pago);
+        }
     }
 }

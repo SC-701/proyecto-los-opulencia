@@ -36,3 +36,8 @@ export const ObtenerServiciosSuma = async () => {
     const response = await axios.get(`${servicios}/ObtenerSumaCosto`);
     return response.data;
 }
+
+export const editarServicios = async (id, data) => {
+    const response = await axios.put(`${servicios}/${id}`, data);
+    return response.data;
+}

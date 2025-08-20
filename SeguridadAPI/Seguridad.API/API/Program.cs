@@ -15,6 +15,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Cors", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 var tokenConfiguration = builder.Configuration.GetSection("Token").Get<TokenConfiguracion>();
 var jwtIssuer = tokenConfiguration.Issuer;
 var jwtAudience = tokenConfiguration.Audience;
@@ -57,6 +68,8 @@ builder.Services.AddTransient<Autorizacion.Abstracciones.DA.ISeguridadDA, Autori
 builder.Services.AddTransient<Autorizacion.Abstracciones.DA.IRepositorioDapper, Autorizacion.DA.Repositorios.RepositorioDapper>();
 
 
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -67,6 +80,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("Cors");
+
 app.UseAuthentication();     
 app.AutorizacionClaims();    
 app.UseAuthorization();

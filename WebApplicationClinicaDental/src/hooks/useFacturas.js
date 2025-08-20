@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AgregarFactura, editarFactura ,editarEstadoFacturas, obtenerFacturas, obtenerTotalFacturas, ObtenerFacturasPagadas, ObetenerFacturasPorPagar } from "../services/Facturas";
+import { AgregarFactura, editarFactura ,editarEstadoFacturas, obtenerFacturas, obtenerTotalFacturas, ObtenerFacturasPagadas, ObetenerFacturasPorPagar, PagoFactura } from "../services/Facturas";
 
 
 export const useFacturas = () => {
@@ -47,7 +47,6 @@ export const useFacturasEditar = () => {
 
     return { editarFacturaSub };
 };
-
 
 
 export const useFacturasAgregar = () => {
@@ -116,4 +115,16 @@ export const useFacturasPorPagar = () => {
     }, []);
 
     return { FacturasPorPagar, cargarFacturasPorPagar };
+};
+
+export const usePagoFactura = () => {
+    const PagoFacturaAsync = async (data, id) => {
+        try {
+            const response = await PagoFactura( data, id);
+            return response.data;
+        } catch (err) {
+            console.error('Error al pagar factura', err);
+        }
+    };
+    return { PagoFacturaAsync };
 };

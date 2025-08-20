@@ -1,202 +1,112 @@
 import React, { useEffect, useState } from 'react'
-import { useServicios } from '../../../hooks/useServicio';
-import { useDoctores } from '../../../hooks/useDoctores';
-import { usePacientes } from '../../../hooks/usePacientes';
 import { toast } from 'react-toastify';
-import { useFacturasEditar } from '../../../hooks/useFacturas';
+import {  usePagoFactura } from '../../../hooks/useFacturas';
 
 const modalAgregarFacturas = ({ idModal, factura, onSuccess }) => {
-    const { servicios, cargarServicios } = useServicios();
-    const { doctores, cargarDoctores } = useDoctores();
-    const { pacientes, cargarPacientes } = usePacientes();
-    const { editarFacturaSub } = useFacturasEditar();
+  const { PagoFacturaAsync } = usePagoFactura();
 
- const [FormFacActualizar, setFormFacActualizar] = useState({
-        idServicio: "" || "-1",
-        idDoctor: "" || "-1",
-        idPaciente: "" || "-1",
-        fecha: "",
-        subtotal: "" ,
-        total: "" 
-    });
+  const [FormFacActualizar, setFormFacActualizar] = useState({
+    pago: ""
+  });
 
 
-    useEffect(() => {
-        cargarServicios();
-        cargarDoctores();
-        cargarPacientes();
-    }, []);
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setFormFacActualizar(f => ({ ...f, [name]: value }));
+  };
 
-
-    
-useEffect(() => {
-      if (!factura) return;
-    const fechaISO = factura.fecha
-        ? new Date(factura.fecha).toISOString().split('T')[0]
-        : '';
-
-    const idServ = servicios.find(s => s.nombre === factura.servicio)?.id ?? '-1';
-
-    const idDoc = doctores.find(d => {
-        const fullName = `${d.nombre} ${d.apellido}`.trim();
-        return fullName === factura.doctor;
-    })?.idDoctor ?? '-1';
-
-    const idPac = pacientes.find(p => {
-        const fullName = `${p.nombre} ${p.apellido}`.trim();
-        return fullName === factura.paciente;
-    })?.idPaciente ?? '-1';
-
+  const limpiarForm = () => {
     setFormFacActualizar({
-        idServicio: idServ,
-        idDoctor: idDoc,
-        idPaciente: idPac,
-        fecha: fechaISO,
-        subtotal: factura.subtotal ?? "",
-        total: factura.total ?? ""
+      pago: ""
     });
-}, [servicios, doctores, pacientes, factura]);
+  }
 
-
-    const handleChange = e => {
-        const { name, value } = e.target;
-        setFormFacActualizar(f => ({ ...f, [name]: value }));
-    };
-
+  const editarFacturaSubmit = async (e) => {
+    e.preventDefault();
     
-        const editarFacturaSubmit = async (e) => {
-            e.preventDefault();
-            try {
-                await editarFacturaSub(FormFacActualizar, factura.idFactura);
-                await onSuccess();
-                toast.success("Factura editada correctamente");
-            } catch (err) {
-                console.error('Error al editar factura', err);
-            }
-        }
+    
+    try {
+      if (FormFacActualizar.pago > factura.total) {
+        toast.error("Debe ingresar un monto menor al total");
+        return;
+      }
+      if (FormFacActualizar.pago <= 0) {
+        toast.error("Debe ingresar un monto mayor a 0");
+        return;
+      }
+      await PagoFacturaAsync(FormFacActualizar, factura.idFactura);
+       limpiarForm();
+      await onSuccess();
+      toast.success("Factura pagada correctamente");
+    } catch (err) {
+      console.error('Error al pagar la factura', err);
+    }
+    
+  }
 
-return (
-  <div>
-    <input type="checkbox" id={idModal} className="modal-toggle" />
-    <div className="modal" role="dialog">
-      <div className="modal-box">
-        <div className="text-center mb-4">
-          <h2 className="font-bold text-lg">Editar Factura</h2>
-        </div>
 
-        <form onSubmit={editarFacturaSubmit}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input type="hidden" value={FormFacActualizar.idfactura} name="idfactura" readOnly className="input w-full" />
-            <fieldset className="fieldset">
-              <legend className="fieldset-legend">Servicio</legend>
-              <select
-                name="idServicio"
-                value={FormFacActualizar.idServicio}
-                onChange={handleChange}
-                className="select w-full"
-                required
-              >
-                <option value="-1">Seleccionar Servicio</option>
-                {servicios.map(s => (
-                  <option key={s.id} value={s.id}>{s.nombre}</option>
-                ))}
-              </select>
-              <span className="label">Requerido</span>
-            </fieldset>
 
-            <fieldset className="fieldset">
-              <legend className="fieldset-legend">Doctor</legend>
-              <select
-                name="idDoctor"
-                value={FormFacActualizar.idDoctor}
-                onChange={handleChange}
-                className="select w-full"
-                required
-              >
-                <option value="-1">Seleccionar Doctor</option>
-                {doctores.map(d => (
-                  <option key={d.idDoctor} value={d.idDoctor}>{d.nombre} {d.apellido}</option>
-                ))}
-              </select>
-              <span className="label">Requerido</span>
-            </fieldset>
-
-            <fieldset className="fieldset">
-              <legend className="fieldset-legend">Paciente</legend>
-              <select
-                name="idPaciente"
-                value={FormFacActualizar.idPaciente}
-                onChange={handleChange}
-                className="select w-full"
-                required
-              >
-                <option value="-1">Seleccionar Paciente</option>
-                {pacientes.map(p => (
-                  <option key={p.idPaciente} value={p.idPaciente}>{p.nombre} {p.apellido}</option>
-                ))}
-              </select>
-              <span className="label">Requerido</span>
-            </fieldset>
-
-            <fieldset className="fieldset">
-              <legend className="fieldset-legend">Fecha</legend>
-              <input
-                type="date"
-                name="fecha"
-                value={FormFacActualizar.fecha}
-                onChange={handleChange}
-                className="input w-full"
-                required
-              />
-              <span className="label">Requerido</span>
-            </fieldset>
-
-            <fieldset className="fieldset">
-              <legend className="fieldset-legend">Subtotal</legend>
-              <input
-                type="number"
-                name="subtotal"
-                value={FormFacActualizar.subtotal}
-                onChange={handleChange}
-                className="input w-full"
-                min="0"
-                step="0.01"
-                required
-              />
-              <span className="label">Requerido</span>
-            </fieldset>
-
-            {/* Total */}
-            <fieldset className="fieldset">
-              <legend className="fieldset-legend">Total</legend>
-              <input
-                type="number"
-                name="total"
-                value={FormFacActualizar.total}
-                onChange={handleChange}
-                className="input w-full"
-                min="0"
-                step="0.01"
-                required
-              />
-              <span className="label">Requerido</span>
-            </fieldset>
+  return (
+    <div>
+      <input type="checkbox" id={idModal} className="modal-toggle" />
+      <div className="modal" role="dialog">
+        <div className="modal-box">
+          <div className="text-center mb-4">
+            <h2 className="font-bold text-lg">Pagar Factura</h2>
           </div>
 
-          <div className="text-center mt-6">
-            <button type="submit" className="btn btn-primary btn-lg">
-              Guardar Cambios
-            </button>
-          </div>
-        </form>
+          <form onSubmit={editarFacturaSubmit}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input
+                type="hidden"
+                value={FormFacActualizar.idFactura}
+                name="idFactura"
+                readOnly
+                className="input w-full"
+              />
 
-        <div className="modal-action">
-          <label htmlFor={idModal} className="btn">Cerrar</label>
+
+
+
+              <fieldset className="fieldset">
+                <legend className="fieldset-legend">Total</legend>
+                <h1 className="text-2xl font-bold py-4"> Por pagar:   {factura?.total ?? ""}
+                </h1>
+
+              </fieldset>
+            </div>
+
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Monto a cancelar</legend>
+              <input
+                type="number"
+                name="pago"
+                className="input w-full"
+                required
+                value={FormFacActualizar.pago}
+                onChange={handleChange}
+                min={0}
+              />
+              <p className="label">Requerido</p>
+            </fieldset>
+
+
+            <div className="text-center mt-6">
+              <button type="submit" className="btn btn-primary btn-lg">
+                Pagar
+              </button>
+            </div>
+          </form>
+
+          <div className="modal-action">
+            <label htmlFor={idModal} className="btn">
+              Cerrar
+            </label>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  )
 }
 
 export default modalAgregarFacturas

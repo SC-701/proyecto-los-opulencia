@@ -83,7 +83,7 @@ export const columns = (editarEstadoCita, onEditarClick) => [
   }),
 ];
 
-export const columnsServicios = (editarEstadoServicio) => [
+export const columnsServicios = (editarEstadoServicio, onEditarClick) => [
   columnHelper.accessor("nombre", {
     header: "Servicio",
   }),
@@ -117,7 +117,8 @@ export const columnsServicios = (editarEstadoServicio) => [
           onToggleEstado={() =>
             editarEstadoServicio(id, EstadosServicios.conversionEstado(estado))
           }
-          onEditar={() => console.log(`Editar servicio con ID: ${id}`)}
+          onEditar={() => onEditarClick(id)}
+          modalNameEditar="my_modal_editar_servicio"
         />
       );
     },
@@ -300,8 +301,7 @@ export const columnsCitas = (editarEstadoCita, onEditarClick) => [
 ];
 
 //! Columnas Tabla Facturas
-export const columnsFacturas = (editarEstadoFactura, onEditarClick) =>
-
+export const columnsFacturas = (editarEstadoFactura, onEditarClick, onPagarClick) =>
     [
 
         columnHelper.accessor("servicio", {
@@ -321,8 +321,20 @@ export const columnsFacturas = (editarEstadoFactura, onEditarClick) =>
             header: "subtotal"
         }),
         columnHelper.accessor("total", {
-            header: "Total"
+            header: "Total",
+            cell: ({ getValue }) => {
+                const total = getValue();
+                return (
+                    <>   {total == 0 ? 
+                     <span className={`px-2 py-1 rounded text-xs font-semibold bg-green-100 text-green-800`}>
+                        pagado
+                    </span> 
+                    : total}
+                    </>
+                );
+            },
         }),
+
         columnHelper.accessor("estado", {
             header: "Estado",
             cell: ({ getValue }) => {
@@ -344,8 +356,8 @@ export const columnsFacturas = (editarEstadoFactura, onEditarClick) =>
                     <>
                         <Acciones
                           
-                            onEditar={() => onEditarClick(idFactura)}
-                            modalNameEditar="my_modal_pagar"
+                            onEditarPagarFactura={() => onPagarClick(idFactura)}
+                            modalNameEditarPago="my_modal_pagar"
                         />
                     </>
                 )
