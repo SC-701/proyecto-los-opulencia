@@ -83,7 +83,7 @@ export const columns = (editarEstadoCita, onEditarClick) => [
   }),
 ];
 
-export const columnsServicios = (editarEstadoServicio) => [
+export const columnsServicios = (editarEstadoServicio, onEditarClick) => [
   columnHelper.accessor("nombre", {
     header: "Servicio",
   }),
@@ -117,7 +117,8 @@ export const columnsServicios = (editarEstadoServicio) => [
           onToggleEstado={() =>
             editarEstadoServicio(id, EstadosServicios.conversionEstado(estado))
           }
-          onEditar={() => console.log(`Editar servicio con ID: ${id}`)}
+          onEditar={() => onEditarClick(id)}
+          modalNameEditar="my_modal_editar_servicio"
         />
       );
     },

@@ -3,12 +3,14 @@ using Abstracciones.Interface.API;
 using Abstracciones.Interface.Flujo;
 using Abstracciones.Models;
 using Flujo;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class PacientesController : ControllerBase, IPacientesController
     {
@@ -22,6 +24,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "1")]
         public async Task<IActionResult> AgregarPaciente([FromBody] PacienteRequest request)
         {
             var respuesta = await _pacientesFlujo.AgregarPaciente(request);
@@ -34,13 +37,16 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "1")]
         public async Task<IActionResult> Editar([FromRoute]Guid id,[FromBody]PacienteRequest request)
         {
             var respuesta = await _pacientesFlujo.Editar(id ,request);
             return Ok(respuesta);
         }
 
+       
         [HttpPut("EditarEstado/{idPaciente}/{idEstado}")]
+        [Authorize(Roles = "1")]
         public async Task<IActionResult> EditarEstado([FromRoute] Guid idPaciente, [FromRoute] int idEstado)
         {
             if (!await VerificarExistencias(idPaciente))
@@ -60,21 +66,27 @@ namespace API.Controllers
             });
         }
 
+        
         [HttpDelete("{idPaciente}")]
+        [Authorize(Roles = "1")]
         public async Task<IActionResult> Eliminar([FromRoute] Guid idPaciente)
         {
             var respuesta = await _pacientesFlujo.Eliminar(idPaciente);
             return NoContent();
         }
 
+       
         [HttpGet]
+        [Authorize(Roles = "1")]
         public async Task<IActionResult> ObtenerPacientes()
         {
             var respuesta = await _pacientesFlujo.ObtenerPacientes();
             return Ok(respuesta);
         }
 
+       
         [HttpGet("{id}")]
+        [Authorize(Roles = "1")]
         public  async Task<IActionResult> ObtenerPacientes([FromRoute] Guid id)
         {
             var respuesta = await _pacientesFlujo.ObtenerPacientes(id);
@@ -82,21 +94,27 @@ namespace API.Controllers
             return Ok(respuesta);
         }
 
+ 
         [HttpGet("activos")]
+        [Authorize(Roles = "1")]
         public async Task<IActionResult> PacientesActivos()
         {
             var respuesta = await _pacientesFlujo.PacientesActivos();
             return Ok(respuesta);
         }
 
+        
         [HttpGet("inactivos")]
+        [Authorize(Roles = "1")]
         public async Task<IActionResult> PacientesInactivos()
         {
             var respuesta = await _pacientesFlujo.PacientesInactivos();
             return Ok(respuesta);
         }
 
+       
         [HttpGet("nuevos")]
+        [Authorize(Roles = "1")]
         public async Task<IActionResult> PacientesNuevos()
         {
             var respuesta = await _pacientesFlujo.PacientesNuevos();
@@ -104,6 +122,7 @@ namespace API.Controllers
         }
 
         [HttpGet("total")]
+        [Authorize(Roles = "1")]
         public async Task<IActionResult> TotalPacientes()
         {
            var respuesta = await _pacientesFlujo.TotalPacientes();

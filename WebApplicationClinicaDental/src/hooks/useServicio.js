@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { agregarServicio, editarServicioEstado, obtenerServicios, ObtenerServiciosActivos, ObtenerServiciosInactivos, ObtenerServiciosSuma, ObtenerServiciosTotales } from "../services/Servicios";
+import { agregarServicio, editarServicioEstado, editarServicios, obtenerServicios, ObtenerServiciosActivos, ObtenerServiciosInactivos, ObtenerServiciosSuma, ObtenerServiciosTotales } from "../services/Servicios";
 
 export const useServicios = () => {
     const [servicios, setServicios] = useState([]);
@@ -119,4 +119,17 @@ export const useServicioObtenerSumaCosto = () => {
     }, []);
 
     return { obtenerServiciosSumaCostoAsync, ServiciosSumaCosto };
+};
+
+export const useEditarServicios = () => {
+    const editarServiciosAsync = async (id, data) => {
+        try {
+            const respuesta = await editarServicios(id, data);
+            return respuesta;
+        } catch (err) {
+            console.error("Error editando servicio:", err);
+        }
+    };
+
+    return { editarServiciosAsync };
 };

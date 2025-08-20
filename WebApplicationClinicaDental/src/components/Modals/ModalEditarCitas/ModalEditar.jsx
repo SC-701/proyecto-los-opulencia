@@ -17,7 +17,6 @@ const ModalEditar = ({ idModal, Cita, onSuccess }) => {
 
 
 
-
     const [FormActualizar, setFormActualizar] = useState({
         idServicio: "" || "-1",
         idDoctor: "" || "-1",
@@ -36,7 +35,6 @@ const ModalEditar = ({ idModal, Cita, onSuccess }) => {
         cargarConsultorios();
         cargarEstados();
     }, []);
-
 
 
 
@@ -59,8 +57,8 @@ const ModalEditar = ({ idModal, Cita, onSuccess }) => {
             const fullName = `${p.nombre} ${p.apellido}`.trim();
             return fullName === Cita.paciente
         })?.idPaciente ?? '-1';
-        const idCons = consultorios.find(c => c.descripcion === Cita.consultorio)?.id ?? '-1';
-        const idEst = estados.find(e => e.nombre === Cita.estado)?.id ?? '-1';
+        const idCons = consultorios.find(c => c.nombre === Cita.consultorio)?.id ?? '-1';
+        const idEst = estados.find(e => e.descripcion === Cita.estado)?.idEstado ?? '-1';
         setFormActualizar({
             idServicio: idServ,
             idDoctor: idDoc,
@@ -80,6 +78,7 @@ const ModalEditar = ({ idModal, Cita, onSuccess }) => {
         setFormActualizar(f => ({ ...f, [name]: value }));
     };
 
+    const hoyLocal = new Date().toLocaleDateString('en-CA');
 
     const editarCitaSubmit = async (e) => {
         e.preventDefault();
@@ -171,7 +170,7 @@ const ModalEditar = ({ idModal, Cita, onSuccess }) => {
                                     onChange={handleChange}
                                     className="input w-full"
                                     required
-                                    
+                                    min={hoyLocal}
                                 />
                                 <p className="label">Requerido</p>
                             </fieldset>
