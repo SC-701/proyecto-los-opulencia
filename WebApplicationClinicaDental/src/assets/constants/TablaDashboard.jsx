@@ -320,8 +320,20 @@ export const columnsFacturas = (editarEstadoFactura, onEditarClick, onPagarClick
             header: "subtotal"
         }),
         columnHelper.accessor("total", {
-            header: "Total"
+            header: "Total",
+            cell: ({ getValue }) => {
+                const total = getValue();
+                return (
+                    <>   {total == 0 ? 
+                     <span className={`px-2 py-1 rounded text-xs font-semibold bg-green-100 text-green-800`}>
+                        pagado
+                    </span> 
+                    : total}
+                    </>
+                );
+            },
         }),
+
         columnHelper.accessor("estado", {
             header: "Estado",
             cell: ({ getValue }) => {

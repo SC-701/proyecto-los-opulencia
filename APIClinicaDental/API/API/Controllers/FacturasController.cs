@@ -3,6 +3,7 @@ using Abstracciones.Interface.Flujo;
 using Abstracciones.Models;
 using Flujo;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.WebSockets;
 
 namespace API.Controllers
 {
@@ -106,5 +107,32 @@ namespace API.Controllers
 
             return Ok(respuesta);
         }
+
+        [HttpPut]
+        [Route("Pagofactura")]
+
+        public async Task<IActionResult> PagoFactura(Guid id, pagar pago)
+        {
+            var ObtenerFacturaID = await _facturasFlujo.ObtenerFacturas(id);
+            var total = ObtenerFacturaID.total;
+            if (pago.pago <= 0) return BadRequest(new
+            {
+                pago = "El pago no puede ser menor o igual a  0"
+            });
+
+            if (pago.pago > total) return BadRequest(new
+            {
+                pago = "El pago no puede ser mayor al total"
+            });
+
+            var respuesta = await _facturasFlujo.PagoFactura(id, pago);
+
+
+
+            return Ok(respuesta);
+
+        }
+
+
     }
 }
