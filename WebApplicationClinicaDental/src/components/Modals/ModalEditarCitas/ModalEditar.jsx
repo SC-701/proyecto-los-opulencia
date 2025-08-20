@@ -78,7 +78,6 @@ const ModalEditar = ({ idModal, Cita, onSuccess }) => {
         setFormActualizar(f => ({ ...f, [name]: value }));
     };
 
-    const hoyLocal = new Date().toLocaleDateString('en-CA');
 
     const editarCitaSubmit = async (e) => {
         e.preventDefault();
@@ -90,13 +89,6 @@ const ModalEditar = ({ idModal, Cita, onSuccess }) => {
             console.error('Error al editar cita', err);
         }
     }
-
-
-
-
-
-
-
 
     return (
         <div>
@@ -120,7 +112,7 @@ const ModalEditar = ({ idModal, Cita, onSuccess }) => {
                                     required
                                 >
                                     <option value="-1" >Selecciona Servicio</option>
-                                    {servicios.map(s => (
+                                    {servicios.filter(s => s.estado === "Activo").map(s => (
                                         <option key={s.id} value={s.id}>{s.nombre}</option>
                                     ))}
                                 </select>
@@ -170,7 +162,6 @@ const ModalEditar = ({ idModal, Cita, onSuccess }) => {
                                     onChange={handleChange}
                                     className="input w-full"
                                     required
-                                    min={hoyLocal}
                                 />
                                 <p className="label">Requerido</p>
                             </fieldset>
@@ -201,7 +192,7 @@ const ModalEditar = ({ idModal, Cita, onSuccess }) => {
                                     required
                                 >
                                     <option value="-1" >Selecciona Consultorio</option>
-                                    {consultorios.map(c => (
+                                    {consultorios.filter(c => c.estado === "Activo").map(c => (
                                         <option key={c.id} value={c.id}>{c.nombre}</option>
                                     ))}
                                 </select>

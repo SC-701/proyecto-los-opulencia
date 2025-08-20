@@ -46,13 +46,15 @@ namespace DA
         {
             string query = @"AgregarConsultorio";
 
+            int idEstado = request.idEstado == 0 ? 1 : request.idEstado;
+
             var respuesta = await _Sqlconexion.ExecuteScalarAsync<Guid>(query, new
             {
                 id = Guid.NewGuid(),
                 nombre = request.nombre,
                 ubicacion = request.ubicacion,
                 idDoctor = request.idDoctor,
-                idEstado = request.idEstado
+                idEstado = idEstado
             });
 
             return respuesta;

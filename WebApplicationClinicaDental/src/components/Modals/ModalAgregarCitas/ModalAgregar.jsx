@@ -186,7 +186,7 @@ const ModalAgregar = ({ idModal, onSuccess }) => {
                                     className="select w-full"
                                 >
                                     <option value={'-1'} selected>Agregar Consultorio</option>
-                                    {consultorios.map((c, i) => (
+                                    {consultorios.filter(c => c.estado === "Activo").map((c, i) => (
                                         <option key={i} value={c.id}>{c.nombre}</option>
                                     ))}
                                 </select>
