@@ -169,8 +169,6 @@ export const EstadosDoctores = {
     EstadosDoctores.obtenerElNombre(estadoNombre)?.icono ?? null,
 };
 
-import { PackageCheck, AlertTriangle, PackageX, Ban } from "lucide-react";
-
 export const EstadosConsultorios = {
 estados: [
     {

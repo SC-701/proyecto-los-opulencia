@@ -40,8 +40,8 @@ const ModalEditarAdministrativo = ({ idModal, Administrativo, onSuccess }) => {
       Administrativo.rol === 'Administrador'
         ? '1'
         : Administrativo.rol === 'Recepcionista'
-        ? '2'
-        : '-1';
+          ? '2'
+          : '-1';
 
     setFormActualizar(prev => ({
       ...prev,
@@ -77,12 +77,16 @@ const ModalEditarAdministrativo = ({ idModal, Administrativo, onSuccess }) => {
         idEstadoAdministrativo: 1
       };
 
-        if (datos.passwordHash && datos.passwordHash.trim() !== '') {
-       datos.passwordHash = sha256(datos.passwordHash); 
-       } else
-        { 
-          delete datos.passwordHash;
+      if (datos.passwordHash && datos.passwordHash.trim() !== '') {
+        const EXACT_ONE_UPPER_8 = /^(?=.*[A-Z])(?!.*[A-Z].*[A-Z]).{8}$/;
+        if (!EXACT_ONE_UPPER_8.test(datos.passwordHash)) {
+          toast.error('La contraseña debe tener exactamente 8 caracteres y exactamente 1 mayúscula.');
+          return;
         }
+        datos.passwordHash = sha256(datos.passwordHash);
+      } else {
+        delete datos.passwordHash;
+      }
 
       await editar(Administrativo.idAdministrativo, datos);
       await onSuccess?.();
@@ -142,24 +146,32 @@ const ModalEditarAdministrativo = ({ idModal, Administrativo, onSuccess }) => {
               <fieldset className="fieldset">
                 <legend className="fieldset-legend">Cédula</legend>
                 <input
-                  type="number"
+                  type="tel"
                   name="cedula"
                   className="input w-full"
                   value={FormActualizar.cedula}
                   onChange={handleChange}
                   required
+                  inputMode="numeric"
+                  pattern="[0-9]{9}"
+                  maxLength={9}
+                  title="Debe tener exactamente 9 dígitos"
                 />
               </fieldset>
 
               <fieldset className="fieldset">
                 <legend className="fieldset-legend">Teléfono</legend>
                 <input
-                  type="number"
+                  type="tel"
                   name="telefono"
                   className="input w-full"
                   value={FormActualizar.telefono}
                   onChange={handleChange}
                   required
+                  inputMode="numeric"
+                  pattern="[0-9]{8}"
+                  maxLength={8}
+                  title="Debe tener exactamente 8 dígitos"
                 />
               </fieldset>
 
@@ -215,6 +227,13 @@ const ModalEditarAdministrativo = ({ idModal, Administrativo, onSuccess }) => {
                   value={FormActualizar.passwordHash}
                   onChange={handleChange}
                   placeholder="Contraseña"
+                  minLength={8}
+                  maxLength={8}
+                  pattern="^(?=.*[A-Z])(?!.*[A-Z].*[A-Z]).{8}$"
+                  title="Debe tener exactamente 8 caracteres y exactamente 1 mayúscula."
+                  onInvalid={(e) => e.currentTarget.setCustomValidity('Debe tener exactamente 8 caracteres y exactamente 1 mayúscula.')}
+                  onInput={(e) => e.currentTarget.setCustomValidity('')}
+                  autoComplete="new-password"
                 />
                 <div className="label">Opcional</div>
               </fieldset>

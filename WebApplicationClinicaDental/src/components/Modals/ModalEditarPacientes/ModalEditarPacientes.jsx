@@ -16,8 +16,8 @@ const ModalEditarPaciente = ({ idModal, Paciente, onSuccess }) => {
         grupoSangineo: '',
         alergias: '',
         observaciones: '',
-        idEstadoUsuario: 1,       
-    idEstadoPaciente: 1
+        idEstadoUsuario: 1,
+        idEstadoPaciente: 1
     });
 
     useEffect(() => {
@@ -33,7 +33,7 @@ const ModalEditarPaciente = ({ idModal, Paciente, onSuccess }) => {
                 grupoSangineo: Paciente.grupoSangineo || '',
                 alergias: Paciente.alergias || '',
                 observaciones: Paciente.observaciones || '',
-                 idEstadoUsuario: 1,
+                idEstadoUsuario: 1,
                 idEstadoPaciente: 1
             });
         }
@@ -109,26 +109,37 @@ const ModalEditarPaciente = ({ idModal, Paciente, onSuccess }) => {
                             <fieldset className="fieldset">
                                 <legend className="fieldset-legend">Cédula</legend>
                                 <input
-                                    type="number"
+                                    type="tel"
                                     name="cedula"
                                     className="input w-full"
                                     value={form.cedula}
                                     onChange={handleChange}
                                     required
+                                    inputMode="numeric"
+                                    pattern="[0-9]{9}"
+                                    maxLength={9}
+                                    title="Debe tener exactamente 9 dígitos"
+                                    autoComplete="off"
                                 />
                             </fieldset>
 
                             <fieldset className="fieldset">
                                 <legend className="fieldset-legend">Teléfono</legend>
                                 <input
-                                    type="number"
+                                    type="tel"
                                     name="telefono"
                                     className="input w-full"
                                     value={form.telefono}
                                     onChange={handleChange}
                                     required
+                                    inputMode="numeric"
+                                    pattern="[0-9]{8}"
+                                    maxLength={8}
+                                    title="Debe tener exactamente 8 dígitos"
+                                    autoComplete="off"
                                 />
                             </fieldset>
+
 
                             <fieldset className="fieldset">
                                 <legend className="fieldset-legend">Dirección</legend>

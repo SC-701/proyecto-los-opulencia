@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { sha256 } from 'js-sha256'; 
+import { sha256 } from 'js-sha256';
 import { useRegistrarAdministrativo } from '../../../hooks/useAdministrativos';
 
 const ModalAgregarAdministrativo = ({ idModal, onSuccess }) => {
@@ -35,12 +35,16 @@ const ModalAgregarAdministrativo = ({ idModal, onSuccess }) => {
         return;
       }
 
-
-       const hashed = sha256(form.passwordHash); 
+      const EXACT_ONE_UPPER_8 = /^(?=.*[A-Z])(?!.*[A-Z].*[A-Z]).{8}$/;
+      if (!EXACT_ONE_UPPER_8.test(form.passwordHash)) {
+        toast.error('La contraseña debe tener exactamente 8 caracteres y exactamente 1 mayúscula.');
+        return;
+      }
+      const hashed = sha256(form.passwordHash);
 
       await registrar({
         ...form,
-        passwordHash: hashed,    
+        passwordHash: hashed,
       });
       await onSuccess?.();
       limpiarForm();
@@ -123,26 +127,37 @@ const ModalAgregarAdministrativo = ({ idModal, onSuccess }) => {
               <fieldset className="fieldset">
                 <legend className="fieldset-legend">Cédula</legend>
                 <input
-                  type="number"
+                  type="tel"
                   name="cedula"
                   className="input w-full"
                   value={form.cedula}
                   onChange={handleChange}
                   required
+                  inputMode="numeric"
+                  pattern="[0-9]{9}"
+                  maxLength={9}
+                  title="Debe tener exactamente 9 dígitos"
+                  autoComplete="off"
                 />
               </fieldset>
 
               <fieldset className="fieldset">
                 <legend className="fieldset-legend">Teléfono</legend>
                 <input
-                  type="number"
+                  type="tel"
                   name="telefono"
                   className="input w-full"
                   value={form.telefono}
                   onChange={handleChange}
                   required
+                  inputMode="numeric"
+                  pattern="[0-9]{8}"
+                  maxLength={8}
+                  title="Debe tener exactamente 8 dígitos"
+                  autoComplete="off"
                 />
               </fieldset>
+
 
               <fieldset className="fieldset">
                 <legend className="fieldset-legend">Dirección</legend>
@@ -197,6 +212,12 @@ const ModalAgregarAdministrativo = ({ idModal, onSuccess }) => {
                 value={form.passwordHash}
                 onChange={handleChange}
                 required
+                pattern="^(?=.*[A-Z])(?!.*[A-Z].*[A-Z]).{8}$"
+                title="La contraseña debe tener exactamente 8 caracteres y exactamente 1 mayuscula"
+                onInvalid={(e) =>
+                  e.currentTarget.setCustomValidity('Debe tener exactamente 8 caracteres y exactamente 1 mayuscula')
+                }
+                onInput={(e) => e.currentTarget.setCustomValidity('')}
               />
               <div className="label">Requerido</div>
             </fieldset>

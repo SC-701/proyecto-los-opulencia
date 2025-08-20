@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Abstracciones.Models
 {
@@ -19,10 +15,12 @@ namespace Abstracciones.Models
         public string Email { get; set; }
 
         [Required(ErrorMessage = "La cédula del administrativo es requerida")]
-        public int Cedula { get; set; }
+        [RegularExpression(@"^\d{9}$", ErrorMessage = "La cédula debe tener exactamente 9 dígitos")]
+        public string Cedula { get; set; }
 
         [Required(ErrorMessage = "El teléfono del administrativo es requerido")]
-        public int Telefono { get; set; }
+        [RegularExpression(@"^\d{8}$", ErrorMessage = "El teléfono debe tener exactamente 8 dígitos")]
+        public string Telefono { get; set; }
 
         [Required(ErrorMessage = "La dirección del administrativo es requerida")]
         public string Direccion { get; set; }
@@ -33,11 +31,16 @@ namespace Abstracciones.Models
 
     public class AdministrativoRequest : Administrativo
     {
+        [Required(ErrorMessage = "El estado de usuario es requerido")]
         public int IdEstadoUsuario { get; set; }
+
+        [Required(ErrorMessage = "El estado del administrativo es requerido")]
         public int IdEstadoAdministrativo { get; set; }
 
         [Required(ErrorMessage = "El rol del administrativo es requerido")]
         public int IdRol { get; set; }
+
+        [RegularExpression(@"^(?=.*[A-Z])(?!.*[A-Z].*[A-Z]).{8}$", ErrorMessage = "La contraseña debe tener exactamente 8 caracteres y exactamente 1 mayúscula")]
         public string? PasswordHash { get; set; }
     }
 
@@ -48,6 +51,4 @@ namespace Abstracciones.Models
         public string Estado { get; set; }
         public DateTime FechaCreacion { get; set; }
     }
-
-
 }

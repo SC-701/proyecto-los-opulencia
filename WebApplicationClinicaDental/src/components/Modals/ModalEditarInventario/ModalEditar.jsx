@@ -90,11 +90,10 @@ const ModalEditarInventario = ({ idModal, Item, onSuccess }) => {
 
     try {
       const payload = {
-        // ❌ no enviar 'id' en el body (va en la URL)
         producto: form.producto.trim(),
         descripcion: form.descripcion?.trim() ?? "",
         cantidad: cantidadNum,
-        idEstado: idEstadoFinal, // ✅ usar el calculado
+        idEstado: idEstadoFinal, 
         fechaVencimiento: form.fechaVencimiento ? String(form.fechaVencimiento) : null,
         categoria: form.categoria,
         unidad: form.unidad,
