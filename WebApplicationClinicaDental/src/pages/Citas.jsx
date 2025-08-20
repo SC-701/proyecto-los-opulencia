@@ -33,7 +33,7 @@ const Citas = () => {
     const [citaSeleccionada, setCitaSeleccionada] = useState(null)
 
     const cargarEstado = async (id, nuevoEstado) => {
-        await editarEstadoCita(id, nuevoEstado)
+        await editarEstadoCita(id, nuevoEstado);
         await Promise.all([
             cargar(),
             cargarCitasPendientes(),

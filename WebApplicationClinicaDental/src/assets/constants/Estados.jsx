@@ -169,6 +169,8 @@ export const EstadosDoctores = {
     EstadosDoctores.obtenerElNombre(estadoNombre)?.icono ?? null,
 };
 
+
+
 export const EstadosConsultorios = {
 estados: [
     {

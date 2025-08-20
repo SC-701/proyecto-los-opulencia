@@ -14,7 +14,7 @@ import ModalEditar from '../components/Modals/ModalEditarCitas/ModalEditar.jsx'
 import ModalInfoExtraCitas from '../components/Modals/ModalInfoExtraCitas/ModalInfoExtraCita.jsx'
 import { useFacturasPorPagar } from '../hooks/useFacturas.js'
 import { usePacientesTotal } from '../hooks/usePacientes.js'
-
+import { editarEstadoCita } from '../services/Citas.js'
 
 
 
