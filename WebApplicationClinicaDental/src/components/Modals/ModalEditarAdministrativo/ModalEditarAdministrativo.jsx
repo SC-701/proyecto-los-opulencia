@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { sha256 } from 'js-sha256';
 import { useEditarAdministrativo } from '../../../hooks/useAdministrativos';
 
 const ModalEditarAdministrativo = ({ idModal, Administrativo, onSuccess }) => {
@@ -76,10 +77,12 @@ const ModalEditarAdministrativo = ({ idModal, Administrativo, onSuccess }) => {
         idEstadoAdministrativo: 1
       };
 
-      if (datos.passwordHash && datos.passwordHash.trim() !== '') {
-      } else {
-        delete datos.passwordHash;
-      }
+        if (datos.passwordHash && datos.passwordHash.trim() !== '') {
+       datos.passwordHash = sha256(datos.passwordHash); 
+       } else
+        { 
+          delete datos.passwordHash;
+        }
 
       await editar(Administrativo.idAdministrativo, datos);
       await onSuccess?.();

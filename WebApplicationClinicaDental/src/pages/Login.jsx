@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Eye, EyeOff } from 'lucide-react';
 import { useLogin } from '../hooks/UseLogin';  
 import { toast, ToastContainer } from "react-toastify";
+import { sha256 } from 'js-sha256';
 
 
 const Login = () => {
@@ -11,9 +12,11 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const login = useLogin((s) => s.login);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const ok = await login(email, password);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const passwordHash = sha256(password);
+
+   const ok = await login(email, passwordHash);
 
     if (ok) {
       toast.success("Inicio de sesion exitoso");

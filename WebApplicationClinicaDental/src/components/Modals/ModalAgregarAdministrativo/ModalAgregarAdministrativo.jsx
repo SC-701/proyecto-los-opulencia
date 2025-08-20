@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { sha256 } from 'js-sha256'; 
 import { useRegistrarAdministrativo } from '../../../hooks/useAdministrativos';
 
 const ModalAgregarAdministrativo = ({ idModal, onSuccess }) => {
@@ -35,11 +36,12 @@ const ModalAgregarAdministrativo = ({ idModal, onSuccess }) => {
       }
 
 
-     await registrar({
-        ...form,
-        passwordHash: form.passwordHash,
-      });
+       const hashed = sha256(form.passwordHash); 
 
+      await registrar({
+        ...form,
+        passwordHash: hashed,    
+      });
       await onSuccess?.();
       limpiarForm();
       toast.success('Administrativo agregado correctamente');
