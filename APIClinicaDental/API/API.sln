@@ -13,6 +13,16 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DB", "DB\DB.sqlproj", "{2D3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{85B890D7-10DC-4DF9-B93C-17F1D45C1A2E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autorizacion.Flujo", "..\..\SeguridadAPI\Seguridad.MiddlewareAutorizacion\Abstracciones.BW\Autorizacion.Flujo.csproj", "{425B9645-EBE9-705D-DA02-C0C28036D0DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autorizacion.Abstracciones", "..\..\SeguridadAPI\Seguridad.MiddlewareAutorizacion\Autorizacion.Abstracciones\Autorizacion.Abstracciones.csproj", "{AB6BC18C-8C02-344C-9506-9DDE82DB128B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autorizacion.DA", "..\..\SeguridadAPI\Seguridad.MiddlewareAutorizacion\Autorizacion.DA\Autorizacion.DA.csproj", "{327D578C-6CEB-D3AD-F1BA-CCE91B52BD8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autorizacion.Middleware", "..\..\SeguridadAPI\Seguridad.MiddlewareAutorizacion\Autorizacion.Middleware\Autorizacion.Middleware.csproj", "{2ECF0DAB-7AC3-2BCE-4831-AF0184111DC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpers", "..\..\SeguridadAPI\Seguridad.MiddlewareAutorizacion\Helpers\Helpers.csproj", "{5502CEF8-92B5-D556-8AC6-661BA855BA76}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +51,26 @@ Global
 		{85B890D7-10DC-4DF9-B93C-17F1D45C1A2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{85B890D7-10DC-4DF9-B93C-17F1D45C1A2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{85B890D7-10DC-4DF9-B93C-17F1D45C1A2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{425B9645-EBE9-705D-DA02-C0C28036D0DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{425B9645-EBE9-705D-DA02-C0C28036D0DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{425B9645-EBE9-705D-DA02-C0C28036D0DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{425B9645-EBE9-705D-DA02-C0C28036D0DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB6BC18C-8C02-344C-9506-9DDE82DB128B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB6BC18C-8C02-344C-9506-9DDE82DB128B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB6BC18C-8C02-344C-9506-9DDE82DB128B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB6BC18C-8C02-344C-9506-9DDE82DB128B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{327D578C-6CEB-D3AD-F1BA-CCE91B52BD8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{327D578C-6CEB-D3AD-F1BA-CCE91B52BD8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{327D578C-6CEB-D3AD-F1BA-CCE91B52BD8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{327D578C-6CEB-D3AD-F1BA-CCE91B52BD8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ECF0DAB-7AC3-2BCE-4831-AF0184111DC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ECF0DAB-7AC3-2BCE-4831-AF0184111DC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ECF0DAB-7AC3-2BCE-4831-AF0184111DC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ECF0DAB-7AC3-2BCE-4831-AF0184111DC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5502CEF8-92B5-D556-8AC6-661BA855BA76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5502CEF8-92B5-D556-8AC6-661BA855BA76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5502CEF8-92B5-D556-8AC6-661BA855BA76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5502CEF8-92B5-D556-8AC6-661BA855BA76}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

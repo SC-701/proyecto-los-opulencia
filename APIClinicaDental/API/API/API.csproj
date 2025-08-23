@@ -16,24 +16,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\SeguridadAPI\Seguridad.MiddlewareAutorizacion\Abstracciones.BW\Autorizacion.Flujo.csproj" />
+    <ProjectReference Include="..\..\..\SeguridadAPI\Seguridad.MiddlewareAutorizacion\Autorizacion.Abstracciones\Autorizacion.Abstracciones.csproj" />
+    <ProjectReference Include="..\..\..\SeguridadAPI\Seguridad.MiddlewareAutorizacion\Autorizacion.DA\Autorizacion.DA.csproj" />
+    <ProjectReference Include="..\..\..\SeguridadAPI\Seguridad.MiddlewareAutorizacion\Autorizacion.Middleware\Autorizacion.Middleware.csproj" />
+    <ProjectReference Include="..\..\..\SeguridadAPI\Seguridad.MiddlewareAutorizacion\Helpers\Helpers.csproj" />
     <ProjectReference Include="..\Abstracciones\Abstracciones.csproj" />
     <ProjectReference Include="..\DA\DA.csproj" />
     <ProjectReference Include="..\Flujo\Flujo.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Autorizacion.Abstracciones">
-      <HintPath>..\..\..\SeguridadAPI\Seguridad.MiddlewareAutorizacion\Autorizacion.Abstracciones\bin\Debug\net8.0\Autorizacion.Abstracciones.dll</HintPath>
-    </Reference>
-    <Reference Include="Autorizacion.DA">
-      <HintPath>..\..\..\SeguridadAPI\Seguridad.MiddlewareAutorizacion\Autorizacion.DA\bin\Debug\net8.0\Autorizacion.DA.dll</HintPath>
-    </Reference>
-    <Reference Include="Autorizacion.Flujo">
-      <HintPath>..\..\..\SeguridadAPI\Seguridad.MiddlewareAutorizacion\Abstracciones.BW\bin\Debug\net8.0\Autorizacion.Flujo.dll</HintPath>
-    </Reference>
-    <Reference Include="Autorizacion.Middleware">
-      <HintPath>..\..\..\SeguridadAPI\Seguridad.MiddlewareAutorizacion\Autorizacion.Middleware\bin\Debug\net8.0\Autorizacion.Middleware.dll</HintPath>
-    </Reference>
+ 
   </ItemGroup>
 
 </Project>
